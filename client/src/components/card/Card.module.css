@@ -1,0 +1,73 @@
+:root {
+  --border-radius: 16px;
+  --color-gris-bg: #b4b4b4;
+  --color-gris-letter: #7f7d7d;
+  --max-width:30px;
+    --padding: 5px;
+    --font-size:13px;
+}
+
+.Card {
+  border: solid 1px;
+  border-color: #dee2e6 ;
+  color: #000;
+  width: fit-content;
+  padding: 1em;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  & .WatchMore {
+    background-color: var(--color-gris);
+    padding: 0.3rem;
+    color: #fff;
+    border-radius: var(--border-radius);
+    width: fit-content;
+  }
+}
+
+.HourToEvent{
+    display: flex;
+    justify-content: space-evenly;
+    gap: .6rem;
+    & .walk{
+        height: 28px;
+        width: 48px;
+        padding: var(--padding);
+        background-color: #283747;
+        color: #fff;
+        border-radius: var(--border-radius);
+    }
+    & h2{
+        font-size:.7rem;
+        color: var(--color-gris-letter);
+    }
+}
+.HourWithDetail{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: .5rem;
+    background-color: #dfdbdb;
+    padding: var(--padding);
+    border-radius: var(--border-radius);
+}
+.Description{
+    font-size: var(--font-size);
+    font-weight: 600;
+    color: var(--color-gris-letter);
+}
+.WatchMore{
+    display: flex;
+    justify-content: center;
+    width: 100% !important;
+    & h2{
+        cursor: pointer;
+        background-color: #627588;
+        color: #ffff;
+        padding:5px 18px;
+        border-radius: var(--border-radius);
+        font-size:var(--font-size) ;
+        &:hover{
+            background-color: #748aa0;
+        }
+    }
+}

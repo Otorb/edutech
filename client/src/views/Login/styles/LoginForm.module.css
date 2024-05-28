@@ -1,0 +1,133 @@
+/* Contenedor izquierdo login Lautaro */
+:root {
+  --border-radius: 0.5rem;
+  --border-buttons-and-inputs: 1px solid #0000004b;
+  --background-color-buttons: #065ad8;
+  --background-color-buttons-hover: #2376f3;
+  --subtitulo-color: #00000085;
+  --max-widthForm: 407px;
+  --outine: #065ad8;
+  --fontLato: "Lato", sans-serif;
+  --fontRoboto:"Roboto", sans-serif;
+   
+}
+.formContainer_welcome {
+  width: 100%;
+  display: flex;
+  height: auto;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+
+.titleLogin {
+  color: #065ad8;
+}
+.RegisterLogin {
+  font-size: 30px;
+  font-family: var(--fontLato);
+}
+.welcomeLogin {
+  color: var(--subtitulo-color);
+  font-family: var(--fontRoboto);
+}
+form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: 1rem;
+  padding: 0 7rem;
+}
+.formLogin {
+  & :is(input[type="email"], input[type="password"], input[type="submit"]) {
+    max-width: var(--max-widthForm);
+    width: 100%;
+    height: 100%;
+    border: var(--border-buttons-and-inputs);
+    border-radius: var(--border-radius);
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  & :is([type="checkbox"]) {
+    cursor: pointer;
+    padding: 1rem;
+    & :checked {
+      color: var(--background-color-buttons);
+    }
+  }
+  & :focus {
+    outline-offset: 2px;
+    outline-color: var(--outine);
+  }
+  & :is(input[type="submit"]) {
+    cursor: pointer;
+    background-color: var(--background-color-buttons);
+    color: #fff;
+    &:hover {
+      background-color: var(--background-color-buttons-hover);
+    }
+  }
+}
+
+.div_checkBox_recuerdame {
+  display: flex;
+  justify-content: center;
+  max-width: var(--max-widthForm);
+  width: 100%;
+}
+.section_checkbox_rememberme {
+  display: flex;
+
+  justify-content: space-between;
+  max-width: var(--max-widthForm);
+
+  max-width: var(--max-width);
+
+  width: 100%;
+  & label:hover {
+    color: var(--background-color-buttons);
+  }
+  & .div_checkBox_recurdame p {
+    cursor: pointer;
+    color: var(--background-color-buttons);
+  }
+}
+.GoogleLogin {
+ width: 100%;
+ display: flex;
+ justify-content: center;
+}
+
+.divisorLoginGoogle__email_password {
+  display: flex;
+  justify-content: center;
+  & b {
+    color: var(--subtitulo-color);
+  }
+}
+.div_checkBox_recurdame {
+  display: flex;
+  justify-content: center;
+  max-width: var(--max-widthForm);
+  width: 100%;
+}
+.section_createAccount {
+  display: flex;
+  justify-content: space-evenly;
+  max-width: var(--max-widthForm);
+  width: 100%;
+  & .div_section_createAccount_noHaveAccount {
+    cursor: pointer;
+  }
+  & label:hover {
+    color: var(--subtitulo-color);
+  }
+  & .div_section_noHaveAccount p {
+    cursor: pointer;
+    color: var(--background-color-buttons);
+  }
+}

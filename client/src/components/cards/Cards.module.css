@@ -1,0 +1,17 @@
+
+.cardsContainer {
+    display: flex;
+    flex-direction: row; 
+    justify-content: center; 
+    align-items: center; 
+    height: 100vh; 
+    gap: 30px;
+}
+
+@media screen and (width < 768px) {
+    .cardsContainer {
+        flex-direction: column; 
+        /* justify-content: center; 
+        height: auto; */
+    }
+}
