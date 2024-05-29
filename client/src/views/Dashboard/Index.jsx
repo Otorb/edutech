@@ -45,7 +45,6 @@ const Index = () => {
           </button>
         )}
         <div className={style.content}>
-         <Prophile/>
           <Outlet />
         </div>
       </main>
