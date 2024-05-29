@@ -1,0 +1,16 @@
+.container {
+    display: flex;
+    align-items: center;
+    border: 1px solid red ;
+    border-radius: 15px;
+    background-color: white;
+}
+  
+.icon {
+    margin-right: 20px; /* Ajusta el espacio entre icono y el contenido  */
+    font-size: 50px; 
+}
+  
+.content {
+    text-align: left;
+}
