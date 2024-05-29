@@ -1,33 +1,21 @@
 import { useEffect, useState } from 'react';
-import { Outlet } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../Hooks/useAppSelector';
+import { Outlet} from 'react-router-dom';
 import style from './styles/dashboard.module.css';
 import Sidebar from './components/Sidebar';
-import Login from '../Login/Index'
-import { logout } from '../../store/slicer/auth.slice';
+import Prophile from '../Prophile/Index'
+import { useAppSelector } from '../../Hooks/useAppSelector';
 
 const Index = () => {
   const [isLeftSidebarVisible, setLeftSidebarVisible] = useState(true);
-  const [isRightSidebarVisible, setRightSidebarVisible] = useState(true);
   const [isMobileView, setIsMobileView] = useState(false);
 
-  const isAuth = useAppSelector((state) => state.auth.isAuth);
-  console.log(isAuth)  
-
-  const Dispatch = useAppDispatch();
 
 
-  
-  const handleLogout = ()=>{
-    Dispatch(logout())
-  }
+  const userData = useAppSelector((state) => state.user.data);
+  console.log(userData);
 
   const toggleLeftSidebar = () => {
     setLeftSidebarVisible(!isLeftSidebarVisible);
-  };
-
-  const toggleRightSidebar = () => {
-    setRightSidebarVisible(!isRightSidebarVisible);
   };
 
   useEffect(() => {
@@ -43,44 +31,25 @@ const Index = () => {
     };
   }, []);
 
- 
-
   return (
-    <>
-   {isAuth ? (
-      <div className={style.container}>
-        <Sidebar
-          position="left"
-          visible={!isMobileView || isLeftSidebarVisible}
-          toggleSidebar={toggleLeftSidebar}
-        />
-        <main className={style.mainContent}>
-          {isMobileView && (
-            <button className={`${style.hamburger} ${style.leftHamburger}`} onClick={toggleLeftSidebar}>
-              ☰
-            </button>
-          )}
-          <button className={`${style.hamburger} ${style.rightHamburger}`} onClick={toggleRightSidebar}>
+    <div className={style.container}>
+      <Sidebar
+        position="left"
+        visible={!isMobileView || isLeftSidebarVisible}
+        toggleSidebar={toggleLeftSidebar}
+      />
+      <main className={style.mainContent}>
+        {isMobileView && (
+          <button className={`${style.hamburger} ${style.leftHamburger}`} onClick={toggleLeftSidebar}>
             ☰
           </button>
-          <div className={style.content}>
-            <button
-            onClick={handleLogout}
-            >desconectarse</button>
-            <Outlet />
-          </div>
-        </main>
-        <Sidebar
-          position="right"
-          visible={!isMobileView || isRightSidebarVisible}
-          toggleSidebar={toggleRightSidebar}
-        />
-      </div>
-    ) : (
-      <Login />
-    )}
-    </>
-   
+        )}
+        <div className={style.content}>
+         <Prophile/>
+          <Outlet />
+        </div>
+      </main>
+    </div>
   );
 };
 

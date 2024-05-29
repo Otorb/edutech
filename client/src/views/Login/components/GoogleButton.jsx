@@ -26,10 +26,7 @@ const GoogleButton = () => {
     setValue(localStorage.getItem("email"));
   }, []);
 
-  const logout = () => {
-    localStorage.clear();
-    window.location.reload();
-  };
+
 
   return (
     <>
