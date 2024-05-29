@@ -1,0 +1,48 @@
+nav{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    position: relative;
+}
+.logoImg{
+    width: 7rem;
+    height: 4rem;
+    padding: 0 1rem;
+    border-right: 1px solid #dee2e6;
+}
+.contentMenu{
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+ul{
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+li{
+    list-style: none;
+    cursor: pointer;
+    color: #495057;
+    letter-spacing: 1px;
+    font-weight: 600;
+    padding: 2rem 0;
+}
+li:hover{
+    border-bottom: 2px solid #d8bbff;
+}
+.btnIngresarHome{
+    color: #240046;
+    background: #d8bbff;
+    border-radius: 5px;
+    font-weight:700;
+    padding: 1rem;
+    letter-spacing: 1px;
+    border: none;
+}
+.btnIngresarHome:hover{
+    color: #ffff;
+    background: #240046;
+}

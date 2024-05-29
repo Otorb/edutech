@@ -1,0 +1,10 @@
+.containerContactHome{
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 6rem;
+    color: #333;
+    background: #d8bbff;
+}
