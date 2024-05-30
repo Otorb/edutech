@@ -25,7 +25,11 @@ const Sons = ({
 
     const SelectedSon = FunctionfilterSon()
     // console.log(SelectedSon)
+/*
+const userData = useAppSelector((state) => state.user.data);
+  console.log(userData)
 
+*/
 
     return (
         <>
