@@ -10,12 +10,21 @@ const App = () => {
   return (
     <Routes>
       <Route path="/login" element={<Login />} />
-        <Route path="/" element={<Home />}/>
+      <Route path="/" element={<Home />} />
+
       <Route element={<AuthOutlet fallbackPath="/login" />}>
-      <Route path="/dashboard" element={<Dashboard />} >
+
+        <Route path="/dashboard" element={<Dashboard />}>
+          <Route path="/dashboard/Eventos" element={"Lista de eventos"} />
+          <Route path="/dashboard/Usuarios" element={"Lista de usuarios"} />
+          <Route path="/dashboard/Cursos" element={"Lista de cursos"} />
+          <Route path="/dashboard/Mensajes" element={"Lista de Mensajes"} />
+   
+
         <Route path="/dashboard/profile" element={<DetailProfile />} /> 
 </Route>
         
+
       </Route>
     </Routes>
   );
