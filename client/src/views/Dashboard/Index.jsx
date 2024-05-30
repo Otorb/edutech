@@ -55,7 +55,7 @@ const Index = () => {
           </button>
         )}
         <div className={style.content}>
-    
+
           <Outlet />
         </div>
       </main>

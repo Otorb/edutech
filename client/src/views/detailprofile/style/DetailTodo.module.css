@@ -1,0 +1,31 @@
+body {
+    background-color: grey;
+}
+
+
+.container {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+}
+  
+.uull {
+    list-style-type: none;
+    padding: 0;
+    background-color: red; 
+}
+  
+.llii {
+    padding: 10px 20px;
+    cursor: pointer;
+    color: white; 
+}
+  
+.llii.active {
+    background-color: purple; 
+}
+  
+.secciones {
+    background-color: white; 
+    height: 300px;
+}

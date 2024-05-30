@@ -4,6 +4,7 @@ import Login from "./views/Login/Index";
 import Home from "./views/Home/Index";
 //import Users from "./views/Prophile/Index";
 import AuthOutlet from "@auth-kit/react-router/AuthOutlet";
+import DetailProfile from "./views/detailprofile/index"
 
 const App = () => {
   return (
@@ -12,12 +13,18 @@ const App = () => {
       <Route path="/" element={<Home />} />
 
       <Route element={<AuthOutlet fallbackPath="/login" />}>
+
         <Route path="/dashboard" element={<Dashboard />}>
           <Route path="/dashboard/Eventos" element={"Lista de eventos"} />
           <Route path="/dashboard/Usuarios" element={"Lista de usuarios"} />
           <Route path="/dashboard/Cursos" element={"Lista de cursos"} />
           <Route path="/dashboard/Mensajes" element={"Lista de Mensajes"} />
-        </Route>
+   
+
+        <Route path="/dashboard/profile" element={<DetailProfile />} /> 
+</Route>
+        
+
       </Route>
     </Routes>
   );
