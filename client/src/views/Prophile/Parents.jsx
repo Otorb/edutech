@@ -25,7 +25,7 @@ export const Parents = ({
                                 <u>{e.name}</u> <br /> <u>{e.lastName}</u>
                             </div>
                         </div>
-                        <Link   to={`/dashboard/Usuarios/${e.name} `}>
+                        <Link   to={`/profile/${e.name} `}>
 
                             <button className={style.buttonToParent} onClick={() => setRole("Son")}>
                                 Su Perfil

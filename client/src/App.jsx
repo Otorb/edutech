@@ -5,7 +5,7 @@ import Home from "./views/Home/Index";
 import Users from "./views/Prophile/Index";
 import AuthOutlet from "@auth-kit/react-router/AuthOutlet";
 import DetailProfile from "./views/detailprofile/index"
-import  FullInfoSon  from "./views/Prophile/Sons";
+import FullInfoSon from "./views/Prophile/Sons";
 
 const App = () => {
   return (
@@ -17,15 +17,13 @@ const App = () => {
 
         <Route path="/dashboard" element={<Dashboard />}>
           <Route path="/dashboard/Eventos" element={"Lista de eventos"} />
-          <Route path="/dashboard/Usuarios" element={<Users/>} />
-          <Route path="/dashboard/Usuarios/:name" element={<FullInfoSon/>} />
           <Route path="/dashboard/Cursos" element={"Lista de cursos"} />
           <Route path="/dashboard/Mensajes" element={"Lista de Mensajes"} />
 
-
           <Route path="/dashboard/profile" element={<DetailProfile />} />
         </Route>
-
+        <Route path="/profile" element={<Users />} />
+        <Route path="/profile/:name" element={<FullInfoSon />} />
 
       </Route>
     </Routes>
