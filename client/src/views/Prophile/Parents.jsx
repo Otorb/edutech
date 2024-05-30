@@ -1,17 +1,18 @@
 import React from 'react'
 import style from './style.module.css'
 import { FaRegEye } from "react-icons/fa6";
+import { Link } from 'react-router-dom';
 export const Parents = ({
     data,
     setRole
 }) => {
 
     /*name,
-lastName,
+    lastName,
     email,
     phone
     */
-    console.log(data)
+    // console.log(data)
     return (
         <div>
             {
@@ -24,10 +25,13 @@ lastName,
                                 <u>{e.name}</u> <br /> <u>{e.lastName}</u>
                             </div>
                         </div>
-                        <button onClick={() => setRole("Son")}>
-                            Su Perfil
-                            <FaRegEye />
-                        </button>
+                        <Link   to={`/profile/${e.name} `}>
+
+                            <button className={style.buttonToParent} onClick={() => setRole("Son")}>
+                                Su Perfil
+                                <FaRegEye />
+                            </button>
+                        </Link>
                     </div>
                 ))
             }
