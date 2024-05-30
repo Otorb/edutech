@@ -1,56 +1,90 @@
 import React from 'react'
 import style from './style.module.css'
 import { FaRegEye } from 'react-icons/fa'
-import { Navigate, Route } from 'react-router-dom'
+import { Link, Navigate, Route, useNavigate, useParams } from 'react-router-dom'
+import { infoUser } from './ObjetoPrueba'
 const Sons = ({
     // data
 }) => {
 
+    const parametros = useParams()
 
-    const infoSon = {
-        name: 'Bruno',
-        lastName: 'Perez',
-        email: 'aFtXa@example.com',
-        phone: '123456789',
-        parents: [
-            {
-                id: 1,
-                name: 'Ernesto',
-                lastName: 'Pereira',
-                email: 'aFtXa@example.com',
-                phone: '123456789',
-            },
-        ]
+
+
+
+
+
+    const Nav = useNavigate()
+
+    // console.log(parametros)
+
+    const FunctionfilterSon = () => {
+        let filterSon;
+        return filterSon = infoUser.hijos.find(e => e.name === parametros.name)
     }
 
-
-    console.log(infoSon)
-
-
+    const SelectedSon = FunctionfilterSon()
+    // console.log(SelectedSon)
 
 
     return (
         <>
             <div>
-                <Route path='/prophile/son' />
-                {
-                    infoSon.parents.map(e => (
-                        <div key={e.id} className={style.ContainerDatosDePariente}>
-                            <div>
-                                <i>Padre: {e.id}:</i>
-                                <div style={{ cursor: "pointer" }}>
 
-                                    <u>{e.name}</u> <br /> <u>{e.lastName}</u>
+                {/* <h1>{SelectedSon.name}</h1> */}
+                <div className={style.bgContainer}>
+                    <article className={style.articleRole}>
+                        <div className={style.containerPicture}>
+                            <img className={style.imgRole} src={SelectedSon.imagen} alt="" />
+                        </div>
+                        <section className={style.infoUser}>
+                            <div className={style.ContainerUserInfo}>
+                                <div className={style.LastName}>
+                                    <p
+                                        style={{
+                                            display: "flex",
+                                            flexDirection: "column",
+                                            justifyContent: "space-evenly"
+                                        }}
+                                    >
+                                        Alumno:
+                                        <u>
+                                            {SelectedSon.name}-
+                                            {SelectedSon.lastName}
+                                        </u>
+                                    </p>
+                                </div>
+                                <div className={style.ToContantFather}>
+                                    <b>Contacto: </b>
+
+                                    <p>Email: <a href='' onClick={(e) => e.preventDefault()}>{SelectedSon.email}</a></p>
+                                    <p>Telefono: <a href='' onClick={(e) => e.preventDefault()}>{SelectedSon.phone}</a></p>
+                                    <p>Direccion: <a href='' onClick={(e) => e.preventDefault()}>{SelectedSon.address}</a></p>
+                                </div>
+                                <div >
+                                    <u>Calificaciones por materia del Alumno</u>
+                                    {SelectedSon.CalificacionesEnMaterias.map(e => (
+                                        <div key={e.id}>
+                                            <p>Pacticas Del Lenguaje: {e.lengua}</p>
+                                            <p>Ingles: {e.ingles}</p>
+                                            <p>Matematicas: {e.matematicas}</p>
+
+                                        </div>
+                                    ))}
+                                </div>
+                                <div className={style.redireccionAPadre}>
+                                    <div>
+                                        <div >
+                                            <button style={{ fontWeight: "900" }} onClick={() => Nav(-1)}>
+                                                Volver al Perfil del Padre
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <button onClick={() => setRole("Parents")}>
-                                Perfil padre
-                                <FaRegEye />
-                            </button>
-                        </div>
-                    ))
-                }
-
+                        </section>
+                    </article>
+                </div>
 
 
             </div>
