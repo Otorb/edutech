@@ -1,26 +1,34 @@
 import { useEffect, useState } from 'react';
-import { Outlet} from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import style from './styles/dashboard.module.css';
 import Sidebar from './components/Sidebar';
-import Prophile from '../Prophile/Index'
-import { useAppSelector } from '../../Hooks/useAppSelector';
+import Prophile from '../Prophile/Index';
+import { useAppSelector} from '../../Hooks/useAppSelector'
 
 const Index = () => {
   const [isLeftSidebarVisible, setLeftSidebarVisible] = useState(true);
+  const [isLeftSidebarCollapsed, setLeftSidebarCollapsed] = useState(false);
   const [isMobileView, setIsMobileView] = useState(false);
 
-
-
   const userData = useAppSelector((state) => state.user.data);
-  console.log(userData);
+
 
   const toggleLeftSidebar = () => {
     setLeftSidebarVisible(!isLeftSidebarVisible);
   };
 
+  const toggleLeftSidebarCollapse = () => {
+    setLeftSidebarCollapsed(!isLeftSidebarCollapsed);
+  };
+
   useEffect(() => {
     const handleResize = () => {
       setIsMobileView(window.innerWidth <= 768);
+      if (window.innerWidth <= 768) {
+        setLeftSidebarVisible(false);
+      } else {
+        setLeftSidebarVisible(true);
+      }
     };
 
     window.addEventListener('resize', handleResize);
@@ -37,6 +45,8 @@ const Index = () => {
         position="left"
         visible={!isMobileView || isLeftSidebarVisible}
         toggleSidebar={toggleLeftSidebar}
+        isCollapsed={isLeftSidebarCollapsed}
+        toggleCollapse={toggleLeftSidebarCollapse}
       />
       <main className={style.mainContent}>
         {isMobileView && (
@@ -45,7 +55,7 @@ const Index = () => {
           </button>
         )}
         <div className={style.content}>
-         <Prophile/>
+    
           <Outlet />
         </div>
       </main>
@@ -54,3 +64,4 @@ const Index = () => {
 };
 
 export default Index;
+
