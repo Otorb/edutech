@@ -6,6 +6,7 @@ import Users from "./views/Prophile/Index";
 import AuthOutlet from "@auth-kit/react-router/AuthOutlet";
 import DetailProfile from "./views/detailprofile/index"
 import FullInfoSon from "./views/Prophile/Sons";
+import NotFound from './views/NotFound/index'
 
 const App = () => {
   return (
@@ -24,6 +25,7 @@ const App = () => {
         </Route>
         <Route path="/profile" element={<Users />} />
         <Route path="/profile/:name" element={<FullInfoSon />} />
+        <Route path="/*" element={<NotFound />} />
 
       </Route>
     </Routes>
