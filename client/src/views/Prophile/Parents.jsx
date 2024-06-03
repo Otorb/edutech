@@ -4,15 +4,12 @@ import { FaRegEye } from "react-icons/fa6";
 import { Link } from 'react-router-dom';
 export const Parents = ({
     data,
-    setRole
+    setRole,
+    
 }) => {
 
-    /*name,
-    lastName,
-    email,
-    phone
-    */
-    // console.log(data)
+    // console.log(userData)
+   
     return (
         <div>
             {
@@ -25,7 +22,7 @@ export const Parents = ({
                                 <u>{e.name}</u> <br /> <u>{e.lastName}</u>
                             </div>
                         </div>
-                        <Link   to={`/profile/${e.name} `}>
+                        <Link style={{textDecoration: "none"}} to={`/profileRole/${e.name} `}>
 
                             <button className={style.buttonToParent} onClick={() => setRole("Son")}>
                                 Su Perfil

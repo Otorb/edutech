@@ -11,7 +11,7 @@ export default function Subject(sequelize) {
     subjec: {
       type: DataTypes.STRING,
       allowNull: false,
-    }
+    },
   });
 
   return Subject;

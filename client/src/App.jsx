@@ -17,19 +17,16 @@ const App = () => {
       <Route path="/" element={<Home />} />
 
       <Route element={<AuthOutlet fallbackPath="/login" />}>
-
         <Route path="/dashboard" element={<Dashboard />}>
           <Route path="/dashboard/Usuarios" element={<UserModule/>} />
           <Route path="/dashboard/Eventos" element={"Lista de eventos"} />
           <Route path="/dashboard/Cursos" element={"Lista de cursos"} />
           <Route path="/dashboard/Mensajes" element={"Lista de Mensajes"} />
-
           <Route path="/dashboard/profile" element={<DetailProfile />} />
         </Route>
-        <Route path="/profile" element={<Users />} />
-        <Route path="/profile/:name" element={<FullInfoSon />} />
+        <Route path="/profileRole" element={<Users />} />
+        <Route path="/profileRole/:name" element={<FullInfoSon />} />
         <Route path="/*" element={<NotFound />} />
-
       </Route>
     </Routes>
   );
