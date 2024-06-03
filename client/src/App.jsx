@@ -5,7 +5,7 @@ import Home from "./views/Home/Index";
 import Users from "./views/Prophile/Index";
 import AuthOutlet from "@auth-kit/react-router/AuthOutlet";
 import DetailProfile from "./views/detailprofile/index"
-import FullInfoSon from "./views/Prophile/Sons";
+import FullInfoSon from "./views/Prophile/ParentsAndSons";
 import NotFound from './views/NotFound/index'
 import Form from "./components/Form/Form";
 
@@ -25,7 +25,7 @@ const App = () => {
           <Route path="/dashboard/profile" element={<DetailProfile />} />
         </Route>
         <Route path="/profileRole" element={<Users />} />
-        <Route path="/profileRole/:name" element={<FullInfoSon />} />
+        {/* <Route path="/profileRole/:name" element={<FullInfoSon />} /> */}
         <Route path="/*" element={<NotFound />} />
       </Route>
     </Routes>
