@@ -1,10 +1,14 @@
 import {
     newTeachers,
+    changePassword,
     deleteTeacher,
     getTeacher,
     getAllTeacher,
-    updateTeacher
+    updateWithImage,
+    updateWithoutImage
   } from "../controllers/TeachersControllers.js";
+  import storage from "../utils/cloud_storage.js";
+
   export async function newTeacherHandler(req, res) {
     try {
       const {
@@ -22,6 +26,24 @@ import {
         phone
       );
       res.status(200).json({ message: "New Teacher", resultTeacher });
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    }
+  }
+
+  export async function ChangePasswordHandler(req, res) {
+    try {
+      const { newPassword, email, password } = req.body;
+      const resultChangePassword = await changePassword(
+        newPassword,
+        email,
+        password
+      );
+      res.status(200).json({
+        message: `contrasena acualizado con exito`,
+        resultChangePassword: email,
+        newPassword,
+      });
     } catch (error) {
       res.status(400).json({ error: error.message });
     }
@@ -56,13 +78,34 @@ import {
       res.status(400).json({ error: error.message });
     }
   }
-  
-  export async function changeTeacherHandler(req, res) {
+
+  export async function updateWithImageHandler(req, res) {
+    try {
+      const { id } = req.params;
+      const { name, lastName, email, phone, photo } = req.body;
+      const files = req.files;
+      let image = "";
+      if(files.length > 0){
+        //const file = req.files[0].buffer.buffer;
+        const pathImage = `image_${Date.now()}`;
+        const url = await storage(files[0], pathImage, photo);
+        if(url != undefined && url != null){
+            image = url;
+        }
+      }
+      const resultTeacher = await updateWithImage(id, { name, lastName, email, phone, photo: image });
+      res.status(200).json({ message: "Update data Teacher + Image", resultTeacher });
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    }
+  }
+
+  export async function updateWithoutImageHandler(req, res) {
     try {
       const { id } = req.params;
       const { name, lastName, email, phone } = req.body;
-      const resultTeacher = await updateTeacher(id, { name, lastName, email, phone });
-      res.status(200).json({ message: "Change Teacher", resultTeacher });
+      const resultTeacher = await updateWithoutImage(id, { name, lastName, email, phone });
+      res.status(200).json({ message: "Update data Teacher", resultTeacher });
     } catch (error) {
       res.status(400).json({ error: error.message });
     }
