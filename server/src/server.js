@@ -2,6 +2,12 @@ import express from "express";
 import cors from "cors";
 import morgan from "morgan";
 import router from "../src/routes/index.js";
+import admin from "firebase-admin";
+import serviceAccount from "./serviceAccountKey.json" with { type: "json" };
+
+admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount)
+});
 
 const server = express();
 

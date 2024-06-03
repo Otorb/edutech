@@ -60,3 +60,27 @@ export async function getAllStudents() {
   return students;
 }
 // {[include:{ model: Historials },{ model: Promedio}, {model: Notas }]}
+
+export async function updateWithImage(id, updateData) {
+  const student = await Students.findOne({ where: { studentId: id } });
+
+  if (!student) {
+    throw new Error("El estudiante no existe");
+  }
+  
+  await student.update(updateData);
+
+  return student;
+}
+
+export async function updateWithoutImage(id, updateData) {
+  const student = await Students.findOne({ where: { studentId: id } });
+
+  if (!student) {
+    throw new Error("El estudiante no existe");
+  }
+  
+  await student.update(updateData);
+
+  return student;
+}
