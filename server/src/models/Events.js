@@ -1,6 +1,6 @@
 import { DataTypes } from "sequelize";
 
-export default function Historials(sequelize) {
+export default function Events(sequelize) {
   const Events = sequelize.define(
     "Events",
     {
