@@ -52,7 +52,7 @@ export default function Students(sequelize) {
       type: DataTypes.BOOLEAN,
       defaultValue: true,
     },
-    rol: {
+    role: {
       type: DataTypes.STRING,
       defaultValue: "student",
     },

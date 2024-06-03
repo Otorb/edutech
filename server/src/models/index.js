@@ -10,7 +10,6 @@ import SubjectModel from "./Subject.js";
 import ParentsModel from "./Parents.js";
 import CursoModel from "./Curso.js";
 
-
 const Admin = AdminModel(sequelize);
 const Students = StudentsModel(sequelize);
 const Historials = HistorialsModel(sequelize);
@@ -37,8 +36,6 @@ Students.belongsTo(Parents, { foreignKey: "parentId" });
 Students.hasMany(Teachers, { foreignKey: "id" });
 Teachers.belongsTo(Students, { foreignKey: "teacherId" });
 
-
-
 // Students.hasMany(Promedio, { foreignKey: "studentId" });
 // Promedio.hasOne(Students, { foreignKey: "studentId" });
 
@@ -55,15 +52,13 @@ Subject.hasOne(Promedio, { foreignKey: "idSubject" });
 Promedio.hasOne(Subject, { foreignKey: "idSubject" });
 
 Curso.hasMany(Subject, { foreignKey: "studentId" });
-Subject.hasMany(Curso, { foreignKey: "studentId"  });
+Subject.hasMany(Curso, { foreignKey: "studentId" });
 
 Students.hasMany(Subject, { foreignKey: "studentId" });
 Subject.hasMany(Students, { foreignKey: "studentId" });
 
-
-
-Students.hasMany(Notas, { foreignKey: "studentId"});
-Notas.hasOne(Students, { foreignKey: "studentId"});
+Students.hasMany(Notas, { foreignKey: "studentId" });
+Notas.hasOne(Students, { foreignKey: "studentId" });
 
 export {
   Students,

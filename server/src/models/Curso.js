@@ -11,7 +11,7 @@ export default function Curso(sequelize) {
     curso: {
       type: DataTypes.STRING,
       allowNull: false,
-    }
+    },
   });
 
   return Curso;
