@@ -17,7 +17,7 @@ export default function Admin(sequelize) {
         type: DataTypes.BOOLEAN,
         defaultValue: true,
       },
-      rol: {
+      role: {
         type: DataTypes.STRING,
         defaultValue: "admin",
       },

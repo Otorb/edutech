@@ -28,7 +28,7 @@ export async function newParents(
     phone,
   });
 
-  const sendEmail = await sendAccountCreationSuccessEmail(email);
+  // const sendEmail = await sendAccountCreationSuccessEmail(email);
   return newParent;
 }
 
