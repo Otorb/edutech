@@ -9,6 +9,7 @@ import AverageModel from "./average.js";
 import SubjectModel from "./Subject.js";
 import ParentsModel from "./Parents.js";
 import CursoModel from "./Curso.js";
+import EventsModel from "./Events.js";
 
 const Admin = AdminModel(sequelize);
 const Students = StudentsModel(sequelize);
@@ -19,6 +20,7 @@ const Promedio = AverageModel(sequelize);
 const Subject = SubjectModel(sequelize);
 const Parents = ParentsModel(sequelize);
 const Curso = CursoModel(sequelize);
+const Events = EventsModel(sequelize);
 
 //? Relaciones Parents y Students
 Parents.hasMany(Students, { foreignKey: "parentId" });
@@ -60,6 +62,9 @@ Subject.hasMany(Students, { foreignKey: "studentId" });
 Students.hasMany(Notas, { foreignKey: "studentId" });
 Notas.hasOne(Students, { foreignKey: "studentId" });
 
+Students.hasMany(Events, { foreignKey: "studentId" });
+Events.belongsTo(Students, { foreignKey: "studentId" });
+
 export {
   Students,
   Historials,
@@ -70,4 +75,5 @@ export {
   Subject,
   Parents,
   Curso,
+  Events,
 };
