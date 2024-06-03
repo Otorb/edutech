@@ -27,7 +27,6 @@ const App = () => {
         <Route path="/profileRole" element={<Users />} />
         <Route path="/profileRole/:name" element={<FullInfoSon />} />
         <Route path="/*" element={<NotFound />} />
-
       </Route>
     </Routes>
   );

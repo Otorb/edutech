@@ -3,6 +3,7 @@ import { useState } from 'react'
 import style from './style.module.css'
 import { Parents } from './Parents'
 import { imagenPadre, infoUser } from './ObjetoPrueba'
+import { useAppSelector } from '../../Hooks/useAppSelector'
 
 
 const Index = () => {
@@ -15,6 +16,8 @@ const Index = () => {
         e.preventDefault()
     }
     const [role, setRole] = useState(initialState)
+
+   
     return (
         <>
 
@@ -22,9 +25,7 @@ const Index = () => {
                 initialState === "Parents" && (
                     <div className={style.bgContainer}>
                         <article className={style.articleRole}>
-                            <div className={style.containerPicture}>
-                                <img className={style.imgRole} src={imagenPadre} alt="" />
-                            </div>
+
                             <section className={style.infoUser}>
                                 <div className={style.ContainerUserInfo}>
                                     <div className={style.LastName}>
@@ -54,12 +55,16 @@ const Index = () => {
                                                 <Parents
                                                     data={infoUser.hijos}
                                                     setRole={setRole}
+                                                    // userData={userData}
                                                 />
                                             }
                                         </div>
                                     </div>
                                 </div>
                             </section>
+                            <div className={style.containerPicture}>
+                                <img className={style.imgRole} src={imagenPadre} alt="" />
+                            </div>
                         </article>
                     </div>
                 )
