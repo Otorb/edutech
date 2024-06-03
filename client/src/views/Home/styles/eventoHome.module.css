@@ -1,10 +1,109 @@
 .containerEventoHome{
+    position: relative;
     width: 100%;
     min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 6rem;
     color: #333;
-    background: #b27c66;
+    background: #8ecae6;
+}
+
+.containerEventoHome .inputSlider{
+    appearance: none;
+}
+
+.containerEventoHome .dots{
+    position: absolute;
+    bottom: 70px;
+    z-index: 10000;
+    display: flex;
+    gap: 6px;
+}
+.containerEventoHome .dots .labelSlider{
+    width: 20px;
+    height: 20px;
+    background: #fff;
+    cursor: pointer;
+    border-radius: 50%;
+    opacity: 0.5;
+    border: 2px solid blue;
+}
+
+.containerEventoHome .inputSlider:nth-child(1).checked ~ .dots .labelSlider:nth-child(1),
+.containerEventoHome .inputSlider:nth-child(2).checked ~ .dots .labelSlider:nth-child(2),
+.containerEventoHome .inputSlider:nth-child(3).checked ~ .dots .labelSlider:nth-child(3),
+.containerEventoHome .inputSlider:nth-child(4).checked ~ .dots .labelSlider:nth-child(4),
+.containerEventoHome .inputSlider:nth-child(5).checked ~ .dots .labelSlider:nth-child(5)
+{
+    opacity: 1;
+}
+.containerEventoHome .slider{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.containerEventoHome .slider .slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    clip-path: circle(0% at 0% 50%);
+    transition: 1.5s;
+    transition-delay: 0s;
+    background-position: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    
+}
+.slide .contentSlider1{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: end;
+    padding: 3rem 4rem;
+    font-size: 2.5rem;
+    color:#1e1b18;
+    text-shadow: 
+        -1px -1px 0 #fff,  
+         1px -1px 0 #fff,
+        -1px  1px 0 #fff,
+         1px  1px 0 #fff;
+}
+.slide .contentSlider2{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: 7rem 4rem;
+    padding-top: 1rem;
+    font-size: 2.5rem;
+    color: #ebebeb;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+.contentSlider2 .parrafoSlider{
+    font-size: 1rem;
+}
+.containerEventoHome .slider .slide:nth-child(even){
+    clip-path: circle(0% at 100% 50%);
+    background-position: right;
+}
+.containerEventoHome .inputSlider:nth-child(1):checked ~ .slider .slide:nth-child(1),
+.containerEventoHome .inputSlider:nth-child(2):checked ~ .slider .slide:nth-child(2),
+.containerEventoHome .inputSlider:nth-child(3):checked ~ .slider .slide:nth-child(3),
+.containerEventoHome .inputSlider:nth-child(4):checked ~ .slider .slide:nth-child(4),
+.containerEventoHome .inputSlider:nth-child(5):checked ~ .slider .slide:nth-child(5)
+{
+    clip-path: circle(150% at 50% 50%);
+    transition-delay: 1s;
+    background-position: center;
 }

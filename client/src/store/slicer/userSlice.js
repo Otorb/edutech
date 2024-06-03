@@ -1,19 +1,23 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
 
 export const fetchUserData = createAsyncThunk(
-  'user/fetchUserData',
+  "user/fetchUserData",
   async ({ email, token, rol }, { rejectWithValue }) => {
-      try {
-          const response = await axios.get(`https://edutech-nle9.onrender.com/${rol}/searchAll`, {
-              headers: {
-                  Authorization: `Bearer ${token}`,
-                },
-            });
-            
-           
-      const userData = response.data.resultStudent.find(user => user.email === email);
-  
+    try {
+      const response = await axios.get(
+        `https://edutech-nle9.onrender.com/${rol}/searchAll`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      const userData = response.data.resultStudent.find(
+        (user) => user.email === email
+      );
+
       return userData;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -22,7 +26,7 @@ export const fetchUserData = createAsyncThunk(
 );
 
 const userSlice = createSlice({
-  name: 'user',
+  name: "user",
   initialState: {
     data: null,
     loading: false,
