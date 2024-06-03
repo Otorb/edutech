@@ -21,8 +21,8 @@ const App = () => {
           <Route path="/dashboard/Mensajes" element={"Lista de Mensajes"} />
           <Route path="/dashboard/profile" element={<DetailProfile />} />
         </Route>
-        <Route path="/profile" element={<Users />} />
-        <Route path="/profile/:name" element={<FullInfoSon />} />
+        <Route path="/profileRole" element={<Users />} />
+        <Route path="/profileRole/:name" element={<FullInfoSon />} />
         <Route path="/*" element={<NotFound />} />
 
       </Route>
