@@ -35,6 +35,10 @@ export default function Parents(sequelize) {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    photo: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
     fullName: {
       type: DataTypes.VIRTUAL,
       get() {
