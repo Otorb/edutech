@@ -55,7 +55,6 @@ const Index = () => {
                                                 <Parents
                                                     data={infoUser.hijos}
                                                     setRole={setRole}
-                                                    // userData={userData}
                                                 />
                                             }
                                         </div>
