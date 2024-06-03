@@ -12,6 +12,7 @@ const Sidebar = ({ position, visible, toggleSidebar, isCollapsed, toggleCollapse
   const navigate = useNavigate();
   const signOut = useSignOut();
   const userData = useAppSelector((state) => state.user.data);
+  console.log(userData)
 
   const handleSignOut = () => {
     signOut();

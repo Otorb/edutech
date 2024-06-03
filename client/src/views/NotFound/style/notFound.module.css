@@ -1,0 +1,33 @@
+.containerNotFound{
+    width: 100vw;
+    height: 100vh;
+    background: url(../Utility/page404.jpg);
+    background-repeat: no-repeat;
+    background-size:cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.containerNotFound .btnNotFound{
+    position: absolute;
+    top: 6.5rem;
+    border-radius: 10px;
+    background: #333;
+    color: #fff;
+    font-weight: 700;
+}
+.containerNotFound .btnNotFound:hover{
+   background: #4a4e69;
+}
+
+
+@media (max-width: 768px) {
+    .containerNotFound {
+        background-position: center center; 
+    }
+
+    .containerNotFound .btnNotFound {
+        top: auto; 
+        bottom: 2rem; 
+    }
+}
