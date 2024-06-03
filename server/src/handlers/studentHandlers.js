@@ -3,9 +3,13 @@ import {
   deleteStudent,
   getStudent,
   getAllStudents,
+  updateWithImage,
+  updateWithoutImage
 } from "../controllers/newStudentControllers.js";
 
 import { changePassword } from "../controllers/passwordResetEstudent.js";
+import storage from "../utils/cloud_storage.js";
+
 export async function newStudentHandler(req, res) {
   try {
     const {
@@ -74,6 +78,39 @@ export async function ChangePasswordHandler(req, res) {
       result: newPassword,
       email,
     });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+}
+
+export async function updateWithImageHandler(req, res) {
+  try {
+    const { id } = req.params;
+    const { name, lastName, email, phone, birthd, registration, grade, photo } = req.body;
+    const files = req.files;
+    let image = "";
+    if(files.length > 0){
+      //const file = req.files[0].buffer.buffer;
+      const pathImage = `image_${Date.now()}`;
+      const url = await storage(files[0], pathImage, photo);
+      if(url != undefined && url != null){
+          image = url;
+      }
+    }
+    const resultStudent = await updateWithImage(id, { name, lastName, email, phone, birthd, registration, grade, photo: image });
+    res.status(200).json({ message: "Update Student", resultStudent });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+}
+
+export async function updateWithoutImageHandler(req, res) {
+  try {
+    const { id } = req.params;
+    const { name, lastName, email, phone, birthd, registration, grade } = req.body;
+
+    const resultStudent = await updateWithoutImage(id, { name, lastName, email, phone, birthd, registration, grade });
+    res.status(200).json({ message: "Update Student", resultStudent });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }

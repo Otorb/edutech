@@ -14,6 +14,7 @@ import ParentsRoute from "./parentsRouter.js";
 //google
 import googleRouter from "./AuthGoogle.js";
 import allEmailRouter from "./AllEmailsRoutes.js";
+import EventsRouter from "./EventsRouter.js";
 const router = Router();
 
 router.put("/delete/:email", debajaOdealta);
@@ -29,4 +30,5 @@ router.use("/parent", ParentsRoute);
 router.use("/curso", cursoRouter);
 router.use("/auth/google", googleRouter);
 router.use("/Emails", allEmailRouter);
+router.use("/events", EventsRouter);
 export default router;
