@@ -65,8 +65,20 @@ const Sons = ({
                                     <b>Calificaciones por materia</b>
                                     {userData?.Subjects.map(e => (
                                         <div className={style.subjectAndCalification} key={e.idSubject}>
-                                            Materia {e.subjec} <br />
-                                            <p>Calificacion en {e.subjec}</p> {e.Promedio}
+                                            <div >
+                                                <i> Materia: </i>
+                                                <p>{e.subjec}</p>
+                                            </div>
+                                            <div >
+
+                                                <b>Calificacion en</b>
+                                                <div >
+
+                                                    <p>{e.subjec}:</p> <br />  
+                                                    <p>{e.Promedio || "Sin promedio"}</p>
+                                                    
+                                                </div>
+                                            </div>
                                         </div>
                                     ))}
                                 </div>

@@ -150,7 +150,13 @@ b {
   display: flex;
   flex-direction: column;
   gap: 9px;
+
+  div{
+    display: flex;
+    gap: 10px;
+  }
 }
+
 .redireccionDeUsuario {
   display: flex;
   justify-content: space-between;
