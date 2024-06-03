@@ -40,7 +40,7 @@ const Index = () => {
   }, []);
 
   return (
-    <div className={style.container}>
+    <div className={style.containerDashboard}>
       <Sidebar
         position="left"
         visible={!isMobileView || isLeftSidebarVisible}
@@ -48,13 +48,13 @@ const Index = () => {
         isCollapsed={isLeftSidebarCollapsed}
         toggleCollapse={toggleLeftSidebarCollapse}
       />
-      <main className={style.mainContent}>
+      <main className={style.mainContentDash}>
         {isMobileView && (
           <button className={`${style.hamburger} ${style.leftHamburger}`} onClick={toggleLeftSidebar}>
             ☰
           </button>
         )}
-        <div className={style.content}>
+        <div className={style.contentDash}>
 
           <Outlet />
         </div>

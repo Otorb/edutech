@@ -7,7 +7,7 @@ import AuthOutlet from "@auth-kit/react-router/AuthOutlet";
 import DetailProfile from "./views/detailprofile/index"
 import FullInfoSon from "./views/Prophile/Sons";
 import NotFound from './views/NotFound/index'
-import Form from "./components/Form/Form";
+import UserModule from './views/UserModule/index'
 
 
 const App = () => {
@@ -16,9 +16,9 @@ const App = () => {
       <Route path="/login" element={<Login />} />
       <Route path="/" element={<Home />} />
 
-        <Route path="/form" element={<Form/>} />
       <Route element={<AuthOutlet fallbackPath="/login" />}>
         <Route path="/dashboard" element={<Dashboard />}>
+          <Route path="/dashboard/Usuarios" element={<UserModule/>} />
           <Route path="/dashboard/Eventos" element={"Lista de eventos"} />
           <Route path="/dashboard/Cursos" element={"Lista de cursos"} />
           <Route path="/dashboard/Mensajes" element={"Lista de Mensajes"} />

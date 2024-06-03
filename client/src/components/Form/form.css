@@ -2,6 +2,7 @@
     position: relative;
     max-width: 900px;
     width: 100%;
+    height: auto;
     border-radius: 6px;
     padding: 30px;
     margin: 0 15px;
@@ -27,7 +28,7 @@
 .containerForm form{
     position: relative;
     margin-top: 16px;
-    min-height: 490px;
+    height: 20rem;
     background-color: #fff;
     overflow: hidden;
 }
