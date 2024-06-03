@@ -87,7 +87,7 @@ b {
   border-radius: var(--border-radius);
   padding: 1rem;
   @media screen and (width < 768px) {
-    height: 55vh;
+    height: 65vh;
   }
 }
 .ToContactUser {

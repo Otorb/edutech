@@ -78,7 +78,7 @@ const Sons = ({
                             </div>
                         </section>
                         <div className={style.containerPicture}>
-                            <p
+                            <div
                                 style={{
                                     display: "flex",
                                     flexDirection: "column",
@@ -86,13 +86,13 @@ const Sons = ({
                                 }}
                             >
 
-                                <h3>
+                                <p>
                                     {userData?.fullName}
-                                </h3>
+                                </p>
                                 <p style={{ color: "#9AC0EE", fontWeight: "bold" }}>
                                     {userData?.rol === "student" ? "Alumno" : "no existe"}
                                 </p>
-                            </p>
+                            </div>
                             <img className={style.imgRole} src={SelectedSon.imagen} alt="" />
                         </div>
                     </article>
