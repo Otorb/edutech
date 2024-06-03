@@ -43,7 +43,7 @@ const Index = () => {
                                             </u>
                                         </p>
                                     </div>
-                                    <div className={style.ToContantFather}>
+                                    <div className={style.ToContactUser}>
                                         <b>Contacto: </b>
                                         <p>Email: <a href='' onClick={Prevent}>{infoUser.email}</a></p>
                                         <p>Telefono: <a href='' onClick={Prevent}>{infoUser.phone}</a></p>
