@@ -38,10 +38,6 @@ export default function Students(sequelize) {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    grade: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
     photo: {
       type: DataTypes.STRING,
       allowNull: true,

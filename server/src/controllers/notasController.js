@@ -1,4 +1,4 @@
-import { Notas, Promedio } from "../models/index.js";
+import { Notas, Promedio, Subject } from "../models/index.js";
 import { editarPromedio } from '../controllers/promedioController.js';
 
 // Crear historia
