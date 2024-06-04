@@ -1,9 +1,9 @@
-import React from 'react'
+import CardsPromedio from "../cards/CardsPromedio";
 
 const Promedio = () => {
   return (
     <div>
-      <h2>valor del promedio:</h2>
+      <CardsPromedio />
     </div>
   )
 }
