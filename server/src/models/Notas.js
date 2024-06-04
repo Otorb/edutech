@@ -20,6 +20,9 @@ export default function Notas(sequelize) {
         type: DataTypes.DATEONLY,
         allowNull: false,
     },
+  }, {
+    freezeTableName: true,
+    timestamps: false,
   });
 
   return Notas;

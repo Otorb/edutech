@@ -1,6 +1,6 @@
 import { hahedPassword } from "../utils/hasPassword.js";
 
-import { Students, Subject , Historials, Promedio, Notas } from "../models/index.js";
+import { Students, Subject , Historials, Promedio, Notas, Curso } from "../models/index.js";
 // import Subject from "../models/Subject.js";
 export async function newStudents(
   name,
@@ -53,7 +53,7 @@ export async function getStudent(id) {
 }
 
 export async function getAllStudents() {
-  const students = await Students.findAll({include:{ model: Subject, include:[{ model: Historials },{ model: Promedio}, {model: Notas }] }});
+  const students = await Students.findAll({include:{ model: Curso, include:[{ model: Subject }] }});
   if (!students) {
     throw new Error("No se encontraron usuarios");
   }

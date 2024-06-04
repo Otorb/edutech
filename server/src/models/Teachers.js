@@ -49,6 +49,9 @@ export default function Teachers(sequelize) {
       type: DataTypes.STRING,
       defaultValue: "teacher",
     },
+  }, {
+    freezeTableName: true,
+    timestamps: false,
   });
 
   return Teachers;
