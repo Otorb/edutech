@@ -28,10 +28,15 @@ const ParentsAndSons = ({ estado }) => {
                                         <b>Celular  </b>
                                         <a href='' onClick={(e) => e.preventDefault()}>{estado?.phone || "sin telefono"}</a>
                                     </div>
-                                    <div>
-                                        <b>Direccion  </b>
-                                        <a href='' onClick={(e) => e.preventDefault()}>{estado?.address || "sin telefono"}</a>
-                                    </div>
+                                    {
+                                        estado.address && (
+                                            <div>
+                                                <b>Direccion  </b>
+                                                <a href='' onClick={(e) => e.preventDefault()}>{estado.address || "no hay direccion"}</a>
+                                            </div>
+
+                                        )
+                                    }
                                     {
                                         estado.rol === "student" && (
                                             <div className={style.birthdayAndGrade}>
