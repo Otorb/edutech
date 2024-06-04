@@ -20,10 +20,8 @@ b {
   height: 99vh;
   display: grid;
   place-items: center;
-  
-  
 }
-.bgContainer >* {
+.bgContainer > * {
   overflow: hidden;
 }
 
@@ -31,6 +29,12 @@ b {
   display: flex;
   justify-content: space-around;
   width: 90%;
+  background: #f7f7f7;
+  background: #fff;
+  background-image: url("../../assets/img/EduSyncLogo.jpg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
   @media screen and (width < 768px) {
     flex-direction: column;
   }
@@ -39,7 +43,6 @@ b {
     justify-content: center;
     flex-direction: column;
     position: relative;
-    background: #ffffff;
     height: 74vh;
     width: var(--width);
     @media screen and (width < 768px) {
@@ -70,9 +73,10 @@ b {
 .infoUser {
   height: auto;
   width: var(--width);
-  background-color: #ffffff;
+  /* background-color: #ffffff; */
   display: grid;
   grid-column: span 2;
+
   @media screen and (width < 768px) {
     grid-column: span 1;
     order: 1;
@@ -91,7 +95,7 @@ b {
   }
 }
 .ToContactUser {
-  background-color: #ffffff;
+  /* background-color: #ffffff; */
   padding: 1rem;
   min-width: 231px;
   display: flex;
@@ -114,7 +118,6 @@ b {
       justify-content: "center";
       gap: "5px";
       font-size: "16px";
-
     }
   }
 }
@@ -151,7 +154,7 @@ b {
   flex-direction: column;
   gap: 9px;
 
-  div{
+  div {
     display: flex;
     gap: 10px;
   }
@@ -236,11 +239,9 @@ b {
   gap: 1rem;
   width: 100%;
 
-
   @media screen and (width < 768px) {
     display: flex;
     justify-content: center;
-    
   }
 
   button {

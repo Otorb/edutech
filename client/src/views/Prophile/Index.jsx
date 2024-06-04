@@ -1,74 +1,66 @@
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import style from './style.module.css'
 import { Parents } from './Parents'
 import { imagenPadre, infoUser } from './ObjetoPrueba'
 import { useAppSelector } from '../../Hooks/useAppSelector'
+import axios from 'axios'
+import ParentsAndSons from './ParentsAndSons'
 
 
 const Index = () => {
 
-    let initialState = "Parents"
-    initialState = "Son"
-    initialState = "Parents"
+    // let initialState = "Parents"
+    // initialState = "Son"
+    // initialState = "Parents"
 
-    const Prevent = (e) => {
-        e.preventDefault()
-    }
-    const [role, setRole] = useState(initialState)
+    // const Prevent = (e) => {
+    //     e.preventDefault()
+    // }
+    // const [estado, setEstado] = useState([])
+    // const API = "https://edutech-nle9.onrender.com/parent";
+    // const API2 = "https://edutech-nle9.onrender.com/students";
 
-   
+    // const listParents = async () => {
+    //     try {
+    //         const response = await axios.get(`/${API2}/searchAll`);
+    //         // console.log("response.status: " + response.status)
+    //         // console.log("response.headers: " + response.headers)
+    //         // console.log("response.config: " + response.config)
+    //         console.log(response.data)
+    //         setEstado(response.data.resultGetAllParents)
+    //         return response.data // Asumiendo que la respuesta contiene los datos en 'data'
+    //     } catch (error) {
+    //         if (error) {
+    //             console.error(`Error message: ${error.message}`)
+    //         } else if (error.request) {
+    //             console.error(`Error Request: ${error.request}`)
+
+    //         }
+    //         console.error("Error fetching parents:", error);
+    //         throw error; // Lanzar el error para que pueda ser manejado por el código llamante
+    //     }
+    // };
+
+    // useEffect(() => {
+    //     listParents()
+    // }, [])
+
+
+
+    const estado = useAppSelector((state) => state.user.data);
+
+    console.log(estado)
+
+
+
+
+
     return (
         <>
-
-            {
-                initialState === "Parents" && (
-                    <div className={style.bgContainer}>
-                        <article className={style.articleRole}>
-
-                            <section className={style.infoUser}>
-                                <div className={style.ContainerUserInfo}>
-                                    <div className={style.LastName}>
-                                        <p
-                                            style={{
-                                                display: "flex",
-                                                flexDirection: "column",
-                                                justifyContent: "space-evenly"
-                                            }}
-                                        >
-                                            Padre del alumno:
-                                            <u>
-                                                {infoUser.nameFather}-
-                                                {infoUser.lastNameFather}
-                                            </u>
-                                        </p>
-                                    </div>
-                                    <div className={style.ToContactUser}>
-                                        <b>Contacto: </b>
-                                        <p>Email: <a href='' onClick={Prevent}>{infoUser.email}</a></p>
-                                        <p>Telefono: <a href='' onClick={Prevent}>{infoUser.phone}</a></p>
-                                        <p>Direccion: <a href='' onClick={Prevent}>{infoUser.address}</a></p>
-                                    </div>
-                                    <div className={style.redireccionDeUsuario}>
-                                        <div className={style.infoNameAnotherUser}>
-                                            {
-                                                <Parents
-                                                    data={infoUser.hijos}
-                                                    setRole={setRole}
-                                                />
-                                            }
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
-                            <div className={style.containerPicture}>
-                                <img className={style.imgRole} src={imagenPadre} alt="" />
-                            </div>
-                        </article>
-                    </div>
-                )
-            }
+            <ParentsAndSons estado={estado} />
         </>
     )
 }
 export default Index
+
