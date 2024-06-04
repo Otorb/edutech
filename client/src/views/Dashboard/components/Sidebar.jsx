@@ -3,6 +3,7 @@ import style from '../styles/dashboard.module.css';
 import useSignOut from 'react-auth-kit/hooks/useSignOut';
 import { useAppSelector } from '../../../Hooks/useAppSelector';
 import { FcReading } from "react-icons/fc";
+import { BiSolidUserDetail } from "react-icons/bi";
 import { FiCalendar,FiUsers,FiBook,FiMail, FiLogOut } from "react-icons/fi";
 
 
@@ -56,6 +57,10 @@ const Sidebar = ({ position, visible, toggleSidebar, isCollapsed, toggleCollapse
         <Link to='/dashboard/Mensajes' className={style.liNav}>
           <FiMail className={style.iconNav} />
           {!isCollapsed && 'Mensajes'}
+        </Link>
+        <Link to='/dashboard/profile' className={style.liNav}>
+        <BiSolidUserDetail className={style.iconNav} />
+        {!isCollapsed && 'Detalles'}
         </Link>
       </section>
       <section className={style.Desconectarse}>

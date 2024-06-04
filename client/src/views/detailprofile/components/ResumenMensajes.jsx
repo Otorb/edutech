@@ -1,10 +1,9 @@
-import React from 'react'
+import CardsResumMensajes from "../cards/CardsResumMensajes"
 
 const ResumenMensajes = () => {
   return (
     <div>
-      <h2>Mensajes:</h2>
-      <h2>comentarios del profesor</h2>
+      <CardsResumMensajes />
     </div>
   )
 }

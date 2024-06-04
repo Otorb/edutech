@@ -24,7 +24,7 @@ const DetailTodo = () => {
   };
 
   return (
-    <div className={style.container}>
+    <div className={style.containerDetailTodo}>
       <ul className={style.uull}>
         <li
           className={`${style.llii} ${selectedComponent === 'promedio' && style.active}`}

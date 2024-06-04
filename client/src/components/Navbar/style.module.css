@@ -17,7 +17,7 @@ nav{
     align-items: center;
     gap: 2rem;
 }
-ul{
+ ul{
     display: flex;
     align-items: center;
     gap: 2rem;
@@ -45,4 +45,4 @@ li:hover{
 .btnIngresarHome:hover{
     color: #ffff;
     background: #240046;
-}
+} 
