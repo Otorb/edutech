@@ -42,6 +42,10 @@ export default function Students(sequelize) {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    photo: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
     fullName: {
       type: DataTypes.VIRTUAL,
       get() {
@@ -52,10 +56,13 @@ export default function Students(sequelize) {
       type: DataTypes.BOOLEAN,
       defaultValue: true,
     },
-    rol: {
+    role: {
       type: DataTypes.STRING,
       defaultValue: "student",
     },
+  }, {
+    freezeTableName: true,
+    timestamps: false,
   });
 
   return Students;

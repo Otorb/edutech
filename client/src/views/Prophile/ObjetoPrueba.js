@@ -1,5 +1,5 @@
-export const imagenPadre = `https://thumbs.dreamstime.com/z/an%C3%B3nimo-sospechoso-icono-estilo-de-dibujos-animados-caricatura-vector-para-dise%C3%B1o-web-aislado-sobre-fondo-blanco-220529716.jpg?w=768`
-export const imagenHijo = `https://static.vecteezy.com/system/resources/previews/014/316/319/large_2x/anonymous-boy-icon-cartoon-style-vector.jpg`
+export const imagenPadre = `https://media.istockphoto.com/id/1364917563/es/foto/hombre-de-negocios-sonriendo-con-los-brazos-cruzados-sobre-fondo-blanco.jpg?s=1024x1024&w=is&k=20&c=SEMPK49N4rBMOKGybn8XDfeK475-A4aURSAU--VZRc4=`
+export const imagenHijo = `https://st.depositphotos.com/1743476/2206/i/450/depositphotos_22064363-stock-photo-happy-college-student.jpg`
 
 export const infoUser = {
     nameFather: 'Ernesto',

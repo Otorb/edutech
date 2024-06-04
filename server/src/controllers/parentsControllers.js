@@ -28,7 +28,7 @@ export async function newParents(
     phone,
   });
 
-  const sendEmail = await sendAccountCreationSuccessEmail(email);
+  // const sendEmail = await sendAccountCreationSuccessEmail(email);
   return newParent;
 }
 
@@ -71,5 +71,29 @@ export async function deleteParents(id) {
   if (!parent) {
     throw new Error("El usuario no existe");
   }
+  return parent;
+}
+
+export async function updateWithImage(id, updateData) {
+  const parent = await Parents.findOne({ where: { id } });
+
+  if (!parent) {
+    throw new Error("El familiar no existe");
+  }
+  
+  await parent.update(updateData);
+
+  return parent;
+}
+
+export async function updateWithoutImage(id, updateData) {
+  const parent = await Parents.findOne({ where: { id } });
+
+  if (!parent) {
+    throw new Error("El familiar no existe");
+  }
+  
+  await parent.update(updateData);
+
   return parent;
 }

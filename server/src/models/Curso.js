@@ -11,7 +11,10 @@ export default function Curso(sequelize) {
     curso: {
       type: DataTypes.STRING,
       allowNull: false,
-    }
+    },
+  }, {
+    freezeTableName: true,
+    timestamps: false,
   });
 
   return Curso;
