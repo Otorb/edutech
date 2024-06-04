@@ -8,7 +8,7 @@ import DetailProfile from "./views/detailprofile/index"
 import FullInfoSon from "./views/Prophile/ParentsAndSons";
 import NotFound from './views/NotFound/index'
 import UserModule from './views/UserModule/index'
-
+import Courses from './views/CourseModule/Courses'
 
 const App = () => {
   return (
@@ -20,14 +20,13 @@ const App = () => {
         <Route path="/dashboard" element={<Dashboard />}>
           <Route path="/dashboard/Usuarios" element={<UserModule/>} />
           <Route path="/dashboard/Eventos" element={"Lista de eventos"} />
-          <Route path="/dashboard/Cursos" element={"Lista de cursos"} />
           <Route path="/dashboard/Mensajes" element={"Lista de Mensajes"} />
           <Route path="/dashboard/profile" element={<DetailProfile />} />
         </Route>
         <Route path="/profileRole" element={<Users />} />
-        {/* <Route path="/profileRole/:name" element={<FullInfoSon />} /> */}
         <Route path="/*" element={<NotFound />} />
       </Route>
+          <Route path="/dashboard/Cursos" element={<Courses/>} />
     </Routes>
   );
 };
