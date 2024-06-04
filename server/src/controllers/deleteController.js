@@ -14,12 +14,12 @@ export const debajaOdealta = async (req, res, next) => {
       if (select === "student") {
         var resDB = await Students.findOne({ where: { email: email } });
       } 
-    //   else if (select === "parents") {
-    //     var resDB = await Parents.findOne({ where: { email: email } });
-    //   }
-    //   else if (select === "teacher") {
-    //     var resDB = await Teacher.findOne({ where: { email: email } });
-    //   } 
+      else if (select === "parents") {
+        var resDB = await Parents.findOne({ where: { email: email } });
+      }
+      else if (select === "teacher") {
+        var resDB = await Teacher.findOne({ where: { email: email } });
+      } 
       else if (select === "admin") {
         var resDB = await Admin.findByPk(email);
       } else {
