@@ -6,114 +6,48 @@ import Loading from "../../components/Loading/Loading";
 import { downloadCSV } from "./Components/exportCSV"; // Asegúrate de ajustar la ruta según tu estructura de carpetas
 import CustomActionMenu from "./Components/CustomActionMenu";
 import Form from "../../components/Form/Form";
+import { data } from "./ObjectsCourseTable";
+import { CoursesApi } from "../../Api/Course";
 
-const data = [
-  {
-    nombre: "Juan Pérez",
-    email: "juan.perez@example.com",
-    telefono: "+54 11 1234 5678",
-    rol: "Administrador",
-    estado: "Activo",
-  },
-  {
-    nombre: "María Gómez",
-    email: "maria.gomez@example.com",
-    telefono: "+54 11 8765 4321",
-    rol: "Usuario",
-    estado: "Activo",
-  },
-  {
-    nombre: "Carlos Rodríguez",
-    email: "carlos.rodriguez@example.com",
-    telefono: "+54 11 2345 6789",
-    rol: "Moderador",
-    estado: "Inactivo",
-  },
-  {
-    nombre: "Laura Martínez",
-    email: "laura.martinez@example.com",
-    telefono: "+54 11 3456 7890",
-    rol: "Usuario",
-    estado: "Activo",
-  },
-  {
-    nombre: "Pedro Fernández",
-    email: "pedro.fernandez@example.com",
-    telefono: "+54 11 4567 8901",
-    rol: "Administrador",
-    estado: "Inactivo",
-  },
-  {
-    nombre: "Ana Torres",
-    email: "ana.torres@example.com",
-    telefono: "+54 11 5678 9012",
-    rol: "Usuario",
-    estado: "Activo",
-  },
-  {
-    nombre: "Jorge López",
-    email: "jorge.lopez@example.com",
-    telefono: "+54 11 6789 0123",
-    rol: "Moderador",
-    estado: "Activo",
-  },
-  {
-    nombre: "Marta Sánchez",
-    email: "marta.sanchez@example.com",
-    telefono: "+54 11 7890 1234",
-    rol: "Usuario",
-    estado: "Inactivo",
-  },
-  {
-    nombre: "Luis Ramírez",
-    email: "luis.ramirez@example.com",
-    telefono: "+54 11 8901 2345",
-    rol: "Administrador",
-    estado: "Activo",
-  },
-  {
-    nombre: "Elena Navarro",
-    email: "elena.navarro@example.com",
-    telefono: "+54 11 9012 3456",
-    rol: "Usuario",
-    estado: "Activo",
-  },
-];
+
 
 const index = () => {
-  const column = [
+
+const [Courses, setCourses] = useState([])
+const [load, setLoad] = useState(true)
+
+const CoursesFun = async () => { 
+  const Courses = await CoursesApi()
+  setCourses(Courses)
+  
+}
+
+useEffect(()=> {
+  CoursesFun()
+  setLoad(false)
+},[])
+
+console.log(Courses)
+
+const LoadingFn = () => <h1>Cargando..</h1>   
+
+   
+
+  const courses = [
     {
-      name: "Nombre Apellido",
-      selector: (row) => row.nombre,
+      name: "Materia",
+      selector: (row) => row.Courses.data?.map(e => e.Subjects.map(e => e.subjec)),
       sortable: true,
     },
     {
-      name: "Email",
-      selector: (row) => row.email,
+      name: "Cursos",
+      selector: (row) => row.curso,
       sortable: true,
     },
-    {
-      name: "Telefono",
-      selector: (row) => row.telefono,
-    },
-    {
-      name: "Rol",
-      selector: (row) => row.rol,
-    },
-    {
-      name: "Estado",
-      cell: (row) => (
-        <span
-          style={{
-            color: row.estado === "Activo" ? "#29bf12" : "#f21b3f",
-            fontWeight: "bold",
-          }}
-        >
-          {row.estado}
-        </span>
-      ),
-      sortable: true,
-    },
+    
+
+
+
     {
       name: "Acciones",
       cell: (row) => (
@@ -129,33 +63,36 @@ const index = () => {
     },
   ];
 
-  const [records, setRecords] = useState(data);
+  const [records, setRecords] = useState(Courses);
   const [loading, setLoading] = useState(true);
   const [openModal, setOpenModal] = useState(false);
 
+
   useEffect(() => {
     const tiemout = setTimeout(() => {
-      setRecords(data);
+      setRecords(Courses);
       setLoading(false);
-    }, 2000);
+    }, 1000);
 
     return () => clearTimeout(tiemout);
   }, []);
 
-  const handleFilterChange = (e) => {
-    const filterValue = e.target.value;
-    const filteredRecords = data.filter((record) =>
-      record.rol.toLowerCase().includes(filterValue.toLowerCase())
-    );
-    setRecords(filteredRecords);
-  };
+  // const handleFilterChange = (e) => {
+  //   const filterValue = e.target.value;
+  //   // acá es un filtro parseado a  minuscula, 
+  //   //"si hay un dato existente en data que tambien exista en rol, que lo asigne a filteredRecords"
+  //   const filteredRecords = data.filter((record) =>
+  //     record.rol.toLowerCase().includes(filterValue.toLowerCase())
+  //   );
+  //   setRecords(filteredRecords);
+  // };
 
-  const handleChange = (e) => {
-    const filterRecords = data.filter((record) => {
-      return record.nombre.toLowerCase().includes(e.target.value.toLowerCase());
-    });
-    setRecords(filterRecords);
-  };
+  // const handleChange = (e) => {
+  //   const filterRecords = data.filter((record) => {
+  //     return record.nombre.toLowerCase().includes(e.target.value.toLowerCase());
+  //   });
+  //   setRecords(filterRecords);
+  // };
 
   const handleExport = () => {
     downloadCSV(records);
@@ -183,35 +120,50 @@ const index = () => {
     phone: '',
     active: false,
     role: ''
-});
+  });
 
-// Manejar cambios en los campos del formulario
-const handleChangeForm = (event) => {
+  // Manejar cambios en los campos del formulario
+  const handleChangeForm = (event) => {
     const { name, value, type, checked } = event.target;
     const newValue = type === 'checkbox' ? checked : value;
     setFormData({ ...formData, [name]: newValue });
-};
+  };
 
   const formSections = [
     {
-        name: 'personal',
-        title: 'Personal Details',
-        fields: [
-            { label: 'Apellido', type: 'text', placeholder: 'Ingrese su Apellido', required: true, value: formData.fullName  },
-            { label: 'Nombres', type: 'text', placeholder: 'Ingrese su Nombres', required: true, value: formData.fullName  },
-            { label: 'Email', type: 'email', placeholder: 'Ingrese su Email', required: true, value: formData.email },
-            { label: 'Dirección', type: 'text', placeholder: 'Ingrese su dirección', required: true, value: formData.address  },
-            { label: 'Telefono', type: 'tel', placeholder: 'Ingrese su Telefono', required: true, value: formData.phone  },
-            { label: 'Rol', type: 'text', placeholder: 'Ingres su rol', required: true, value: formData.role  },
-            { label: 'Activo', type: 'checkbox', checked: formData.active  }
-        ]
+      name: 'courses',
+      title: 'rsos de la escuela',
+      fields: [
+        { label: 'Apellido', type: 'text', placeholder: 'Ingrese su Apellido', required: true, value: formData.fullName },
+        { label: 'Nombres', type: 'text', placeholder: 'Ingrese su Nombres', required: true, value: formData.fullName },
+        { label: 'Email', type: 'email', placeholder: 'Ingrese su Email', required: true, value: formData.email },
+        { label: 'Dirección', type: 'text', placeholder: 'Ingrese su dirección', required: true, value: formData.address },
+        { label: 'Telefono', type: 'tel', placeholder: 'Ingrese su Telefono', required: true, value: formData.phone },
+        { label: 'Rol', type: 'text', placeholder: 'Ingres su rol', required: true, value: formData.role },
+        { label: 'Activo', type: 'checkbox', checked: formData.active }
+      ]
     },
-];
+  ];
+  const formSectionsCourses = [
+    {
+      name: 'personal',
+      title: 'Cursos de la escuela',
+      fields: [
+        { label: 'Curso', type: 'text', placeholder: 'Ingrese el curso', required: true, value: formData.fullName },
+        { label: 'Materia', type: 'email', placeholder: 'Ingrese la materia', required: true, value: formData.email },
+
+
+
+
+
+      ]
+    },
+  ];
 
   const handleSubmit = (event) => {
     event.preventDefault();
     // Lógica para manejar el envío del formulario
-};
+  };
 
   return (
     <>
@@ -229,7 +181,7 @@ const handleChangeForm = (event) => {
               type="text"
               placeholder="Nombre.."
               className={style.search}
-              onChange={handleChange}
+              // onChange={handleChange}
             />
           </div>
           <button className={style.btnAdd} onClick={handleopenModal}>
@@ -240,15 +192,17 @@ const handleChangeForm = (event) => {
           <section className={style.sectionModuleForm}>
             <span onClick={handleopenModal} className={style.close}>X</span>
             <form onSubmit={handleSubmit}>
-            <Form title="Registration" fields={formSections} onChange={handleChangeForm} />
-            <button type="submit" className={style.btnAdd}>Enviar</button>
-        </form>
+              <Form title="Registration" fields={formSectionsCourses} onChange={handleChangeForm} />
+              <button type="submit" className={style.btnAdd}>Enviar</button>
+            </form>
           </section>
         )}
 
         <section className={style.sectionModule}>
-          <select className={style.selectUser} onChange={handleFilterChange}>
-            <option value="">Seleccionar Rol</option>
+          <select className={style.selectUser} 
+          // onChange={handleFilterChange}
+          >
+            <option value="">Seleccionar </option>
             <option value="Administrador">Administrador</option>
             <option value="Usuario">Usuario</option>
             <option value="Moderador">Moderador</option>
@@ -259,11 +213,14 @@ const handleChangeForm = (event) => {
         </section>
         <section className={style.sectionModule}>
           <DataTable
-            columns={column}
+            // columns es la cabecera de la tabla
+            columns={courses}
+            // records es el estado que internamente tiene los datos de los usuarios, 
+            // los cuales tengo que cambiar por los cursos
             data={records}
             selectableRows
             pagination
-            paginationPerPage={8}
+            paginationPerPage={10}
             onSelectedRowsChange={(data) => console.log(data)}
             progressPending={loading}
             progressComponent={<Loading />}
