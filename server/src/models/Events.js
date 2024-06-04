@@ -16,9 +16,6 @@ export default function Historials(sequelize) {
       date: {
         type: DataTypes.STRING,
       },
-    },
-    {
-      timestamps: false,
     }
   );
   return Events;

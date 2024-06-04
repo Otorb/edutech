@@ -12,6 +12,9 @@ export default function Subject(sequelize) {
       type: DataTypes.STRING,
       allowNull: false,
     },
+  }, {
+    freezeTableName: true,
+    timestamps: false,
   });
 
   return Subject;

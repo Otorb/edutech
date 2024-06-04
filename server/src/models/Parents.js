@@ -53,6 +53,9 @@ export default function Parents(sequelize) {
       type: DataTypes.STRING,
       defaultValue: "parent",
     },
+  }, {
+    freezeTableName: true,
+    timestamps: false,
   });
 
   return Parents;
