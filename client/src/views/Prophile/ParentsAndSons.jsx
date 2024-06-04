@@ -9,6 +9,37 @@ const ParentsAndSons = ({ estado }) => {
     console.log(estado)
     const Nav = useNavigate()
 
+    let contenido1;
+    let contenido2;
+
+    if (estado.address) {
+        contenido1 = (<div>
+            <b>Direccion  </b>
+            <a href='' onClick={(e) => e.preventDefault()}>{estado.address || "no hay direccion"}</a>
+        </div>)
+
+    }
+
+    if (estado.rol === "student") {
+        contenido2 = (<div className={style.birthdayAndGrade}>
+            <b >F. de Nacimiento & Curso</b>
+
+            <div style={{
+                display: "flex",
+                gap: "5px",
+            }}>
+
+                <i >
+                    {estado?.birthd || null}
+                </i>
+                <i>
+                    ({estado?.grade || ""})
+                </i>
+            </div>
+        </div>)
+    }
+
+
     return (
         <>
             <div>
@@ -28,36 +59,8 @@ const ParentsAndSons = ({ estado }) => {
                                         <b>Celular  </b>
                                         <a href='' onClick={(e) => e.preventDefault()}>{estado?.phone || "sin telefono"}</a>
                                     </div>
-                                    {
-                                        estado.address && (
-                                            <div>
-                                                <b>Direccion  </b>
-                                                <a href='' onClick={(e) => e.preventDefault()}>{estado.address || "no hay direccion"}</a>
-                                            </div>
-
-                                        )
-                                    }
-                                    {
-                                        estado.rol === "student" && (
-                                            <div className={style.birthdayAndGrade}>
-                                                <b >F. de Nacimiento & Curso</b>
-
-                                                <div style={{
-                                                    display: "flex",
-                                                    gap: "5px",
-                                                }}>
-
-                                                    <i >
-                                                        {estado?.birthd || null}
-                                                    </i>
-                                                    <i>
-                                                        ({estado?.grade || ""})
-                                                    </i>
-                                                </div>
-                                            </div>
-
-                                        )
-                                    }
+                                    {contenido1}
+                                    {contenido2}
                                 </div>
                                 {estado.Subjects && (
                                     <div className={style.subjectNotes}>
@@ -94,7 +97,6 @@ const ParentsAndSons = ({ estado }) => {
                                     justifyContent: "space-evenly"
                                 }}
                             >
-
                                 <p>
                                     {estado?.fullName}
                                 </p>
