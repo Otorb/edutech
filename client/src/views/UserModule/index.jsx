@@ -7,7 +7,8 @@ import { downloadCSV } from "./Components/exportCSV";
 import CustomActionMenu from "./Components/CustomActionMenu";
 import Form from "../../components/Form/Form";
 import { useAppDispatch, useAppSelector } from "../../Hooks/useAppSelector";
-import { cargarUsuarios } from "../../store/slicer/usersSlice";
+import { cargarUsuarios, eliminarEstudiante, eliminarPadre, eliminarProfesor } from "../../store/slicer/usersSlice";
+import { Toaster, toast } from "sonner";
 
 // const data = [
 //   {
@@ -136,19 +137,33 @@ const UserModule = () => {
   ];
 
   const dataUsers = useAppSelector(state=> state.users.usersData)
-  const [records, setRecords] = useState([]);
+  
+  const [records, setRecords] = useState(dataUsers);
   const [loading, setLoading] = useState(true);
   const [openModal, setOpenModal] = useState(false);
 
+  const mensaje = useAppSelector(state => state.users.mensaje);
+
+  useEffect(() => {
+    if (mensaje) {
+      toast.success(mensaje);
+      dispatch(cargarUsuarios())
+    }
+  }, [mensaje]);
+
   useEffect(() => {
     dispatch(cargarUsuarios());
+  }, []);
+
+  useEffect(() => {
     const tiemout = setTimeout(() => {
       setRecords(dataUsers);
       setLoading(false);
     }, 2000);
 
     return () => clearTimeout(tiemout);
-  }, []);
+  }, [dataUsers]);
+ 
 
   const handleFilterChange = (e) => {
     const filterValue = e.target.value;
@@ -178,8 +193,21 @@ const UserModule = () => {
   };
 
   const handleDelete = (row) => {
-    console.log("Delete:", row);
+    const userDataToDelete = {
+      email: row.email,
+      role: row.role,
+    };
+    
+    if (row.role === 'student') {
+      dispatch(eliminarEstudiante(userDataToDelete));
+    } else if (row.role === 'parent') {
+      dispatch(eliminarPadre(userDataToDelete));
+    } else if (row.role === 'teacher') {
+      dispatch(eliminarProfesor(userDataToDelete));
+    }
+    
   };
+  
 
   const handleopenModal = () => {
     setOpenModal(!openModal);
@@ -224,6 +252,7 @@ const handleChangeForm = (event) => {
   return (
     <>
       <div className={style.containerUserModule}>
+      <Toaster richColors position="top-left"/>
         <h1 className={style.titleUserModule}>Usuarios</h1>
         <p className={style.descriptionUserModule}>
           Como administrador, usted puede gestionar y personalizar la
@@ -272,7 +301,7 @@ const handleChangeForm = (event) => {
             data={records}
             selectableRows
             pagination
-            paginationPerPage={4}
+            paginationPerPage={10}
             onSelectedRowsChange={(data) => console.log(data)}
             progressPending={loading}
             progressComponent={<Loading />}

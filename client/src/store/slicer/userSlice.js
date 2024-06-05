@@ -6,7 +6,7 @@ export const fetchUserData = createAsyncThunk(
   async ({ email, token, rol }, { rejectWithValue }) => {
     try {
       const response = await axios.get(
-        `https://edutech-nle9.onrender.com/${rol}/searchAll`,
+        `https://edusync-fbva.onrender.com/${rol}/searchAll`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
