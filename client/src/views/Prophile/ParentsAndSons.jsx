@@ -8,7 +8,7 @@ const ParentsAndSons = ({ estado }) => {
     const state = estado
 
 
-    // console.log(state)
+    console.log(state)
     return (
         <>
             <div className={style.bgContainer}>
@@ -52,51 +52,46 @@ const ParentsAndSons = ({ estado }) => {
                             {state?.rol === "student" && (
                                 <div className={style.subjectNotes}>
                                     <div>
-
-                                        <b>Calificaciones por materia</b>
+                                        <b className={style.titleQualifications}>Calificaciones por materia</b>
                                     </div>
                                     {state?.Subjects.map(e => (
                                         <div key={e?.idSubject} className={style.subjectAndCalification} >
-                                            <div >
-                                                <b> Materia: </b>
-                                                <b>{e?.subjec}</b>
+                                            <div className={style.ChildsubjectAndCalification}>
+                                                <b> Materia: ({e?.subjec})</b>
                                             </div>
-                                            <div >
-                                                <b>Calificacion en</b>
-                                                <div >
-                                                    <b>{e?.subjec}:</b> <br />
-                                                    <b>vacío</b>
-                                                </div>
+                                            <div>
+
+                                                <b>Calificacion en {e?.subjec} (vacío)</b>
                                             </div>
+
                                         </div>
                                     ))}
                                 </div>
                             )}
                             <div className={style.redireccionAPadre}>
-                                <button style={{ fontWeight: "900", backgroundColor: "#9AC0EE" }} >
-                                    Volver al Perfil del Padre
+                                <button>
+                                    Volver
                                 </button>
                             </div>
                         </div>
                     </section>
                     <div className={style.containerPicture}>
-                        <div
-                            style={{
-                                display: "flex",
-                                flexDirection: "column",
-                                justifyContent: "space-evenly"
-                            }}
-                        >
-                            <p>
-                                {state?.fullName}
-                            </p>
-                            {
-                                estado?.rol === "student" ?
-                                    <p style={{ color: "#9AC0EE", fontWeight: "bold" }}>
-                                        Alumno
-                                    </p> : null
-                            }
-                        </div>
+                        <section>
+
+                            <div>
+                                <p className={style.Name}>{state?.fullName}</p>
+
+                            </div>
+                            <div>
+                                {
+                                    estado?.rol === "student" ?
+                                        <p className={style.RolTitle} >
+                                            Alumno
+                                        </p> : null
+                                }
+
+                            </div>
+                        </section>
                         <img className={style.imgRole} src={imagenHijo} alt="" />
                     </div>
                 </article>
