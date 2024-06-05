@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API = "https://edutech-nle9.onrender.com";
+const API = "https://edusync-fbva.onrender.com";
 
 export const listTeachers = async () => {
   try {
@@ -11,3 +11,13 @@ export const listTeachers = async () => {
     throw error;
   }
 };
+
+export const deleteTeacher= async (data)=>{
+  try {
+    const response= await axios.put(`${API}/delete/${data.email}`,{ select: data.role })
+    return response;
+  } catch (error) {
+    console.error('error delete parents:', error)
+    throw error
+  }
+}

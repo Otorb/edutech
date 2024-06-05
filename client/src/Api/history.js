@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const API='http://localhost:3001'
+const API='https://edusync-fbva.onrender.com'
 
 
 export const userHistory= () => axios.get(`${API}/historia`)
