@@ -27,6 +27,14 @@
   }
 }
 
+.FechNavYGrado{
+  b{
+    color: var(--color-blueSoft);
+    
+    font-weight: 900;
+  }
+}
+
 b {
   color: #777575;
   font-weight: 500;
