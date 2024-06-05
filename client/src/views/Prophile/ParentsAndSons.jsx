@@ -4,11 +4,11 @@ import { useNavigate } from 'react-router-dom'
 import { imagenHijo, imagenPadre, infoUser } from './ObjetoPrueba'
 import { useAppSelector } from '../../Hooks/useAppSelector'
 const ParentsAndSons = ({ estado }) => {
-
+// console.log( estado)
     const state = estado
 
 
-    console.log(state)
+    // console.log(state)
     return (
         <>
             <div className={style.bgContainer}>
@@ -35,16 +35,13 @@ const ParentsAndSons = ({ estado }) => {
                                 {state?.rol === "student" &&
                                     <div className={style.birthdayAndGrade}>
                                         <b >F. de Nacimiento & Curso</b>
-                                        <div style={{
-                                            display: "flex",
-                                            gap: "5px",
-                                        }}>
-                                            <i >
+                                        <div >
+                                            <b >
                                                 {state?.birthd || null}
-                                            </i>
-                                            <i>
+                                            </b>
+                                            <b>
                                                 ({state?.grade || ""})
-                                            </i>
+                                            </b>
                                         </div>
                                     </div>}
 
@@ -63,7 +60,7 @@ const ParentsAndSons = ({ estado }) => {
 
                                                 <b>Calificacion en {e?.subjec} (vacío)</b>
                                             </div>
-
+                                            --
                                         </div>
                                     ))}
                                 </div>

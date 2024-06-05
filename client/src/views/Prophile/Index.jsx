@@ -43,7 +43,7 @@ const Index = () => {
     // console.log(parentsState)
 
     
-
+console.log(StudentLogged)
 
 
     return (
