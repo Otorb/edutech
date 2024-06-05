@@ -47,6 +47,7 @@ b {
   font-weight: 900;
 }
 .articleRole {
+  max-width: 1000px;
   display: flex;
   justify-content: space-around;
   width: 90%;
