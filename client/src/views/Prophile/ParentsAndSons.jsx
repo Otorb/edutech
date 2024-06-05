@@ -60,7 +60,7 @@ const ParentsAndSons = ({ estado }) => {
 
                                                 <b>Calificacion en {e?.subjec} (vacío)</b>
                                             </div>
-
+                                            --
                                         </div>
                                     ))}
                                 </div>
