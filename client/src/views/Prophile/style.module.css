@@ -33,7 +33,7 @@ b {
 }
 .bgContainer {
   background-color: #cdcccc;
-  height: 99vh;
+  height: 100vh;
   display: grid;
   place-items: center;
 }
