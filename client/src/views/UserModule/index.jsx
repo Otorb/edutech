@@ -9,6 +9,8 @@ import Form from "../../components/Form/Form";
 import { useAppDispatch, useAppSelector } from "../../Hooks/useAppSelector";
 import { cargarUsuarios, eliminarEstudiante, eliminarPadre, eliminarProfesor } from "../../store/slicer/usersSlice";
 import { Toaster, toast } from "sonner";
+import { useForm } from "react-hook-form";
+import { AddStudient } from "../../Api/Studient";
 
 // const data = [
 //   {
@@ -86,7 +88,7 @@ import { Toaster, toast } from "sonner";
 const UserModule = () => {
 
   const dispatch= useAppDispatch()
-
+  const { register, handleSubmit } = useForm();
 
   const column = [
     {
@@ -212,42 +214,54 @@ const UserModule = () => {
   const handleopenModal = () => {
     setOpenModal(!openModal);
   };
-  const [formData, setFormData] = useState({
-    fullName: '',
-    email: '',
-    address: '',
-    phone: '',
-    active: false,
-    role: ''
-});
+ 
 
-// Manejar cambios en los campos del formulario
-const handleChangeForm = (event) => {
-    const { name, value, type, checked } = event.target;
-    const newValue = type === 'checkbox' ? checked : value;
-    setFormData({ ...formData, [name]: newValue });
-};
+
 
   const formSections = [
     {
         name: 'personal',
-        title: 'Personal Details',
+        title: 'Datos Personales',
         fields: [
-            { label: 'Apellido', type: 'text', placeholder: 'Ingrese su Apellido', required: true, value: formData.fullName  },
-            { label: 'Nombres', type: 'text', placeholder: 'Ingrese su Nombres', required: true, value: formData.fullName  },
-            { label: 'Email', type: 'email', placeholder: 'Ingrese su Email', required: true, value: formData.email },
-            { label: 'Dirección', type: 'text', placeholder: 'Ingrese su dirección', required: true, value: formData.address  },
-            { label: 'Telefono', type: 'tel', placeholder: 'Ingrese su Telefono', required: true, value: formData.phone  },
-            { label: 'Rol', type: 'text', placeholder: 'Ingres su rol', required: true, value: formData.role  },
-            { label: 'Activo', type: 'checkbox', checked: formData.active  }
+          { label: 'Apellido *', type: 'text', placeholder: 'Ingrese su Apellido', name: 'lastName' },
+          { label: 'Nombres *', type: 'text', placeholder: 'Ingrese su Nombres', name: 'name' },
+          { label: 'Email *', type: 'email', placeholder: 'Ingrese su Email', name: 'email' },
+          { label: 'Contraseña *', type: 'password', placeholder: 'Ingrese una contraseña', name: 'password' },
+          { label: 'Telefono *', type: 'tel', placeholder: 'Ingrese su Telefono', name: 'phone' },
+          { label: 'Fecha de Nacimiento *', type: 'date', name: 'birthd' },
+          { label: 'Registración *', type: 'text', placeholder: 'Ingrese la registracion', name: 'registration' },
+          { label: 'Foto *', type: 'text', placeholder: 'Ingrese URL imagen', name: 'photo' },
+          { label: 'Tipo de Usuario *', type: 'select', placeholder: 'Seleccione el tipo', name: 'role', options: [
+            { value: 'student', label: 'Estudiante' },
+            { value: 'parent', label: 'Padre' },
+            { value: 'teacher', label: 'Docente' },
+            { value: 'admin', label: 'Administrador' },
+          ] },
         ]
     },
 ];
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // Lógica para manejar el envío del formulario
+const onSubmit = async(data, event) => {
+  event.preventDefault(); // Evitar la recarga de la página
+  // Verificar si hay campos vacíos
+  if (!data.name || !data.lastName || !data.email || !data.password || !data.phone || !data.birthd || !data.registration || !data.photo || !data.role) {
+    toast.error('Todos los campos son obligatorios');
+    return;
+}
+  console.log(data)
+
+  if (data.role === 'student'){
+      try {
+     await AddStudient(data)
+    toast.success('Usuario cargo exitosamente')
+    dispatch(cargarUsuarios())
+  } catch (error) {
+    toast.error('Error: ', error)
+  }
+  }
+
 };
+
 
   return (
     <>
@@ -274,13 +288,17 @@ const handleChangeForm = (event) => {
           </button>
         </section>
         {openModal && (
-          <section className={style.sectionModuleForm}>
-            <span onClick={handleopenModal} className={style.close}>X</span>
-            <form onSubmit={handleSubmit}>
-            <Form title="Registration" fields={formSections} onChange={handleChangeForm} />
-            <button type="submit" className={style.btnAdd}>Enviar</button>
-        </form>
-          </section>
+           <section className={style.sectionModuleForm}>
+           <span onClick={handleopenModal} className={style.close}>
+             X
+           </span>
+           <form onSubmit={handleSubmit(onSubmit)}>
+             <Form title="Registration" fields={formSections} register={register} />
+             <button type="submit" className={style.btnAdd}>
+               Enviar
+             </button>
+           </form>
+         </section>
         )}
 
         <section className={style.sectionModule}>
