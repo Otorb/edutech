@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const API='https://edutech-nle9.onrender.com'
+const API='https://edusync-fbva.onrender.com'
 
 
 export const userLogin = async (data) => {

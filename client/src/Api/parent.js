@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API = 'https://edutech-nle9.onrender.com';
+const API = 'https://edusync-fbva.onrender.com';
 
 export const listParents = async () => {
   try {
@@ -11,3 +11,6 @@ export const listParents = async () => {
     throw error; // Lanzar el error para que pueda ser manejado por el código llamante
   }
 };
+
+
+
