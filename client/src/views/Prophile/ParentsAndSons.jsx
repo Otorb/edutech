@@ -4,11 +4,9 @@ import { useNavigate } from 'react-router-dom'
 import { imagenHijo, imagenPadre, infoUser } from './ObjetoPrueba'
 import { useAppSelector } from '../../Hooks/useAppSelector'
 const ParentsAndSons = ({ estado }) => {
-// console.log( estado)
     const state = estado
 
 
-    // console.log(state)
     return (
         <>
             <div className={style.bgContainer}>

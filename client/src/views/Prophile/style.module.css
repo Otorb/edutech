@@ -120,7 +120,7 @@ b {
   @media screen and (width < 768px) {
     grid-column: span 1;
     order: 1;
-    height: 128%;
+    height: fit-content;
   }
 }
 
@@ -130,7 +130,8 @@ b {
   flex: 1;
   justify-content: center;
   @media screen and (width < 768px) {
-    height: 45vh;
+    /* height: 45vh; */
+    height: fit-content;
   }
 }
 .ToContactUser {
