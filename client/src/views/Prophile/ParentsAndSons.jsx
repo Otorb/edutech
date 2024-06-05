@@ -35,7 +35,7 @@ const ParentsAndSons = ({ estado }) => {
                                 {state?.rol === "student" &&
                                     <div className={style.birthdayAndGrade}>
                                         <b >F. de Nacimiento & Curso</b>
-                                        <div >
+                                        <div className={style.FechNavYGrado} >
                                             <b >
                                                 {state?.birthd || null}
                                             </b>
