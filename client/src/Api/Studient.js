@@ -2,9 +2,9 @@ import axios from "axios";
 
 const API = "https://edusync-fbva.onrender.com";
 
-export const listParents = async () => {
+export const listStudients = async () => {
   try {
-    const response = await axios.get(`${API}/parent/searchAll`);
+    const response = await axios.get(`${API}/students/searchAll`);
     return response; 
   } catch (error) {
     console.error("Error fetching parents:", error);
@@ -12,7 +12,7 @@ export const listParents = async () => {
   }
 };
 
-export const deleteParents= async (data)=>{
+export const deleteStudient= async (data)=>{
   try {
     const response= await axios.put(`${API}/delete/${data.email}`,{ select: data.role })
     return response;
@@ -21,5 +21,3 @@ export const deleteParents= async (data)=>{
     throw error
   }
 }
-
-

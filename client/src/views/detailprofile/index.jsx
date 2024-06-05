@@ -1,16 +1,12 @@
-import React from 'react'
-import DetallesNombre from './components/DetallesNombre'
+
 import DetailTodo from './components/DetailTodo'
+import style from '../detailprofile/style/index.module.css'
 
 const index = () => {
   return (
-    <div>
-      {/*detalle del profile aca viene los de las componentes y se ubucan todos uno debajo de otro
-      este es el home estudiantes*/}
-      <br /> <br /> <br />
-      <DetallesNombre /> <br /> <br /> <br /> <br />
+      <div className={style.containerIndex}>
       <DetailTodo />
-    </div>
+      </div>
   )
 }
 

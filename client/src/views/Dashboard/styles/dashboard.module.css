@@ -8,7 +8,7 @@
 .sidebar {
   background-color:white;
   color: #333;
-  height: 100vh;
+  min-height: 100vh;
   padding: 1rem;
   position: relative;
   display: flex;

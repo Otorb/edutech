@@ -33,7 +33,7 @@ b {
   background: #fff;
   background-image: url("../../assets/img/edusyncLogo.png");
   background-repeat: no-repeat;
-  background-size: contain;
+  background-size: 24rem;
   background-position: center;
   @media screen and (width < 768px) {
     flex-direction: column;

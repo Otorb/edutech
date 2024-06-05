@@ -53,11 +53,17 @@ Notas.hasOne(Subject, { foreignKey: "idSubject" });
 Subject.hasOne(Promedio, { foreignKey: "idSubject" });
 Promedio.hasOne(Subject, { foreignKey: "idSubject" });
 
-Curso.hasMany(Subject, { foreignKey: "studentId" });
-Subject.hasMany(Curso, { foreignKey: "studentId" });
+Curso.hasMany(Subject, { foreignKey: "idCurso" });
+Subject.hasMany(Curso, { foreignKey: "idCurso" });
 
-Students.hasMany(Subject, { foreignKey: "studentId" });
-Subject.hasMany(Students, { foreignKey: "studentId" });
+Curso.hasMany(Students, { foreignKey: "studentId" });
+Students.hasOne(Curso, { foreignKey: "studentId" });
+
+// Students.hasMany(Subject, { foreignKey: "studentId" });
+// Subject.hasMany(Students, { foreignKey: "studentId" });
+
+Notas.hasMany(Curso, { foreignKey: "idSubject" });
+Curso.hasMany(Notas, { foreignKey: "idSubject" });
 
 Students.hasMany(Notas, { foreignKey: "studentId" });
 Notas.hasOne(Students, { foreignKey: "studentId" });

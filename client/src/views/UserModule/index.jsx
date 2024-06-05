@@ -3,88 +3,95 @@ import style from "./style/userModule.module.css";
 import DataTable from "react-data-table-component";
 import { useEffect, useState } from "react";
 import Loading from "../../components/Loading/Loading";
-import { downloadCSV } from "./Components/exportCSV"; // Asegúrate de ajustar la ruta según tu estructura de carpetas
+import { downloadCSV } from "./Components/exportCSV"; 
 import CustomActionMenu from "./Components/CustomActionMenu";
 import Form from "../../components/Form/Form";
+import { useAppDispatch, useAppSelector } from "../../Hooks/useAppSelector";
+import { cargarUsuarios, eliminarEstudiante, eliminarPadre, eliminarProfesor } from "../../store/slicer/usersSlice";
+import { Toaster, toast } from "sonner";
 
-const data = [
-  {
-    nombre: "Juan Pérez",
-    email: "juan.perez@example.com",
-    telefono: "+54 11 1234 5678",
-    rol: "Administrador",
-    estado: "Activo",
-  },
-  {
-    nombre: "María Gómez",
-    email: "maria.gomez@example.com",
-    telefono: "+54 11 8765 4321",
-    rol: "Usuario",
-    estado: "Activo",
-  },
-  {
-    nombre: "Carlos Rodríguez",
-    email: "carlos.rodriguez@example.com",
-    telefono: "+54 11 2345 6789",
-    rol: "Moderador",
-    estado: "Inactivo",
-  },
-  {
-    nombre: "Laura Martínez",
-    email: "laura.martinez@example.com",
-    telefono: "+54 11 3456 7890",
-    rol: "Usuario",
-    estado: "Activo",
-  },
-  {
-    nombre: "Pedro Fernández",
-    email: "pedro.fernandez@example.com",
-    telefono: "+54 11 4567 8901",
-    rol: "Administrador",
-    estado: "Inactivo",
-  },
-  {
-    nombre: "Ana Torres",
-    email: "ana.torres@example.com",
-    telefono: "+54 11 5678 9012",
-    rol: "Usuario",
-    estado: "Activo",
-  },
-  {
-    nombre: "Jorge López",
-    email: "jorge.lopez@example.com",
-    telefono: "+54 11 6789 0123",
-    rol: "Moderador",
-    estado: "Activo",
-  },
-  {
-    nombre: "Marta Sánchez",
-    email: "marta.sanchez@example.com",
-    telefono: "+54 11 7890 1234",
-    rol: "Usuario",
-    estado: "Inactivo",
-  },
-  {
-    nombre: "Luis Ramírez",
-    email: "luis.ramirez@example.com",
-    telefono: "+54 11 8901 2345",
-    rol: "Administrador",
-    estado: "Activo",
-  },
-  {
-    nombre: "Elena Navarro",
-    email: "elena.navarro@example.com",
-    telefono: "+54 11 9012 3456",
-    rol: "Usuario",
-    estado: "Activo",
-  },
-];
+// const data = [
+//   {
+//     nombre: "Juan Pérez",
+//     email: "juan.perez@example.com",
+//     telefono: "+54 11 1234 5678",
+//     rol: "Administrador",
+//     estado: "Activo",
+//   },
+//   {
+//     nombre: "María Gómez",
+//     email: "maria.gomez@example.com",
+//     telefono: "+54 11 8765 4321",
+//     rol: "Usuario",
+//     estado: "Activo",
+//   },
+//   {
+//     nombre: "Carlos Rodríguez",
+//     email: "carlos.rodriguez@example.com",
+//     telefono: "+54 11 2345 6789",
+//     rol: "Moderador",
+//     estado: "Inactivo",
+//   },
+//   {
+//     nombre: "Laura Martínez",
+//     email: "laura.martinez@example.com",
+//     telefono: "+54 11 3456 7890",
+//     rol: "Usuario",
+//     estado: "Activo",
+//   },
+//   {
+//     nombre: "Pedro Fernández",
+//     email: "pedro.fernandez@example.com",
+//     telefono: "+54 11 4567 8901",
+//     rol: "Administrador",
+//     estado: "Inactivo",
+//   },
+//   {
+//     nombre: "Ana Torres",
+//     email: "ana.torres@example.com",
+//     telefono: "+54 11 5678 9012",
+//     rol: "Usuario",
+//     estado: "Activo",
+//   },
+//   {
+//     nombre: "Jorge López",
+//     email: "jorge.lopez@example.com",
+//     telefono: "+54 11 6789 0123",
+//     rol: "Moderador",
+//     estado: "Activo",
+//   },
+//   {
+//     nombre: "Marta Sánchez",
+//     email: "marta.sanchez@example.com",
+//     telefono: "+54 11 7890 1234",
+//     rol: "Usuario",
+//     estado: "Inactivo",
+//   },
+//   {
+//     nombre: "Luis Ramírez",
+//     email: "luis.ramirez@example.com",
+//     telefono: "+54 11 8901 2345",
+//     rol: "Administrador",
+//     estado: "Activo",
+//   },
+//   {
+//     nombre: "Elena Navarro",
+//     email: "elena.navarro@example.com",
+//     telefono: "+54 11 9012 3456",
+//     rol: "Usuario",
+//     estado: "Activo",
+//   },
+// ];
 
-const index = () => {
+const UserModule = () => {
+
+  const dispatch= useAppDispatch()
+
+
   const column = [
     {
       name: "Nombre Apellido",
-      selector: (row) => row.nombre,
+      selector: (row) => row.fullName,
       sortable: true,
     },
     {
@@ -94,22 +101,22 @@ const index = () => {
     },
     {
       name: "Telefono",
-      selector: (row) => row.telefono,
+      selector: (row) => row.phone,
     },
     {
       name: "Rol",
-      selector: (row) => row.rol,
+      selector: (row) => row.role,
     },
     {
       name: "Estado",
       cell: (row) => (
         <span
           style={{
-            color: row.estado === "Activo" ? "#29bf12" : "#f21b3f",
+            color: row.active ? "#29bf12" : "#f21b3f",
             fontWeight: "bold",
           }}
         >
-          {row.estado}
+          {row.active ? 'Activo':'Inactivo'}
         </span>
       ),
       sortable: true,
@@ -129,30 +136,46 @@ const index = () => {
     },
   ];
 
-  const [records, setRecords] = useState(data);
+  const dataUsers = useAppSelector(state=> state.users.usersData)
+  
+  const [records, setRecords] = useState(dataUsers);
   const [loading, setLoading] = useState(true);
   const [openModal, setOpenModal] = useState(false);
 
+  const mensaje = useAppSelector(state => state.users.mensaje);
+
+  useEffect(() => {
+    if (mensaje) {
+      toast.success(mensaje);
+      dispatch(cargarUsuarios())
+    }
+  }, [mensaje]);
+
+  useEffect(() => {
+    dispatch(cargarUsuarios());
+  }, []);
+
   useEffect(() => {
     const tiemout = setTimeout(() => {
-      setRecords(data);
+      setRecords(dataUsers);
       setLoading(false);
     }, 2000);
 
     return () => clearTimeout(tiemout);
-  }, []);
+  }, [dataUsers]);
+ 
 
   const handleFilterChange = (e) => {
     const filterValue = e.target.value;
-    const filteredRecords = data.filter((record) =>
-      record.rol.toLowerCase().includes(filterValue.toLowerCase())
+    const filteredRecords = dataUsers.filter((record) =>
+      record.role.toLowerCase().includes(filterValue.toLowerCase())
     );
     setRecords(filteredRecords);
   };
 
   const handleChange = (e) => {
-    const filterRecords = data.filter((record) => {
-      return record.nombre.toLowerCase().includes(e.target.value.toLowerCase());
+    const filterRecords = dataUsers.filter((record) => {
+      return record.fullName.toLowerCase().includes(e.target.value.toLowerCase());
     });
     setRecords(filterRecords);
   };
@@ -170,8 +193,21 @@ const index = () => {
   };
 
   const handleDelete = (row) => {
-    console.log("Delete:", row);
+    const userDataToDelete = {
+      email: row.email,
+      role: row.role,
+    };
+    
+    if (row.role === 'student') {
+      dispatch(eliminarEstudiante(userDataToDelete));
+    } else if (row.role === 'parent') {
+      dispatch(eliminarPadre(userDataToDelete));
+    } else if (row.role === 'teacher') {
+      dispatch(eliminarProfesor(userDataToDelete));
+    }
+    
   };
+  
 
   const handleopenModal = () => {
     setOpenModal(!openModal);
@@ -216,6 +252,7 @@ const handleChangeForm = (event) => {
   return (
     <>
       <div className={style.containerUserModule}>
+      <Toaster richColors position="top-left"/>
         <h1 className={style.titleUserModule}>Usuarios</h1>
         <p className={style.descriptionUserModule}>
           Como administrador, usted puede gestionar y personalizar la
@@ -249,9 +286,10 @@ const handleChangeForm = (event) => {
         <section className={style.sectionModule}>
           <select className={style.selectUser} onChange={handleFilterChange}>
             <option value="">Seleccionar Rol</option>
-            <option value="Administrador">Administrador</option>
-            <option value="Usuario">Usuario</option>
-            <option value="Moderador">Moderador</option>
+            <option value="Admin">Administrador</option>
+            <option value="parent">Padres</option>
+            <option value="teacher">Docente</option>
+            <option value="studient">Estudiante</option>
           </select>
           <button className={style.btnAddExport} onClick={handleExport}>
             Exportar Excel
@@ -263,7 +301,7 @@ const handleChangeForm = (event) => {
             data={records}
             selectableRows
             pagination
-            paginationPerPage={8}
+            paginationPerPage={10}
             onSelectedRowsChange={(data) => console.log(data)}
             progressPending={loading}
             progressComponent={<Loading />}
@@ -274,4 +312,4 @@ const handleChangeForm = (event) => {
   );
 };
 
-export default index;
+export default UserModule;

@@ -38,10 +38,6 @@ export default function Students(sequelize) {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    grade: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
     photo: {
       type: DataTypes.STRING,
       allowNull: true,
@@ -60,6 +56,9 @@ export default function Students(sequelize) {
       type: DataTypes.STRING,
       defaultValue: "student",
     },
+  }, {
+    freezeTableName: true,
+    timestamps: false,
   });
 
   return Students;

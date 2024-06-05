@@ -1,4 +1,4 @@
-import { Subject } from "../models/index.js";
+import { Subject, Notas } from "../models/index.js";
 
 
 
@@ -27,7 +27,7 @@ export const crearMateria = async (req, res, next) => {
   /// historias 
 export const traerMaterias = async (req, res, next) => {
     try {
-      const materias = await Subject.findAll();
+      const materias = await Subject.findAll({include:{  model: Notas }});
       if (!materias)
         return res
           .status(404)
