@@ -137,6 +137,9 @@ form .buttons button , .backBtn{
     margin-right: 14px;
 }
 @media (max-width: 750px) {
+    .containerForm{
+        min-width: 20rem;
+    }
     .containerForm form{
         overflow-y: scroll;
     }

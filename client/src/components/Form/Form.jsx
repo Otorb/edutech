@@ -1,10 +1,9 @@
 import "./form.css";
 
-const Form = ({ title, fields, onSubmit }) => {
+const Form = ({ title, fields, register }) => {
   return (
     <div className="containerForm">
-      
-      <form onSubmit={onSubmit}>
+      <form>
         {fields.map((formSection, index) => (
           <div key={index} className={`form ${formSection.name}`}>
             <div className="details">
@@ -13,11 +12,19 @@ const Form = ({ title, fields, onSubmit }) => {
                 {formSection.fields.map((field, idx) => (
                   <div key={idx} className="input-field">
                     <label>{field.label}</label>
-                    <input
-                      type={field.type}
-                      placeholder={field.placeholder}
-                      required={field.required}
-                    />
+                    {field.type === 'select' ? (
+                      <select {...register(field.name)}>
+                        {field.options.map((option, optIdx) => (
+                          <option key={optIdx} value={option.value}>{option.label}</option>
+                        ))}
+                      </select>
+                    ) : (
+                      <input
+                        type={field.type}
+                        placeholder={field.placeholder}
+                        {...register(field.name)} 
+                      />
+                    )}
                   </div>
                 ))}
               </div>
@@ -30,3 +37,4 @@ const Form = ({ title, fields, onSubmit }) => {
 };
 
 export default Form;
+

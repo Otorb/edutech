@@ -20,4 +20,15 @@ export const deleteStudient= async (data)=>{
     console.error('error delete parents:', error)
     throw error
   }
+
 }
+export const AddStudient= async (data)=>{
+  try {
+    const response= await axios.post(`${API}/students`,data)
+    return response;
+  } catch (error) {
+    console.error('error delete parents:', error)
+    throw error
+  }
+}
+
