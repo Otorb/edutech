@@ -6,8 +6,8 @@ import Loading from "../../components/Loading/Loading";
 import { downloadCSV } from "./Components/exportCSV"; // Asegúrate de ajustar la ruta según tu estructura de carpetas
 import CustomActionMenu from "./Components/CustomActionMenu";
 import Form from "../../components/Form/Form";
-import { data } from "./ObjectsCourseTable";
-import { CoursesApi } from "../../Api/Course";
+import { data, CursoAlumno } from "./ObjectsCourseTable";
+// import { CoursesApi } from "../../Api/Course";
 
 
 
@@ -16,27 +16,26 @@ const index = () => {
 const [Courses, setCourses] = useState([])
 const [load, setLoad] = useState(true)
 
-const CoursesFun = async () => { 
-  const Courses = await CoursesApi()
-  setCourses(Courses)
+// const CoursesFun = async () => { 
+//   const Courses = await CoursesApi()
+//   setCourses(Courses)
   
-}
+// }
 
-useEffect(()=> {
-  CoursesFun()
-  setLoad(false)
-},[])
+// useEffect(()=> {
+//   CoursesFun()
+//   setLoad(false)
+// },[])
 
-console.log(Courses)
+console.log(CursoAlumno)
 
 const LoadingFn = () => <h1>Cargando..</h1>   
 
-   
 
   const courses = [
     {
       name: "Materia",
-      selector: (row) => row.Courses.data?.map(e => e.Subjects.map(e => e.subjec)),
+      selector: (row) => row.Subjects.map(e => e.subjec),
       sortable: true,
     },
     {
@@ -63,14 +62,14 @@ const LoadingFn = () => <h1>Cargando..</h1>
     },
   ];
 
-  const [records, setRecords] = useState(Courses);
+  const [records, setRecords] = useState(CursoAlumno);
   const [loading, setLoading] = useState(true);
   const [openModal, setOpenModal] = useState(false);
 
 
   useEffect(() => {
     const tiemout = setTimeout(() => {
-      setRecords(Courses);
+      setRecords(CursoAlumno);
       setLoading(false);
     }, 1000);
 
