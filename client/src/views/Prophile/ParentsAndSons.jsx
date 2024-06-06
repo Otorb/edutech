@@ -1,11 +1,12 @@
 import React from 'react'
 import style from './style.module.css'
-import { useNavigate } from 'react-router-dom'
-import { imagenHijo, imagenPadre, infoUser } from './ObjetoPrueba'
-import { useAppSelector } from '../../Hooks/useAppSelector'
-const ParentsAndSons = ({ estado }) => {
-    const state = estado
+import { imagenHijo, imagenPadre } from './ObjetoPrueba'
+const ParentsAndSons = ({ estado, estado2 }) => {
+    const parent = estado2?.data?.resultGetAllParents
 
+    console.log(parent)
+    const student = estado
+    console.log(student)
 
     return (
         <>
@@ -17,39 +18,39 @@ const ParentsAndSons = ({ estado }) => {
                             <div className={style.ToContactUser}>
                                 <div>
                                     <b>Email  </b>
-                                    <a href='' onClick={(e) => e.preventDefault()}>{state?.email}</a>
+                                    <a href='' onClick={(e) => e.preventDefault()}>{student?.email}</a>
                                 </div>
                                 <div>
                                     <b>Celular  </b>
-                                    <a href='' onClick={(e) => e.preventDefault()}>{state?.phone}</a>
+                                    <a href='' onClick={(e) => e.preventDefault()}>{student?.phone}</a>
                                 </div>
 
-                                {state?.rol === "parent" && (
+                                {parent?.role === "parent" && (
                                     (<div>
                                         <b>Direccion  </b>
-                                        <a href='' onClick={(e) => e.preventDefault()}>{state?.address || "no hay direccion"}</a>
+                                        <a href='' onClick={(e) => e.preventDefault()}>{student?.address || "no hay direccion"}</a>
                                     </div>)
                                 )}
-                                {state?.rol === "student" &&
+                                {student?.rol === "student" &&
                                     <div className={style.birthdayAndGrade}>
                                         <b >F. de Nacimiento & Curso</b>
                                         <div className={style.FechNavYGrado} >
                                             <b >
-                                                {state?.birthd || null}
+                                                {student?.birthd || null}
                                             </b>
                                             <b>
-                                                ({state?.grade || ""})
+                                                ({student?.grade || ""})
                                             </b>
                                         </div>
                                     </div>}
 
                             </div>
-                            {state?.rol === "student" && (
+                            {student?.rol === "student" && (
                                 <div className={style.subjectNotes}>
                                     <div>
                                         <b className={style.titleQualifications}>Calificaciones por materia</b>
                                     </div>
-                                    {state?.Subjects.map(e => (
+                                    {student?.Subjects.map(e => (
                                         <div key={e?.idSubject} className={style.subjectAndCalification} >
                                             <div className={style.ChildsubjectAndCalification}>
                                                 <b> Materia: ({e?.subjec})</b>
@@ -74,7 +75,7 @@ const ParentsAndSons = ({ estado }) => {
                         <section>
 
                             <div>
-                                <p className={style.Name}>{state?.fullName}</p>
+                                <p className={style.Name}>{student?.fullName}</p>
 
                             </div>
                             <div>

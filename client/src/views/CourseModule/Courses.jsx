@@ -5,31 +5,46 @@ import { useEffect, useState } from "react";
 import Loading from "../../components/Loading/Loading";
 import { downloadCSV } from "./Components/exportCSV"; // Asegúrate de ajustar la ruta según tu estructura de carpetas
 import CustomActionMenu from "./Components/CustomActionMenu";
-import Form from "../../components/Form/Form";
 import { data, CursoAlumno } from "./ObjectsCourseTable";
+import { useForm } from "react-hook-form"
+import Form from "../../components/Form/Form";
 // import { CoursesApi } from "../../Api/Course";
 
 
 
 const index = () => {
 
-const [Courses, setCourses] = useState([])
-const [load, setLoad] = useState(true)
+  const { register, handleSubmit } = useForm()
 
-// const CoursesFun = async () => { 
-//   const Courses = await CoursesApi()
-//   setCourses(Courses)
-  
-// }
 
-// useEffect(()=> {
-//   CoursesFun()
-//   setLoad(false)
-// },[])
+  // register = { register }
+  // useForm
 
-console.log(CursoAlumno)
+  // const { register, handleSubmit } = useForm();
 
-const LoadingFn = () => <h1>Cargando..</h1>   
+  // <form onSubmit={handleSubmit(onSubmit)}>
+  //   <Form title="Registration" fields={formSections} register={register} />
+  //   <button type="submit" className={style.btnAdd}>
+  //     Enviar
+  //   </button>
+
+  const [Courses, setCourses] = useState([])
+  const [load, setLoad] = useState(true)
+
+  // const CoursesFun = async () => {
+  //   const Courses = await CoursesApi()
+  //   setCourses(Courses)
+
+  // }
+
+  // useEffect(()=> {
+  //   CoursesFun()
+  //   setLoad(false)
+  // },[])
+
+  console.log(CursoAlumno)
+
+  const LoadingFn = () => <h1>Cargando..</h1>
 
 
   const courses = [
@@ -43,7 +58,7 @@ const LoadingFn = () => <h1>Cargando..</h1>
       selector: (row) => row.curso,
       sortable: true,
     },
-    
+
 
 
 
@@ -78,7 +93,7 @@ const LoadingFn = () => <h1>Cargando..</h1>
 
   // const handleFilterChange = (e) => {
   //   const filterValue = e.target.value;
-  //   // acá es un filtro parseado a  minuscula, 
+  //   // acá es un filtro parseado a  minuscula,
   //   //"si hay un dato existente en data que tambien exista en rol, que lo asigne a filteredRecords"
   //   const filteredRecords = data.filter((record) =>
   //     record.rol.toLowerCase().includes(filterValue.toLowerCase())
@@ -93,6 +108,9 @@ const LoadingFn = () => <h1>Cargando..</h1>
   //   setRecords(filterRecords);
   // };
 
+  const onSubmit = (e) => {
+    console.log(e)
+  }
   const handleExport = () => {
     downloadCSV(records);
   };
@@ -128,21 +146,8 @@ const LoadingFn = () => <h1>Cargando..</h1>
     setFormData({ ...formData, [name]: newValue });
   };
 
-  const formSections = [
-    {
-      name: 'courses',
-      title: 'rsos de la escuela',
-      fields: [
-        { label: 'Apellido', type: 'text', placeholder: 'Ingrese su Apellido', required: true, value: formData.fullName },
-        { label: 'Nombres', type: 'text', placeholder: 'Ingrese su Nombres', required: true, value: formData.fullName },
-        { label: 'Email', type: 'email', placeholder: 'Ingrese su Email', required: true, value: formData.email },
-        { label: 'Dirección', type: 'text', placeholder: 'Ingrese su dirección', required: true, value: formData.address },
-        { label: 'Telefono', type: 'tel', placeholder: 'Ingrese su Telefono', required: true, value: formData.phone },
-        { label: 'Rol', type: 'text', placeholder: 'Ingres su rol', required: true, value: formData.role },
-        { label: 'Activo', type: 'checkbox', checked: formData.active }
-      ]
-    },
-  ];
+
+
   const formSectionsCourses = [
     {
       name: 'personal',
@@ -159,7 +164,7 @@ const LoadingFn = () => <h1>Cargando..</h1>
     },
   ];
 
-  const handleSubmit = (event) => {
+  const handleSubmitt = (event) => {
     event.preventDefault();
     // Lógica para manejar el envío del formulario
   };
@@ -180,7 +185,7 @@ const LoadingFn = () => <h1>Cargando..</h1>
               type="text"
               placeholder="Nombre.."
               className={style.search}
-              // onChange={handleChange}
+            // onChange={handleChange}
             />
           </div>
           <button className={style.btnAdd} onClick={handleopenModal}>
@@ -191,14 +196,14 @@ const LoadingFn = () => <h1>Cargando..</h1>
           <section className={style.sectionModuleForm}>
             <span onClick={handleopenModal} className={style.close}>X</span>
             <form onSubmit={handleSubmit}>
-              <Form title="Registration" fields={formSectionsCourses} onChange={handleChangeForm} />
+              <Form title="Registration" onSubmit={handleSubmit(onSubmit)} fields={formSectionsCourses} register={register} onChange={handleChangeForm} />
               <button type="submit" className={style.btnAdd}>Enviar</button>
             </form>
           </section>
         )}
 
         <section className={style.sectionModule}>
-          <select className={style.selectUser} 
+          <select className={style.selectUser}
           // onChange={handleFilterChange}
           >
             <option value="">Seleccionar </option>

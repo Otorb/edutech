@@ -3,21 +3,20 @@ import axios from "axios";
 
 export const fetchUserData = createAsyncThunk(
   "user/fetchUserData",
-  async ({ email, token, rol }, { rejectWithValue }) => {
+  async ({ email, token, role }, { rejectWithValue }) => {
+    console.log("Entré")
     try {
+      console.log("Entré 2")
       const response = await axios.get(
-        `https://edusync-fbva.onrender.com/${rol}/searchAll`,
+        `https://edusync-fbva.onrender.com/${role}/searchAll`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         }
       );
-
-      const userData = response.data.resultStudent.find(
-        (user) => user.email === email
-      );
-
+      const userData = response.data.resultStudent.find((user) => user.email === email[0]);
+      console.log(response)
       return userData;
     } catch (error) {
       return rejectWithValue(error.response.data);

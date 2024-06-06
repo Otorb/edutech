@@ -20,25 +20,25 @@ const Sidebar = ({ position, visible, toggleSidebar, isCollapsed, toggleCollapse
   };
 
   const renderMenuItems = () => {
-    const rolePath = `/dashboard/${userData.rol}`;
+    const rolPath = `/dashboard`;
     
-    switch (userData.rol) {
+    switch (userData.role) {
       case 'admin':
         return (
           <>
-            <Link to={`${rolePath}/eventos`} className={style.liNav}>
+            <Link to={`${rolPath}/eventos`} className={style.liNav}>
               <FiCalendar className={style.iconNav} />
               {!isCollapsed && 'Eventos'}
             </Link>
-            <Link to={`${rolePath}/usuarios`} className={style.liNav}>
+            <Link to={`${rolPath}/usuarios`} className={style.liNav}>
               <FiUsers className={style.iconNav} />
               {!isCollapsed && 'Usuarios'}
             </Link>
-            <Link to={`${rolePath}/cursos`} className={style.liNav}>
+            <Link to={`${rolPath}/cursos`} className={style.liNav}>
               <FiBook className={style.iconNav} />
               {!isCollapsed && 'Cursos'}
             </Link>
-            <Link to={`${rolePath}/mensajes`} className={style.liNav}>
+            <Link to={`${rolPath}/mensajes`} className={style.liNav}>
               <FiMail className={style.iconNav} />
               {!isCollapsed && 'Mensajes'}
             </Link>
@@ -47,15 +47,15 @@ const Sidebar = ({ position, visible, toggleSidebar, isCollapsed, toggleCollapse
       case 'teachers':
         return (
           <>
-            <Link to={`${rolePath}/ver-grados`} className={style.liNav}>
+            <Link to={`${rolPath}/ver-grados`} className={style.liNav}>
               <FiUsers className={style.iconNav} />
               {!isCollapsed && 'Ver Grados'}
             </Link>
-            <Link to={`${rolePath}/cargar-nota`} className={style.liNav}>
+            <Link to={`${rolPath}/cargar-nota`} className={style.liNav}>
               <FiBook className={style.iconNav} />
               {!isCollapsed && 'Cargar Nota'}
             </Link>
-            <Link to={`${rolePath}/enviar-mensaje`} className={style.liNav}>
+            <Link to={`${rolPath}/enviar-mensaje`} className={style.liNav}>
               <FiMail className={style.iconNav} />
               {!isCollapsed && 'Enviar Mensaje'}
             </Link>
@@ -65,19 +65,19 @@ const Sidebar = ({ position, visible, toggleSidebar, isCollapsed, toggleCollapse
       case 'student':
         return (
           <>
-            <Link to={`${rolePath}/promedios`} className={style.liNav}>
+            <Link to={`${rolPath}/promedios`} className={style.liNav}>
               <FiBook className={style.iconNav} />
               {!isCollapsed && 'Promedio'}
             </Link>
-            <Link to={`${rolePath}/examenes`} className={style.liNav}>
+            <Link to={`${rolPath}/examenes`} className={style.liNav}>
               <FiCalendar className={style.iconNav} />
               {!isCollapsed && 'Exámenes'}
             </Link>
-            <Link to={`${rolePath}/resumen-mensajes`} className={style.liNav}>
+            <Link to={`${rolPath}/resumen-mensajes`} className={style.liNav}>
               <FiMail className={style.iconNav} />
               {!isCollapsed && 'Resumen de Mensajes'}
             </Link>
-            <Link to={`${rolePath}/eventos`} className={style.liNav}>
+            <Link to={`${rolPath}/eventos`} className={style.liNav}>
               <FiCalendar className={style.iconNav} />
               {!isCollapsed && 'Eventos'}
             </Link>
