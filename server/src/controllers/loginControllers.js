@@ -35,28 +35,28 @@ export async function login(email, password) {
   if (user) {
     const token = generateToken(user);
     const emailVerified = await sendAccountCreationSuccessEmail(email);
-    return { user:[ user.email, user.rol], token };
+    return { user:[ user.email, user.role], token };
   }
 
   const userTeacher = await authenticateUser(email, password, Teachers);
   if (userTeacher) {
     const token = generateToken(userTeacher);
     const emailVerified = await sendAccountCreationSuccessEmail(email);
-    return { userTeacher: [userTeacher.email, userTeacher.rol], token };
+    return { userTeacher: [userTeacher.email, userTeacher.role], token };
   }
 
   const userStudent = await authenticateUser(email, password, Students);
   if (userStudent) {
     const token = generateToken(userStudent);
     const emailVerified = await sendAccountCreationSuccessEmail(email);
-    return { userStudent: [userStudent.email, userStudent.rol], token };
+    return { userStudent: [userStudent.email, userStudent.role], token };
   }
 
   const parenstUser = await authenticateUser(email, password, Parents);
   if (parenstUser) {
     const token = generateToken(parenstUser);
     const emailVerified = await sendAccountCreationSuccessEmail(email);
-    return { userStudent: [parenstUser.email, parenstUser.rol], token };
+    return { userStudent: [parenstUser.email, parenstUser.role], token };
   }
 
   throw new Error("Credenciales inválidas");
