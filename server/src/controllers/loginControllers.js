@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 import { Op } from "sequelize";
 import { generateToken } from "../auth/generateToken.js";
-import { Students, Admin, Teachers } from "../models/index.js";
+import { Students, Admin, Teachers, Parents } from "../models/index.js";
 import { sendAccountCreationSuccessEmail } from "../services/emailServices.js";
 
 async function findUserByEmail(email, model) {
@@ -50,6 +50,13 @@ export async function login(email, password) {
     const token = generateToken(userStudent);
     const emailVerified = await sendAccountCreationSuccessEmail(email);
     return { userStudent: [userStudent.email, userStudent.rol], token };
+  }
+
+  const parenstUser = await authenticateUser(email, password, Parents);
+  if (userStudeparenstUsernt) {
+    const token = generateToken(parenstUser);
+    const emailVerified = await sendAccountCreationSuccessEmail(email);
+    return { userStudent: [parenstUser.email, parenstUser.rol], token };
   }
 
   throw new Error("Credenciales inválidas");
