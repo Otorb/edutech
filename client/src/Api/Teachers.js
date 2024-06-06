@@ -21,3 +21,13 @@ export const deleteTeacher= async (data)=>{
     throw error
   }
 }
+
+export const AddTeacher= async (data)=>{
+  try {
+    const response= await axios.post(`${API}/teachers`,data)
+    return response;
+  } catch (error) {
+    console.error('error delete parents:', error)
+    throw error
+  }
+}

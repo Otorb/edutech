@@ -22,4 +22,14 @@ export const deleteParents= async (data)=>{
   }
 }
 
+export const AddParent= async (data)=>{
+  try {
+    const response= await axios.post(`${API}/parent`,data)
+    return response;
+  } catch (error) {
+    console.error('error delete parents:', error)
+    throw error
+  }
+}
+
 
