@@ -2,9 +2,10 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import style from '../styles/dashboard.module.css';
 import useSignOut from 'react-auth-kit/hooks/useSignOut';
-import { useAppSelector } from '../../../Hooks/useAppSelector';
+import { useAppDispatch, useAppSelector } from '../../../Hooks/useAppSelector';
 import { FcReading } from "react-icons/fc";
 import { FiCalendar, FiUsers, FiBook, FiMail, FiLogOut } from "react-icons/fi";
+import { clearUserData } from '../../../store/slicer/userSlice';
 
 const Sidebar = ({ position, visible, toggleSidebar, isCollapsed, toggleCollapse }) => {
   const sidebarClass = `${style.sidebar} ${style[position + 'Sidebar']} ${visible ? style.show : ''} ${isCollapsed ? style.collapsed : ''}`;
@@ -14,8 +15,11 @@ const Sidebar = ({ position, visible, toggleSidebar, isCollapsed, toggleCollapse
   const userData = useAppSelector((state) => state.user.data);
   console.log(userData)
 
+  const dispatch = useAppDispatch()
+
   const handleSignOut = () => {
     signOut();
+    dispatch(clearUserData())
     navigate('/');
   };
 
@@ -62,7 +66,7 @@ const Sidebar = ({ position, visible, toggleSidebar, isCollapsed, toggleCollapse
           </>
         );
       case 'parent':
-      case 'student':
+      case 'students':
         return (
           <>
             <Link to={`${rolePath}/promedios`} className={style.liNav}>
