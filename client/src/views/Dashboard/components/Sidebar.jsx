@@ -20,7 +20,7 @@ const Sidebar = ({ position, visible, toggleSidebar, isCollapsed, toggleCollapse
   };
 
   const renderMenuItems = () => {
-    const rolePath = `/dashboard/${userData.rol}`;
+    const rolePath = `/dashboard`;
     
     switch (userData.rol) {
       case 'admin':
@@ -93,13 +93,29 @@ const Sidebar = ({ position, visible, toggleSidebar, isCollapsed, toggleCollapse
       <section className={style.headNav}>
         <button className={style.closeBtn} onClick={toggleSidebar}>×</button>
         <div className={style.userProfile}>
-          <div className={style.contentPhone}>
+          {userData.rol === 'admin'?
+            <>
+            <div className={style.contentPhone}>
+             <img src={userData.photoUser} alt="User" className={style.userPhoto} />
+           </div>
+           <div className={style.detallUserNav}>
+             {!isCollapsed && <span className={style.titleNav}>{`Bienvenido`}<FcReading /></span>}
+             {!isCollapsed && <span>{userData?.nameUser}</span>}
+           </div>
+           </>  
+          :
+          <>
+           <div className={style.contentPhone}>
             <img src='https://static.vecteezy.com/system/resources/thumbnails/027/951/137/small_2x/stylish-spectacles-guy-3d-avatar-character-illustrations-png.png' alt="User" className={style.userPhoto} />
           </div>
           <div className={style.detallUserNav}>
             {!isCollapsed && <span className={style.titleNav}>{`Bienvenido`}<FcReading /></span>}
             {!isCollapsed && <span>{userData?.lastName}</span>}
           </div>
+          </>
+         
+          }
+          
         </div>
         <button onClick={toggleCollapse} className={style.collapseBtn}>
           {isCollapsed ? '>' : '<'}
