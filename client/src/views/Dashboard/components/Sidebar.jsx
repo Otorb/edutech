@@ -22,7 +22,7 @@ const Sidebar = ({ position, visible, toggleSidebar, isCollapsed, toggleCollapse
   const renderMenuItems = () => {
     const rolePath = `/dashboard`;
     
-    switch (userData.rol) {
+    switch (userData.role) {
       case 'admin':
         return (
           <>
@@ -93,7 +93,7 @@ const Sidebar = ({ position, visible, toggleSidebar, isCollapsed, toggleCollapse
       <section className={style.headNav}>
         <button className={style.closeBtn} onClick={toggleSidebar}>×</button>
         <div className={style.userProfile}>
-          {userData.rol === 'admin'?
+          {userData.role === 'admin'?
             <>
             <div className={style.contentPhone}>
              <img src={userData.photoUser} alt="User" className={style.userPhoto} />
