@@ -5,7 +5,7 @@ import Home from "./views/Home/Index";
 import Users from "./views/Prophile/Index";
 import AuthOutlet from "@auth-kit/react-router/AuthOutlet";
 import DetailProfile from "./views/detailprofile/index"
-import FullInfoSon from "./views/Prophile/ParentsAndSons";
+//import FullInfoSon from "./views/Prophile/ParentsAndSons";
 import NotFound from './views/NotFound/index'
 import UserModule from './views/UserModule/index'
 import Courses from './views/CourseModule/Courses'

@@ -35,6 +35,18 @@ export const agregarProfesor = createAsyncThunk('usuarios/agregarProfesor', asyn
   const response = await AddTeacher(data);
   return response.data;
 });
+export const editarPadre = createAsyncThunk('usuarios/aditarPadre', async (data) => {
+  const response = await AddTeacher(data); //cambir por el editar padre
+  return response.data;
+});
+export const editarProfesor = createAsyncThunk('usuarios/aditarProfesor', async (data) => {
+  const response = await AddTeacher(data); //cambir por el editar profesor
+  return response.data;
+});
+export const editarEstudiante = createAsyncThunk('usuarios/aditarEstudiante', async (data) => {
+  const response = await AddTeacher(data); //cambir por el editar estudiante
+  return response.data;
+});
 
 export const eliminarPadre = createAsyncThunk(
   'usuarios/eliminarPadre',
@@ -90,6 +102,31 @@ export const usersSlice = createSlice({
         state.loading = 'exito';
         state.usersData.push(action.payload); 
       })
+      .addCase(editarPadre.fulfilled, (state, action) => {
+        const editedParent = action.payload;
+        const index = state.usersData.findIndex(user => user.id === editedParent.id);
+        if (index !== -1) {
+            state.usersData[index] = editedParent;
+            state.loading = 'exito';
+        }
+    })
+      .addCase(editarProfesor.fulfilled, (state, action) => {
+        const editedTeacher = action.payload;
+        const index = state.usersData.findIndex(user => user.id === editedTeacher.id);
+        if (index !== -1) {
+            state.usersData[index] = editedTeacher;
+            state.loading = 'exito';
+        }
+    })
+      .addCase(editarEstudiante.fulfilled, (state, action) => {
+        const editedStudient = action.payload;
+        const index = state.usersData.findIndex(user => user.id === editedStudient.id);
+        if (index !== -1) {
+            state.usersData[index] = editedStudient;
+            state.loading = 'exito';
+        }
+    })
+    
       .addCase(eliminarPadre.fulfilled, (state, action) => {
         state.loading = 'exito'; 
         state.mensaje = action.payload.message;

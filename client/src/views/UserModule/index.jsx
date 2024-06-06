@@ -11,6 +11,7 @@ import { Toaster, toast } from "sonner";
 import ModalFormStudient from "./Components/ModalFormStudient";
 import ModalFormParent from "./Components/ModalFormParent";
 import ModalFormTeacher from "./Components/ModalFormTeacher";
+import ModalDetall from "./Components/ModalDetall";
 
 const UserModule = () => {
   const dispatch = useAppDispatch();
@@ -53,7 +54,7 @@ const UserModule = () => {
       cell: (row) => (
         <CustomActionMenu
           row={row}
-          onEdit={handleEdit}
+          onEdit={() => handleEdit(row)}
           onDetail={handleDetail}
           onDelete={handleDelete}
         />
@@ -68,6 +69,9 @@ const UserModule = () => {
   const [loading, setLoading] = useState(true);
   const [openModal, setOpenModal] = useState(false);
   const [selectedRole, setSelectedRole] = useState('');
+  const [editingUser, setEditingUser] = useState(null);
+  const [openDetailModal, setOpenDetailModal] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
 
   const mensaje = useAppSelector(state => state.users.mensaje);
 
@@ -110,12 +114,15 @@ const UserModule = () => {
     downloadCSV(records);
   };
 
-  const handleEdit = (row) => {
-    console.log("Edit:", row);
+  const handleEdit = (user) => {
+    setEditingUser(user);
+    setSelectedRole(user.role);
+    setOpenModal(true);
   };
 
   const handleDetail = (row) => {
-    console.log("Detail:", row);
+    setSelectedUser(row);
+    setOpenDetailModal(true);
   };
 
   const handleDelete = (row) => {
@@ -141,6 +148,7 @@ const UserModule = () => {
   const handleCloseModal = () => {
     setOpenModal(false);
     setSelectedRole('');
+    setEditingUser(null);
   };
 
   return (
@@ -200,13 +208,22 @@ const UserModule = () => {
         </section>
       </div>
 
-      {openModal && selectedRole === 'student' && <ModalFormStudient isOpen={openModal} onClose={handleCloseModal} />}
-      {openModal && selectedRole === 'parent' && <ModalFormParent isOpen={openModal} onClose={handleCloseModal} />}
-      {openModal && selectedRole === 'teacher' && <ModalFormTeacher isOpen={openModal} onClose={handleCloseModal} />}
+      {openDetailModal && (
+        <ModalDetall
+          isOpen={openDetailModal}
+          onClose={() => setOpenDetailModal(false)}
+          user={selectedUser}
+        />
+      )}
+
+      {openModal && selectedRole === 'student' && <ModalFormStudient isOpen={openModal} onClose={handleCloseModal} user={editingUser} />}
+      {openModal && selectedRole === 'parent' && <ModalFormParent isOpen={openModal} onClose={handleCloseModal} user={editingUser} />}
+      {openModal && selectedRole === 'teacher' && <ModalFormTeacher isOpen={openModal} onClose={handleCloseModal} user={editingUser} />}
     </>
   );
 };
 
 export default UserModule;
+
 
 
