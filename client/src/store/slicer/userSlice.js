@@ -6,7 +6,7 @@ export const fetchUserData = createAsyncThunk(
   async ({ email, token, rol, nameUser, photoUser }, { rejectWithValue }) => {
     try {
       if (rol === "admin") {
-        return { email, rol, nameUser, photoUser }; // Devuelve directamente estos datos si es admin
+        return { email, rol, nameUser, photoUser }; 
       } else {
         const response = await axios.get(
           `https://edusync-fbva.onrender.com/${rol}/searchAll`,
@@ -16,11 +16,12 @@ export const fetchUserData = createAsyncThunk(
             },
           }
         );
-
+        console.log(email[0])
         const userData = response.data.resultStudent.find(
-          (user) => user.email === email
-        );
-
+          (user) => user.email === email[0]
+          );
+          
+          console.log(userData)
         return userData;
       }
     } catch (error) {
