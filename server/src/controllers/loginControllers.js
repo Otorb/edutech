@@ -53,7 +53,7 @@ export async function login(email, password) {
   }
 
   const parenstUser = await authenticateUser(email, password, Parents);
-  if (userStudeparenstUsernt) {
+  if (parenstUser) {
     const token = generateToken(parenstUser);
     const emailVerified = await sendAccountCreationSuccessEmail(email);
     return { userStudent: [parenstUser.email, parenstUser.rol], token };
