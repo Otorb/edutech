@@ -46,7 +46,7 @@ const FormLogin = () => {
             toast.success('Inicio de sesión exitoso');
             const rol = 'students'; // Reemplaza con el rol adecuado
             dispatch(fetchUserData({ email: userStudent, token, rol }));
-            navigate('/dashboard')
+            navigate('/dashboard/profileRole')
         } else {
             // Si falla el inicio de sesión, muestra un mensaje de error
             toast.error('Error al iniciar sesión');

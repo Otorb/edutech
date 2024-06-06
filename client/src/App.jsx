@@ -29,7 +29,7 @@ const App = () => {
           <Route path="/dashboard/Usuarios" element={<UserModule/>} />
           <Route path="/dashboard/eventmodule" element={<EventModule />}/>
         </Route>
-        <Route path="/profileRole" element={<Users />} />
+        <Route path="/dashboard/profileRole" element={<Users />} />
         <Route path="/*" element={<NotFound />} />
       </Route>
           <Route path="/dashboard/Cursos" element={<Courses/>} />

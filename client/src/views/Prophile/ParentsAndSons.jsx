@@ -1,6 +1,6 @@
 import React from 'react'
 import style from './style.module.css'
-import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { imagenHijo, imagenPadre, infoUser } from './ObjetoPrueba'
 import { useAppSelector } from '../../Hooks/useAppSelector'
 const ParentsAndSons = ({ estado }) => {
@@ -64,9 +64,12 @@ const ParentsAndSons = ({ estado }) => {
                                 </div>
                             )}
                             <div className={style.redireccionAPadre}>
-                                <button>
-                                    Volver
-                                </button>
+
+                                <Link to="/dashboard/profile">
+                                    <button>
+                                        Detalles
+                                    </button>
+                                </Link>
                             </div>
                         </div>
                     </section>
