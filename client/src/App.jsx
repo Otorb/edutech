@@ -5,7 +5,7 @@ import Home from "./views/Home/Index";
 import Users from "./views/Prophile/Index";
 import AuthOutlet from "@auth-kit/react-router/AuthOutlet";
 import DetailProfile from "./views/detailprofile/index"
-import FullInfoSon from "./views/Prophile/ParentsAndSons";
+//import FullInfoSon from "./views/Prophile/ParentsAndSons";
 import NotFound from './views/NotFound/index'
 import UserModule from './views/UserModule/index'
 import Courses from './views/CourseModule/Courses'
@@ -29,7 +29,7 @@ const App = () => {
           <Route path="/dashboard/Usuarios" element={<UserModule/>} />
           <Route path="/dashboard/eventmodule" element={<EventModule />}/>
         </Route>
-        <Route path="/profileRole" element={<Users />} />
+        <Route path="/dashboard/profileRole" element={<Users />} />
         <Route path="/*" element={<NotFound />} />
       </Route>
           <Route path="/dashboard/Cursos" element={<Courses/>} />

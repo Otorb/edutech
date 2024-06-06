@@ -23,8 +23,12 @@ const Curso = CursoModel(sequelize);
 const Events = EventsModel(sequelize);
 
 //? Relaciones Parents y Students
-Parents.hasMany(Students, { foreignKey: "parentId" });
-Students.belongsTo(Parents, { foreignKey: "parentId" });
+
+Students.hasMany(Parents, { foreignKey: "studentId" });
+Parents.belongsTo(Students, { foreignKey: "studentId" });
+
+
+
 //! Relaciones historials y students
 
 //* Parents.hasMany(Historials, { foreignKey: 'parentId' });

@@ -3,15 +3,16 @@ import { MdClose } from "react-icons/md";
 import { useForm } from "react-hook-form";
 import { Toaster, toast } from "sonner";
 import { useAppDispatch } from "../../../Hooks/useAppSelector";
-import { agregarEstudiante, cargarUsuarios } from "../../../store/slicer/usersSlice";
+import { agregarEstudiante, cargarUsuarios, editarEstudiante } from "../../../store/slicer/usersSlice";
 import Form from "../../../components/Form/Form";
 import '../style/modal.css';
 import style from "../style/userModule.module.css";
+import { useEffect } from "react";
 
 const formSections = [
   {
     name: 'personal',
-    title: 'Datos Personales ESTUDIANTE',
+    title: 'Datos Personales',
     fields: [
       { label: 'Apellido *', type: 'text', placeholder: 'Ingrese su Apellido', name: 'lastName' },
       { label: 'Nombres *', type: 'text', placeholder: 'Ingrese su Nombres', name: 'name' },
@@ -21,14 +22,23 @@ const formSections = [
       { label: 'Fecha de Nacimiento *', type: 'date', name: 'birthd' },
       { label: 'Registración *', type: 'text', placeholder: 'Ingrese la registracion', name: 'registration' },
       { label: 'Foto *', type: 'text', placeholder: 'Ingrese URL imagen', name: 'photo' },
-   
+     
     ]
   },
 ];
 
-const ModalFormStudient = ({ isOpen, onClose }) => {
-  const { register, handleSubmit } = useForm();
+const ModalFormStudient = ({ isOpen, onClose, user }) => {
+  const { register, handleSubmit, setValue } = useForm();
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (user) {
+      // Si hay un usuario para editar, establecer los valores de los campos de entrada
+      Object.keys(user).forEach((key) => {
+        setValue(key, user[key]);
+      });
+    }
+  }, [user, setValue]);
 
   const onSubmit = async (data, event) => {
     event.preventDefault();
@@ -37,8 +47,15 @@ const ModalFormStudient = ({ isOpen, onClose }) => {
       return;
     }
     try {
-      await dispatch(agregarEstudiante(data)).unwrap();
-      toast.success('Usuario cargado exitosamente');
+      if (user) {
+        // Si hay un usuario para editar, llamar a la función para editar
+        await dispatch(editarEstudiante({ ...data, userId: user.id }));
+        toast.success('Usuario editado exitosamente');
+      } else {
+        // Si no hay un usuario para editar, llamar a la función para agregar
+        await dispatch(agregarEstudiante(data)).unwrap();
+        toast.success('Usuario cargado exitosamente');
+      }
       dispatch(cargarUsuarios());
       onClose(); // Cerrar el modal después de enviar el formulario
     } catch (error) {
@@ -56,9 +73,9 @@ const ModalFormStudient = ({ isOpen, onClose }) => {
           <MdClose className="iconCloseModal" onClick={onClose} />
           <div className="contentFormModal">
             <form onSubmit={handleSubmit(onSubmit)}>
-              <Form title="Registration" fields={formSections} register={register} />
+              <Form title={user ? 'Editar Estudiante' : 'Agregar Estudiante'} fields={formSections} register={register} />
               <button type="submit" className={style.btnAdd}>
-                Enviar
+                {user ? 'Editar' : 'Agregar'}
               </button>
             </form>
           </div>

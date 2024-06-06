@@ -2,7 +2,7 @@ import { DataTypes } from "sequelize";
 
 export default function Parents(sequelize) {
   const Parents = sequelize.define("Parents", {
-    id: {
+    parentId: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
       allowNull: false,

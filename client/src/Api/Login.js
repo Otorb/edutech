@@ -24,4 +24,14 @@ export const userLogin = async (data) => {
     }
   };
 
+  export const allEmails = async () => {
+    try {
+      const response = await axios.get(`${API}/Emails`);
+      return response; 
+    } catch (error) {
+      console.error("Error fetching parents:", error);
+      throw error;
+    }
+  };
+
   

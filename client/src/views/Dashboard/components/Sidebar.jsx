@@ -2,26 +2,30 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import style from '../styles/dashboard.module.css';
 import useSignOut from 'react-auth-kit/hooks/useSignOut';
-import { useAppSelector } from '../../../Hooks/useAppSelector';
+import { useAppDispatch, useAppSelector } from '../../../Hooks/useAppSelector';
 import { FcReading } from "react-icons/fc";
 import { FiCalendar, FiUsers, FiBook, FiMail, FiLogOut } from "react-icons/fi";
+import { clearUserData } from '../../../store/slicer/userSlice';
 
 const Sidebar = ({ position, visible, toggleSidebar, isCollapsed, toggleCollapse }) => {
   const sidebarClass = `${style.sidebar} ${style[position + 'Sidebar']} ${visible ? style.show : ''} ${isCollapsed ? style.collapsed : ''}`;
-  
+
   const navigate = useNavigate();
   const signOut = useSignOut();
   const userData = useAppSelector((state) => state.user.data);
   console.log(userData)
 
+  const dispatch = useAppDispatch()
+
   const handleSignOut = () => {
     signOut();
+    dispatch(clearUserData())
     navigate('/');
   };
 
   const renderMenuItems = () => {
-    const rolPath = `/dashboard`;
-    
+    const rolePath = `/dashboard`;
+
     switch (userData.role) {
       case 'admin':
         return (
@@ -62,7 +66,7 @@ const Sidebar = ({ position, visible, toggleSidebar, isCollapsed, toggleCollapse
           </>
         );
       case 'parent':
-      case 'student':
+      case 'students':
         return (
           <>
             <Link to={`${rolPath}/promedios`} className={style.liNav}>
@@ -93,13 +97,29 @@ const Sidebar = ({ position, visible, toggleSidebar, isCollapsed, toggleCollapse
       <section className={style.headNav}>
         <button className={style.closeBtn} onClick={toggleSidebar}>×</button>
         <div className={style.userProfile}>
-          <div className={style.contentPhone}>
-            <img src='https://static.vecteezy.com/system/resources/thumbnails/027/951/137/small_2x/stylish-spectacles-guy-3d-avatar-character-illustrations-png.png' alt="User" className={style.userPhoto} />
-          </div>
-          <div className={style.detallUserNav}>
-            {!isCollapsed && <span className={style.titleNav}>{`Bienvenido`}<FcReading /></span>}
-            {!isCollapsed && <span>{userData?.lastName}</span>}
-          </div>
+          {userData.role === 'admin' ?
+            <>
+              <div className={style.contentPhone}>
+                <img src={userData.photoUser} alt="User" className={style.userPhoto} />
+              </div>
+              <div className={style.detallUserNav}>
+                {!isCollapsed && <span className={style.titleNav}>{`Bienvenido`}<FcReading /></span>}
+                {!isCollapsed && <span>{userData?.nameUser}</span>}
+              </div>
+            </>
+            :
+            <>
+              <div className={style.contentPhone}>
+                <img src='https://static.vecteezy.com/system/resources/thumbnails/027/951/137/small_2x/stylish-spectacles-guy-3d-avatar-character-illustrations-png.png' alt="User" className={style.userPhoto} />
+              </div>
+              <div className={style.detallUserNav}>
+                {!isCollapsed && <span className={style.titleNav}>{`Bienvenido`}<FcReading /></span>}
+                {!isCollapsed && <span>{userData?.lastName}</span>}
+              </div>
+            </>
+
+          }
+
         </div>
         <button onClick={toggleCollapse} className={style.collapseBtn}>
           {isCollapsed ? '>' : '<'}
