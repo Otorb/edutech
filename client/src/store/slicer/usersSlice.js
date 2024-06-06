@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { deleteParents, listParents } from '../../Api/Parents';
-import { deleteStudient, listStudients } from '../../Api/Studient';
-import { deleteTeacher, listTeachers } from '../../Api/Teachers';
+import { AddParent, deleteParents, listParents } from '../../Api/Parents';
+import { AddStudient, deleteStudient, listStudients } from '../../Api/Studient';
+import { AddTeacher, deleteTeacher, listTeachers } from '../../Api/Teachers';
 
 const initialState = {
   usersData: [],
@@ -21,6 +21,19 @@ export const cargarUsuarios = createAsyncThunk('usuarios/cargarUsuarios', async 
     ...responseTeachers.data.resultTeacher.filter(teacher => teacher.active),
   ];
   return combinedData;
+});
+
+export const agregarEstudiante = createAsyncThunk('usuarios/agregarEstudiante', async (data) => {
+  const response = await AddStudient(data);
+  return response.data;
+});
+export const agregarPadre = createAsyncThunk('usuarios/agregarPadre', async (data) => {
+  const response = await AddParent(data);
+  return response.data;
+});
+export const agregarProfesor = createAsyncThunk('usuarios/agregarProfesor', async (data) => {
+  const response = await AddTeacher(data);
+  return response.data;
 });
 
 export const eliminarPadre = createAsyncThunk(
@@ -64,6 +77,18 @@ export const usersSlice = createSlice({
       .addCase(cargarUsuarios.rejected, (state, action) => {
         state.loading = 'error'; 
         state.error = action.error.message; 
+      })
+      .addCase(agregarEstudiante.fulfilled, (state, action) => {
+        state.loading = 'exito';
+        state.usersData.push(action.payload); 
+      })
+      .addCase(agregarPadre.fulfilled, (state, action) => {
+        state.loading = 'exito';
+        state.usersData.push(action.payload); 
+      })
+      .addCase(agregarProfesor.fulfilled, (state, action) => {
+        state.loading = 'exito';
+        state.usersData.push(action.payload); 
       })
       .addCase(eliminarPadre.fulfilled, (state, action) => {
         state.loading = 'exito'; 
