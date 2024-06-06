@@ -1,11 +1,9 @@
 
 import { useEffect, useState } from 'react'
-import style from './style.module.css'
-import { Parents } from './Parents'
-import { imagenPadre, infoUser } from './ObjetoPrueba'
 import { useAppSelector } from '../../Hooks/useAppSelector'
-import axios from 'axios'
 import ParentsAndSons from './ParentsAndSons'
+import { listStudients } from '../../Api/Studient'
+// import { listParents } from '../../Api/Parents'
 
 
 const Index = () => {
@@ -17,48 +15,40 @@ const Index = () => {
     // const Prevent = (e) => {
     //     e.preventDefault()
     // }
-    // const [estado, setEstado] = useState([])
-    // const API = "https://edutech-nle9.onrender.com/parent";
-    // const API2 = "https://edutech-nle9.onrender.com/students";
+    const [parentsState, setEstado] = useState([])
+    
 
-    // const listParents = async () => {
-    //     try {
-    //         const response = await axios.get(`/${API2}/searchAll`);
-    //         // console.log("response.status: " + response.status)
-    //         // console.log("response.headers: " + response.headers)
-    //         // console.log("response.config: " + response.config)
-    //         console.log(response.data)
-    //         setEstado(response.data.resultGetAllParents)
-    //         return response.data // Asumiendo que la respuesta contiene los datos en 'data'
-    //     } catch (error) {
-    //         if (error) {
-    //             console.error(`Error message: ${error.message}`)
-    //         } else if (error.request) {
-    //             console.error(`Error Request: ${error.request}`)
+// const Students = async () => { 
 
-    //         }
-    //         console.error("Error fetching parents:", error);
-    //         throw error; // Lanzar el error para que pueda ser manejado por el código llamante
-    //     }
-    // };
+//     const Req = await listStudients()
+//     setEstado(Req)
+    
+// }
+// const Parents = async () => { 
+    
+//     const Req = await listParents()
+//     setEstado(Req)
+
+// }
+
+// console.log(parentsState)
 
     // useEffect(() => {
-    //     listParents()
+    //     Students()
     // }, [])
 
 
 
-    const estado = useAppSelector((state) => state.user.data);
+    const StudentLogged = useAppSelector((state) => state.user.data);
+    // console.log(parentsState)
 
-    console.log(estado)
-
-
-
+    
+console.log(StudentLogged)
 
 
     return (
         <>
-            <ParentsAndSons estado={estado} />
+            <ParentsAndSons estado={StudentLogged} />
         </>
     )
 }

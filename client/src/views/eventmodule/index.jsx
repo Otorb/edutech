@@ -62,7 +62,7 @@ const index = () => {
   useEffect(()=>{
     dispatch(agregarEvents())
   },[])
-  console.log(dataEvent[0].message);
+  console.log(dataEvent);
   //hacer un map en dataEvent
 
   // const column = [

@@ -1,0 +1,85 @@
+.containerUserModule{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    background: #fff;
+    color: #333;
+    display: flex;
+}
+.titleUserModule{
+    font-size: 2rem;
+    font-weight: 700;
+}
+.descriptionUserModule{
+    color: #adb5bd;
+}
+.boxSearch{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border: 1px solid #adb5bd;
+    padding: .5rem 1rem;
+    border-radius: 10px;
+}
+.search{
+    list-style: none;
+    outline: none;
+}
+.close{
+    color: #fb6107;
+    cursor: pointer;
+    font-weight: 700;
+}
+.selectUser{
+    border: 1px solid #adb5bd;
+    padding: .5rem 1rem;
+    border-radius: 10px;
+}
+.btnAdd{
+    padding: .7rem 1.2rem;
+    border-radius: 10px;
+    background: #0077b6;
+    color: #fff;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.btnAddExport{
+    padding: .7rem 1.2rem;
+    border-radius: 10px;
+    background: #2b9348;
+    color: #fff;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.btnAddExport:hover{
+    background: #2b9348;
+}
+.btnAdd:hover{
+    background: #0096c7;
+}
+.containerUserModule .sectionModule{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border-radius: 10px;
+    border: 1px solid #e9ecef;
+}
+.sectionModuleForm{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+    padding: 1rem;
+    border-radius: 10px;
+    border: 1px solid #e9ecef;
+}

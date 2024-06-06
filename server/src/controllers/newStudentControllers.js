@@ -10,7 +10,7 @@ export async function newStudents(
   phone,
   birthd,
   registration,
-  grade
+  photo
 ) {
   const user = await Students.findOne({ where: { email } });
   if (user) {
@@ -26,7 +26,7 @@ export async function newStudents(
     phone,
     birthd,
     registration,
-    grade,
+    photo,
   });
   return student;
 }
@@ -53,7 +53,7 @@ export async function getStudent(id) {
 }
 
 export async function getAllStudents() {
-  const students = await Students.findAll({include:{ model: Curso, include:[{ model: Subject }] }});
+  const students = await Students.findAll({include:{ model: Curso, include:[{ model: Subject },{model:Notas}] }});
   if (!students) {
     throw new Error("No se encontraron usuarios");
   }
