@@ -5,25 +5,54 @@ export const fetchUserData = createAsyncThunk(
   "user/fetchUserData",
   async ({ email, token, rol, nameUser, photoUser }, { rejectWithValue }) => {
     try {
+      let userData;
       if (rol === "admin") {
-        return { email, rol, nameUser, photoUser }; 
+        userData = { email, rol, nameUser, photoUser }; 
       } else {
-        const response = await axios.get(
-          `https://edusync-fbva.onrender.com/${rol}/searchAll`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        console.log(email[0])
-        const userData = response.data.resultStudent.find(
-          (user) => user.email === email[0]
+        let response;
+        if (rol === "parent") {
+          response = await axios.get(
+            `https://edusync-fbva.onrender.com/parent/searchAll`,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
           );
-          
-          console.log(userData)
-        return userData;
+          userData = response.data.resultGetAllParents.find(
+            (parent) => parent.email === email
+          );
+        } else if (rol === "teacher") {
+          response = await axios.get(
+            `https://edusync-fbva.onrender.com/teacher/searchAll`,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+          userData = response.data.resultTeacher.find(
+            (teacher) => teacher.email === email
+          );
+        } else {
+          response = await axios.get(
+            `https://edusync-fbva.onrender.com/${rol}/searchAll`,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+          userData = response.data.resultStudent.find(
+            (user) => user.email === email
+          );
+        }
+        if (!userData) {
+          // Si no se encontraron datos para el usuario, puedes lanzar un error o manejarlo de alguna otra manera
+          throw new Error("User data not found");
+        }
       }
+      return { ...userData, role: rol };
     } catch (error) {
       return rejectWithValue(error.response.data);
     }

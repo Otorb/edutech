@@ -39,12 +39,12 @@ const FormLogin = () => {
                 type: 'Bearer' // Tipo de token, podría variar según tu backend
             },
             userState: {
-                email: userStudent // Estado del usuario, en este caso el email
+                email: userStudent[0] // Estado del usuario, en este caso el email
             }
         })) {
             // Si el inicio de sesión es exitoso, puedes redirigir o realizar alguna acción
             toast.success('Inicio de sesión exitoso');
-            const rol = 'students'; // Reemplaza con el rol adecuado
+            const rol = userStudent[1]; // Reemplaza con el rol adecuado
             dispatch(fetchUserData({ email: userStudent, token, rol }));
             navigate('/dashboard/profileRole')
         } else {
