@@ -22,12 +22,7 @@ const formSections = [
       { label: 'Fecha de Nacimiento *', type: 'date', name: 'birthd' },
       { label: 'Registración *', type: 'text', placeholder: 'Ingrese la registracion', name: 'registration' },
       { label: 'Foto *', type: 'text', placeholder: 'Ingrese URL imagen', name: 'photo' },
-      { label: 'Tipo de Usuario *', type: 'select', placeholder: 'Seleccione el tipo', name: 'role', options: [
-        { value: 'student', label: 'Estudiante' },
-        { value: 'parent', label: 'Padre' },
-        { value: 'teacher', label: 'Docente' },
-        { value: 'admin', label: 'Administrador' },
-      ] },
+     
     ]
   },
 ];

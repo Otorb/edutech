@@ -11,6 +11,7 @@ import { Toaster, toast } from "sonner";
 import ModalFormStudient from "./Components/ModalFormStudient";
 import ModalFormParent from "./Components/ModalFormParent";
 import ModalFormTeacher from "./Components/ModalFormTeacher";
+import ModalDetall from "./Components/ModalDetall";
 
 const UserModule = () => {
   const dispatch = useAppDispatch();
@@ -69,6 +70,8 @@ const UserModule = () => {
   const [openModal, setOpenModal] = useState(false);
   const [selectedRole, setSelectedRole] = useState('');
   const [editingUser, setEditingUser] = useState(null);
+  const [openDetailModal, setOpenDetailModal] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
 
   const mensaje = useAppSelector(state => state.users.mensaje);
 
@@ -118,7 +121,8 @@ const UserModule = () => {
   };
 
   const handleDetail = (row) => {
-    console.log("Detail:", row);
+    setSelectedUser(row);
+    setOpenDetailModal(true);
   };
 
   const handleDelete = (row) => {
@@ -203,6 +207,14 @@ const UserModule = () => {
           />
         </section>
       </div>
+
+      {openDetailModal && (
+        <ModalDetall
+          isOpen={openDetailModal}
+          onClose={() => setOpenDetailModal(false)}
+          user={selectedUser}
+        />
+      )}
 
       {openModal && selectedRole === 'student' && <ModalFormStudient isOpen={openModal} onClose={handleCloseModal} user={editingUser} />}
       {openModal && selectedRole === 'parent' && <ModalFormParent isOpen={openModal} onClose={handleCloseModal} user={editingUser} />}
