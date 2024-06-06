@@ -8,6 +8,7 @@ import DetailProfile from "./views/detailprofile/index"
 import FullInfoSon from "./views/Prophile/ParentsAndSons";
 import NotFound from './views/NotFound/index'
 import UserModule from './views/UserModule/index'
+import EventModule from "./views/eventmodule";
 
 
 const App = () => {
@@ -15,6 +16,8 @@ const App = () => {
     <Routes>
       <Route path="/login" element={<Login />} />
       <Route path="/" element={<Home />} />
+          <Route path="/dashboard/eventmodule" element={<EventModule />} />
+          <Route path="/dashboard/profile" element={<DetailProfile />} />
 
       <Route element={<AuthOutlet fallbackPath="/login" />}>
         <Route path="/dashboard" element={<Dashboard />}>
@@ -22,7 +25,7 @@ const App = () => {
           <Route path="/dashboard/Eventos" element={"Lista de eventos"} />
           <Route path="/dashboard/Cursos" element={"Lista de cursos"} />
           <Route path="/dashboard/Mensajes" element={"Lista de Mensajes"} />
-          <Route path="/dashboard/profile" element={<DetailProfile />} />
+
         </Route>
         <Route path="/profileRole" element={<Users />} />
         {/* <Route path="/profileRole/:name" element={<FullInfoSon />} /> */}
