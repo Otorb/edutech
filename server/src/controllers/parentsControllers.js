@@ -1,4 +1,4 @@
-import { Parents } from "../models/index.js";
+import { Parents, Students } from "../models/index.js";
 import { hahedPassword } from "../utils/hasPassword.js";
 import bcrypt from "bcrypt";
 
@@ -11,7 +11,8 @@ export async function newParents(
   email,
   password,
   address,
-  phone
+  phone,
+  
 ) {
   const findParent = await Parents.findOne({ where: { email } });
   if (findParent) {
@@ -26,10 +27,11 @@ export async function newParents(
     password: parentsHashedPassword,
     address,
     phone,
+    
   });
-
+  
   // const sendEmail = await sendAccountCreationSuccessEmail(email);
-  return newParent;
+  return  newParent;
 }
 
 export async function changePassword(newPassword, email, password) {
@@ -59,7 +61,7 @@ export async function getParents(id) {
 }
 
 export async function getAllParents() {
-  const parents = await Parents.findAll();
+  const parents = await Parents.findAll({include:{ model: Students }});
   if (!parents) {
     throw new Error("No se encontraron usuarios");
   }
