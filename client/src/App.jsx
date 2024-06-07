@@ -16,9 +16,7 @@ const App = () => {
     <Routes>
       <Route path="/login" element={<Login />} />
       <Route path="/" element={<Home />} />
-          {/* <Route path="/dashboard/eventmodule" element={<EventModule />} />
-          <Route path="/dashboard/profile" element={<DetailProfile />} /> */}
-
+          <Route path="/dashboard/eventmodule" element={<EventModule />}/>
 
 
       <Route element={<AuthOutlet fallbackPath="/login" />}>
@@ -27,7 +25,9 @@ const App = () => {
           <Route path="/dashboard/Mensajes" element={"Lista de Mensajes"} />
           <Route path="/dashboard/profile" element={<DetailProfile />} />
           <Route path="/dashboard/Usuarios" element={<UserModule/>} />
-          <Route path="/dashboard/Cursos" element={<Courses/>} />
+
+
+
         </Route>
         <Route path="/dashboard/profileRole" element={<Users />} />
         <Route path="/*" element={<NotFound />} />

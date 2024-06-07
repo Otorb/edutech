@@ -11,8 +11,7 @@ export async function newParents(
   email,
   password,
   address,
-  phone,
-  
+  phone
 ) {
   const findParent = await Parents.findOne({ where: { email } });
   if (findParent) {
@@ -27,9 +26,10 @@ export async function newParents(
     password: parentsHashedPassword,
     address,
     phone,
-    
   });
-  
+  //await newParent.setStudent(studentId);
+
+  console.log(newParent,"aca traigo el body");
   // const sendEmail = await sendAccountCreationSuccessEmail(email);
   return  newParent;
 }
@@ -53,7 +53,7 @@ export async function changePassword(newPassword, email, password) {
 }
 
 export async function getParents(id) {
-  const parent = await Parents.findByPk(id);
+  const parent = await Parents.findByPk(id, {include: { model: Students }});
   if (!parent) {
     throw new Error("El usuario no existe");
   }
@@ -99,3 +99,20 @@ export async function updateWithoutImage(id, updateData) {
 
   return parent;
 }
+
+export const editarusuario = async (req, res, next) => {
+  try {
+    const { parentId } = req.params;
+    const usuarioEditado = await Parents.findByPk(parentId);
+    if (!usuarioEditado)
+      return res
+        .status(404)
+        .send({ message: "No se pudo encontrar el usuario para editarlo" });
+    usuarioEditado?.update({ ...req.body });
+    res
+      .status(201)
+      .send({ message: "El usuario fue editado", parent: usuarioEditado });
+  } catch (e) {
+    next(e);
+  }
+};

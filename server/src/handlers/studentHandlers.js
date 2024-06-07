@@ -12,6 +12,7 @@ import storage from "../utils/cloud_storage.js";
 
 export async function newStudentHandler(req, res) {
   try {
+    console.log("ABC", req.body);
     const {
       name,
       lastName,
@@ -20,7 +21,8 @@ export async function newStudentHandler(req, res) {
       phone,
       birthd,
       registration,
-      grade,
+      photo,
+      parentId
     } = req.body;
     const resultStudent = await newStudents(
       name,
@@ -30,7 +32,8 @@ export async function newStudentHandler(req, res) {
       phone,
       birthd,
       registration,
-      grade
+      photo,
+      parentId
     );
     res.status(200).json({ message: "New Student", resultStudent });
   } catch (error) {

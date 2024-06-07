@@ -11,7 +11,7 @@ import storage from "../utils/cloud_storage.js";
 
 export async function newParentHandler(req, res) {
   try {
-    const { name, lastName, email, password, address, phone } = req.body;
+    const { name, lastName, email, password, address, phone, studentId } = req.body;
     const resultNewParent = await newParents(
       name,
       lastName,

@@ -12,47 +12,49 @@ import { useForm } from "react-hook-form";
 
 
 
+
+
 const data = [
   {
     elEvent: "le invitamos el dia lunes a celebrar el aniversario de la escuela",
-    estado: "En curso",
+    //estado: "En curso",
   },
   {
-    elEvent: "maria.gomez@example.com",
-    estado: "En curso",
+    elEvent: "mañana acto dia de la bandera ",
+    //estado: "En curso",
   },
   {
-    elEvent: "carlos.rodriguez@example.com",
-    estado: "Terminado",
+    elEvent: "el viernes reunion dia del padre",
+    //estado: "Terminado",
   },
   {
-    elEvent: "laura.martinez@example.com",
-    estado: "En curso",
+    elEvent: "el lunesa desalluno de grado",
+    //estado: "En curso",
   },
   {
-    elEvent: "pedro.fernandez@example.com",
-    estado: "Terminado",
+    elEvent: "el martes feriado",
+    //estado: "Terminado",
   },
   {
-    elEvent: "ana.torres@example.com",
-    estado: "En curso",
+    elEvent: "el miercoles traer un instrumento",
+    //estado: "En curso",
   },
   {
-    elEvent: "jorge.lopez@example.com",
-    estado: "En curso",
+    elEvent: "el jueves venir vestidos de policias",
+    //estado: "En curso",
   },
   {
-    elEvent: "marta.sanchez@example.com",
-    estado: "Terminado",
+    elEvent: "el viernes tarer una planta",
+    //estado: "Terminado",
   },
   {
-    elEvent: "luis.ramirez@example.com",
-    estado: "En curso",
+    elEvent: "el lunes ingresan a clases a las 09:30",
+    //estado: "En curso",
   },
   {
 
-    elEvent: "elena.navarro@example.com",
-    estado: "En curso",
+    elEvent: "el martes venir habra reunion",
+    //estado: "En curso",
   },
 ];
 
@@ -65,83 +67,17 @@ const index = () => {
   useEffect(()=>{
     dispatch(agregarEvents())
   },[])
-  console.log(dataEvent);
+  console.log(dataEvent[0]);
   //hacer un map en dataEvent
 
-  // const column = [
-  //   // {
-  //   //   name: "n°",
-  //   //   selector: (row) => row.numEvent,
-  //   //   sortable: true,
-  //   // },
-  //   {
-  //     name: "Eventos",
-  //     selector: (row) => row.elEvent,
-  //     sortable: true,
-  //   },
-  //   {
-  //     name: "Estado",
-  //     cell: (row) => (
-  //       <span
-  //         style={{
-  //           color: row.estado === "En curso" ? "#29bf12" : "#f21b3f",
-  //           fontWeight: "bold",
-  //         }}
-  //       >
-  //         {row.estado}
-  //       </span>
-  //     ),
-  //     sortable: true,
-  //   },
-  //   {
-  //     name: "Acciones",
-  //     cell: (row) => (
-  //       <CustomActionMenu
-  //         row={row}
-  //         onEdit={handleEdit}
-  //         onDetail={handleDetail}
-  //         onDelete={handleDelete}
-  //       />
-  //     ),
-  //     button: true,
-  //     width: "150px",
-  //   },
-  // ];
-
   const column = [
-    // {
-    //   name: "n°",
-    //   selector: (row) => row.numEvent,
-    //   sortable: true,
-    // },
+
     {
       name: "Eventos",
       selector: (row) => row.elEvent,
       sortable: true,
     },
-    {
-      name: "Estado",
-      cell: (row, index) => (
-        <div>
-          <button
-            style={{
-              backgroundColor: row.estado === "En curso" ? "#29bf12" : "#f21b3f",
-              color: "white",
-              fontWeight: "bold",
-              border: "none",
-              padding: "5px 10px",
-              borderRadius: "5px",
-              cursor: "pointer",
-              marginRight: "10px",
-            }}
-            onClick={() => toggleEstado(index, row.estado === "En curso" ? "Terminado" : "En curso")}
-          >
-            {row.estado}
-          </button>
-        </div>
-      ),
-      sortable: true,
-    },
+   
     {
       name: "Acciones",
       cell: (row) => (
@@ -157,6 +93,7 @@ const index = () => {
     },
   ];
 
+
   const [records, setRecords] = useState(data);
   const [loading, setLoading] = useState(true);
   const [openModal, setOpenModal] = useState(false);
@@ -169,14 +106,6 @@ const index = () => {
 
     return () => clearTimeout(tiemout);
   }, []);
-
-  const handleFilterChange = (e) => {
-    const filterValue = e.target.value;
-    const filteredRecords = data.filter((record) =>
-      record.estado.toLowerCase().includes(filterValue.toLowerCase())
-    );
-    setRecords(filteredRecords);
-  };
 
   const handleChange = (e) => {
     const filterRecords = data.filter((record) => {
@@ -209,12 +138,6 @@ const index = () => {
     EstadoEvento: '',
     enCurso: false,
     date: ''
-
-    // fullName: '',
-    // email: '',
-    // address: '',
-    // phone: '',
-    // role: ''
 });
 
 // Manejar cambios en los campos del formulario
@@ -230,25 +153,20 @@ const formSections = [
     title: 'Crear Eventos',
     fields: [
       { name: 'message', label: 'Evento', type: 'text', placeholder: 'Evento...', required: true },
-      { name: 'EstadoEvento', label: 'Estado del Evento', type: 'text', placeholder: 'Estado del Evento...', required: true },
+      // { name: 'EstadoEvento', label: 'Estado del Evento', type: 'text', placeholder: 'Estado del Evento...', required: true },
       { name: 'date', label: 'Fecha del Evento', type: 'date', placeholder: 'Fecha del Evento...', required: true },
-      { name: 'active', label: 'Activo', type: 'checkbox', required: true }
     ]
   },
 ];
 
 
   const onhandleSubmit = (data) => {
-    console.log(data)
+    console.log(data);
     // Lógica para manejar el envío del formulario
 };
 
-const toggleEstado = (index, newEstado) => {
-  const updatedRecords = [...records];
-  updatedRecords[index].estado = newEstado;
-  setRecords(updatedRecords);
-};
 
+const { register, handleSubmit, setValue } = useForm();
 
 
   return (
@@ -270,7 +188,20 @@ const toggleEstado = (index, newEstado) => {
             Agregar
           </button>
         </section>
-        {openModal && (
+        {/* {openModal && (
+          <section className={style.sectionModuleForm}>
+            <span onClick={handleopenModal} className={style.close}>X</span>
+            <form onSubmit={handleSubmit(onhandleSubmit)}>
+            {/* <Form title="Registration" fields={formSections} onChange={handleChangeForm} /> */}
+            {/* <Form fields={formSections[0].fields} register={register} formData={formData} /> */}
+            {/* <Form title="Registration" fields={formSections} register={register} />
+            <button type="submit" className={style.btnAdd}>Enviar</button>
+        </form>
+          </section>
+        )} */} 
+
+
+{openModal && (
           <section className={style.sectionModuleForm}>
             <span onClick={handleopenModal} className={style.close}>X</span>
             <form onSubmit={handleSubmit(onhandleSubmit)}>
@@ -280,12 +211,16 @@ const toggleEstado = (index, newEstado) => {
           </section>
         )}
 
+
+
+
+
         <section className={style.sectionModule}>
-          <select className={style.selectUser} onChange={handleFilterChange}>
+          {/* <select className={style.selectUser} onChange={handleFilterChange}>
             <option value="">Seleccionar estado</option>
             <option value="En curso">En curso</option>
             <option value="Terminado">Terminado</option>
-          </select>
+          </select> */}
           <button className={style.btnAddExport} onClick={handleExport}>
             Exportar Excel
           </button>
