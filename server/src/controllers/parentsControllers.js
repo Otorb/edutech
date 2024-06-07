@@ -12,7 +12,7 @@ export async function newParents(
   password,
   address,
   phone,
-  
+  StudentId
 ) {
   const findParent = await Parents.findOne({ where: { email } });
   if (findParent) {
@@ -29,7 +29,8 @@ export async function newParents(
     phone,
     
   });
-  
+  await newParent.setStudent(StudentId);
+  console.log(newParent,"aca traigo el body");
   // const sendEmail = await sendAccountCreationSuccessEmail(email);
   return  newParent;
 }
@@ -99,3 +100,20 @@ export async function updateWithoutImage(id, updateData) {
 
   return parent;
 }
+
+export const editarusuario = async (req, res, next) => {
+  try {
+    const { parentId } = req.params;
+    const usuarioEditado = await Parents.findByPk(parentId);
+    if (!usuarioEditado)
+      return res
+        .status(404)
+        .send({ message: "No se pudo encontrar el usuario para editarlo" });
+    usuarioEditado?.update({ ...req.body });
+    res
+      .status(201)
+      .send({ message: "El usuario fue editado", parent: usuarioEditado });
+  } catch (e) {
+    next(e);
+  }
+};

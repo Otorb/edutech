@@ -14,7 +14,7 @@ export const debajaOdealta = async (req, res, next) => {
       if (select === "student") {
         var resDB = await Students.findOne({ where: { email: email } });
       } 
-      else if (select === "parents") {
+      else if (select === "parent") {
         var resDB = await Parents.findOne({ where: { email: email } });
       }
       else if (select === "teacher") {
