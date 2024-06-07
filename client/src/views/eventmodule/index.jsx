@@ -8,6 +8,7 @@ import CustomActionMenu from "./components/CustomActionMenu";
 import Form from "../../components/Form/Form";
 import { useAppDispatch, useAppSelector } from "../../Hooks/useAppSelector";
 import { agregarEvents } from "../../store/slicer/eventSlice";
+import { useForm } from "react-hook-form";
 
 
 
@@ -56,6 +57,8 @@ const data = [
 ];
 
 const index = () => {
+
+  const { register, handleSubmit, setValue } = useForm();
 
   const dataEvent = useAppSelector(state=>state.event.eventData) 
   const dispatch = useAppDispatch()
@@ -221,22 +224,22 @@ const handleChangeForm = (event) => {
     setFormData({ ...formData, [name]: newValue });
 };
 
-  const formSections = [
-    {
-        name: 'personal',
-        title: 'Crear Eventos',
-        fields: [
-          { label: 'Evento', type: 'text', placeholder: 'Evento...', required: true, value: formData.message  },
-          { label: 'Estado del Evento', type: 'text', placeholder: 'Estado del Evento...', required: true, value: formData.EstadoEvento },
-          { label: 'Fecha del Evento', type: 'date', placeholder: 'Fecha del Evento...', required: true, value: formData.date },
-          { label: 'Activo', type: 'checkbox', checked: formData.active  }
-        ]
-    },
+const formSections = [
+  {
+    name: 'personal',
+    title: 'Crear Eventos',
+    fields: [
+      { name: 'message', label: 'Evento', type: 'text', placeholder: 'Evento...', required: true },
+      { name: 'EstadoEvento', label: 'Estado del Evento', type: 'text', placeholder: 'Estado del Evento...', required: true },
+      { name: 'date', label: 'Fecha del Evento', type: 'date', placeholder: 'Fecha del Evento...', required: true },
+      { name: 'active', label: 'Activo', type: 'checkbox', required: true }
+    ]
+  },
 ];
 
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const onhandleSubmit = (data) => {
+    console.log(data)
     // Lógica para manejar el envío del formulario
 };
 
@@ -270,10 +273,10 @@ const toggleEstado = (index, newEstado) => {
         {openModal && (
           <section className={style.sectionModuleForm}>
             <span onClick={handleopenModal} className={style.close}>X</span>
-            <form onSubmit={handleSubmit}>
-            <Form title="Registration" fields={formSections} onChange={handleChangeForm} />
-            <button type="submit" className={style.btnAdd}>Enviar</button>
-        </form>
+            <form onSubmit={handleSubmit(onhandleSubmit)}>
+              <Form title="Registration" fields={formSections} register={register} />
+              <button type="submit" className={style.btnAdd}>Enviar</button>
+            </form>
           </section>
         )}
 

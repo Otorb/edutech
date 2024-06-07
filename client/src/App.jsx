@@ -27,12 +27,12 @@ const App = () => {
           <Route path="/dashboard/Mensajes" element={"Lista de Mensajes"} />
           <Route path="/dashboard/profile" element={<DetailProfile />} />
           <Route path="/dashboard/Usuarios" element={<UserModule/>} />
-          <Route path="/dashboard/eventmodule" element={<EventModule />}/>
+          <Route path="/dashboard/Cursos" element={<Courses/>} />
         </Route>
         <Route path="/dashboard/profileRole" element={<Users />} />
         <Route path="/*" element={<NotFound />} />
       </Route>
-          <Route path="/dashboard/Cursos" element={<Courses/>} />
+          <Route path="/dashboard/eventmodule" element={<EventModule />}/>
     </Routes>
   );
 };

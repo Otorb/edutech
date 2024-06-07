@@ -19,6 +19,7 @@ export const fetchUserData = createAsyncThunk(
               },
             }
           );
+          
           userData = response.data.resultGetAllParents.find(
             (parent) => parent.email === email
           );

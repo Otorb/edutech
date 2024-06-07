@@ -30,7 +30,7 @@ const Sidebar = ({ position, visible, toggleSidebar, isCollapsed, toggleCollapse
       case 'admin':
         return (
           <>
-            <Link to={`${rolePath}/eventos`} className={style.liNav}>
+            <Link to={`${rolePath}/eventmodule`} className={style.liNav}>
               <FiCalendar className={style.iconNav} />
               {!isCollapsed && 'Eventos'}
             </Link>
