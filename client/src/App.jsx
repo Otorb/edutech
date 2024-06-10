@@ -29,10 +29,10 @@ const App = () => {
 
 
         </Route>
-        <Route path="/dashboard/profileRole" element={<Users />} />
         <Route path="/*" element={<NotFound />} />
       </Route>
           <Route path="/dashboard/Cursos" element={<Courses/>} />
+        <Route path="/dashboard/profileRole" element={<Users />} />
     </Routes>
   );
 };

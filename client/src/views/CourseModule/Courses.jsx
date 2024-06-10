@@ -5,45 +5,52 @@ import { useEffect, useState } from "react";
 import Loading from "../../components/Loading/Loading";
 import { downloadCSV } from "./Components/exportCSV"; // Asegúrate de ajustar la ruta según tu estructura de carpetas
 import CustomActionMenu from "./Components/CustomActionMenu";
-import { data, CursoAlumno } from "./ObjectsCourseTable";
+import { CursoAlumno } from "./ObjectsCourseTable";
 import { useForm } from "react-hook-form"
 import Form from "../../components/Form/Form";
-// import { CoursesApi } from "../../Api/Course";
+import { CoursesApi } from "../../Api/Course";
+import { useDispatch, useSelector } from "react-redux";
+import { getPetition } from "./reduxCourses/slice";
+
 
 
 
 const index = () => {
 
+
+
+
   const { register, handleSubmit } = useForm()
 
-
-  // register = { register }
-  // useForm
-
-  // const { register, handleSubmit } = useForm();
-
-  // <form onSubmit={handleSubmit(onSubmit)}>
-  //   <Form title="Registration" fields={formSections} register={register} />
-  //   <button type="submit" className={style.btnAdd}>
-  //     Enviar
-  //   </button>
-
-  const [Courses, setCourses] = useState([])
+  // const [postCourses, setPostCourses] = useState("")
+  // const [putCursos, setputCursos] = useState(null)
   const [load, setLoad] = useState(true)
 
-  // const CoursesFun = async () => {
-  //   const Courses = await CoursesApi()
-  //   setCourses(Courses)
 
-  // }
 
-  // useEffect(()=> {
-  //   CoursesFun()
-  //   setLoad(false)
-  // },[])
+  const ApiCursos = useSelector(e => e)
+  console.log(ApiCursos)
 
-  console.log(CursoAlumno)
 
+  const dispatchCourses = useDispatch()
+
+
+
+  useEffect(() => {
+    const CoursesFun = async () => {
+      try {
+        const Courses = await CoursesApi()
+        console.log(Courses.data)
+        dispatchCourses(getPetition(Courses.data))
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    
+    CoursesFun()
+  }, [dispatchCourses])
+  
+  
   const LoadingFn = () => <h1>Cargando..</h1>
 
 
@@ -131,12 +138,9 @@ const index = () => {
     setOpenModal(!openModal);
   };
   const [formData, setFormData] = useState({
-    fullName: '',
-    email: '',
-    address: '',
-    phone: '',
-    active: false,
-    role: ''
+    curso: '',
+    materia: '',
+    // active: false,
   });
 
   // Manejar cambios en los campos del formulario
@@ -153,8 +157,8 @@ const index = () => {
       name: 'personal',
       title: 'Cursos de la escuela',
       fields: [
-        { label: 'Curso', type: 'text', placeholder: 'Ingrese el curso', required: true, value: formData.fullName },
-        { label: 'Materia', type: 'email', placeholder: 'Ingrese la materia', required: true, value: formData.email },
+        { label: 'Curso', type: 'text', placeholder: 'Ingrese el curso', required: true, value: formData.curso },
+        { label: 'Materia', type: 'email', placeholder: 'Ingrese la materia', required: true, value: formData.materia },
 
 
 
