@@ -56,13 +56,14 @@ const GoogleButton = () => {
 
         if (role === "admin") {
           dispatch(fetchUserData({ email: emailFromGoogle, token, rol: role, nameUser, photoUser }));
+        navigate('/dashboard')
         } else {
           dispatch(fetchUserData({ email: emailFromGoogle, token, rol: role }));
+          navigate('/dashboard/profileRole')
         }
       } else {
         toast.error('Error al iniciar sesión');
       }
-      navigate('/dashboard')
     } catch (error) {
       toast.error(`Error: ${error.message}`);
     }

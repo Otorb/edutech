@@ -30,7 +30,7 @@ const Sidebar = ({ position, visible, toggleSidebar, isCollapsed, toggleCollapse
       case 'admin':
         return (
           <>
-            <Link to={`${rolPath}/eventos`} className={style.liNav}>
+            <Link to={`${rolePath}/eventmodule`} className={style.liNav}>
               <FiCalendar className={style.iconNav} />
               {!isCollapsed && 'Eventos'}
             </Link>
@@ -48,14 +48,11 @@ const Sidebar = ({ position, visible, toggleSidebar, isCollapsed, toggleCollapse
             </Link>
           </>
         );
-      case 'teachers':
+      case 'teacher':
         return (
           <>
-            <Link to={`${rolPath}/ver-grados`} className={style.liNav}>
-              <FiUsers className={style.iconNav} />
-              {!isCollapsed && 'Ver Grados'}
-            </Link>
-            <Link to={`${rolPath}/cargar-nota`} className={style.liNav}>
+        
+            <Link to={`${rolePath}/cargar-nota`} className={style.liNav}>
               <FiBook className={style.iconNav} />
               {!isCollapsed && 'Cargar Nota'}
             </Link>
@@ -65,13 +62,12 @@ const Sidebar = ({ position, visible, toggleSidebar, isCollapsed, toggleCollapse
             </Link>
           </>
         );
-      case 'parent':
-      case 'students':
+      case 'student':
         return (
           <>
             <Link to={`${rolPath}/promedios`} className={style.liNav}>
               <FiBook className={style.iconNav} />
-              {!isCollapsed && 'Promedio'}
+              {!isCollapsed && 'Promedio/Notas'}
             </Link>
             <Link to={`${rolPath}/examenes`} className={style.liNav}>
               <FiCalendar className={style.iconNav} />
@@ -79,7 +75,21 @@ const Sidebar = ({ position, visible, toggleSidebar, isCollapsed, toggleCollapse
             </Link>
             <Link to={`${rolPath}/resumen-mensajes`} className={style.liNav}>
               <FiMail className={style.iconNav} />
-              {!isCollapsed && 'Resumen de Mensajes'}
+              {!isCollapsed && 'Mensajes'}
+            </Link>
+          
+          </>
+        );
+      case 'parent':
+        return (
+          <>
+            <Link to={`${rolePath}/promedios`} className={style.liNav}>
+              <FiBook className={style.iconNav} />
+              {!isCollapsed && 'Hijos'}
+            </Link>
+            <Link to={`${rolePath}/resumen-mensajes`} className={style.liNav}>
+              <FiMail className={style.iconNav} />
+              {!isCollapsed && 'Mensajes'}
             </Link>
             <Link to={`${rolPath}/eventos`} className={style.liNav}>
               <FiCalendar className={style.iconNav} />

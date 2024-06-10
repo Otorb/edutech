@@ -24,9 +24,8 @@ const Events = EventsModel(sequelize);
 
 //? Relaciones Parents y Students
 
-Students.hasMany(Parents, { foreignKey: "studentId" });
-Parents.belongsTo(Students, { foreignKey: "studentId" });
-
+Parents.hasMany(Students, { foreignKey: "parentId" });
+Students.belongsTo(Parents, { foreignKey: "parentId" });
 
 
 //! Relaciones historials y students
@@ -39,11 +38,15 @@ Parents.belongsTo(Students, { foreignKey: "studentId" });
 // Students.hasMany(Historials, { foreignKey: "studentId" });
 // Historials.belongsTo(Students, { foreignKey: "studentId" });
 
-Students.hasMany(Teachers, { foreignKey: "id" });
-Teachers.belongsTo(Students, { foreignKey: "teacherId" });
+// Students.hasMany(Teachers, { foreignKey: "id" });
+// Teachers.belongsTo(Students, { foreignKey: "teacherId" });
 
 // Students.hasMany(Promedio, { foreignKey: "studentId" });
 // Promedio.hasOne(Students, { foreignKey: "studentId" });
+
+Subject.belongsTo(Teachers, { foreignKey: "idSubject" });
+Teachers.hasMany(Subject, { foreignKey: "idSubject" });
+
 
 Promedio.hasMany(Notas, { foreignKey: "promedioId" });
 Notas.hasOne(Promedio, { foreignKey: "promedioId" });

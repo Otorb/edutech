@@ -11,8 +11,7 @@ export async function newParents(
   email,
   password,
   address,
-  phone,
-  StudentId
+  phone
 ) {
   const findParent = await Parents.findOne({ where: { email } });
   if (findParent) {
@@ -27,9 +26,9 @@ export async function newParents(
     password: parentsHashedPassword,
     address,
     phone,
-    
   });
-  await newParent.setStudent(StudentId);
+  //await newParent.setStudent(studentId);
+
   console.log(newParent,"aca traigo el body");
   // const sendEmail = await sendAccountCreationSuccessEmail(email);
   return  newParent;
@@ -54,7 +53,7 @@ export async function changePassword(newPassword, email, password) {
 }
 
 export async function getParents(id) {
-  const parent = await Parents.findByPk(id);
+  const parent = await Parents.findByPk(id, {include: { model: Students }});
   if (!parent) {
     throw new Error("El usuario no existe");
   }
