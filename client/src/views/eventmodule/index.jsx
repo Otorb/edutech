@@ -63,6 +63,7 @@ const index = () => {
   const { register, handleSubmit, setValue } = useForm();
 
   const dataEvent = useAppSelector(state=>state.event.eventData) 
+
   const dispatch = useAppDispatch()
   useEffect(()=>{
     dispatch(agregarEvents())
@@ -74,7 +75,12 @@ const index = () => {
 
     {
       name: "Eventos",
-      selector: (row) => row.elEvent,
+      selector: (row) => row.message,
+      sortable: true,
+    },
+    {
+      name: "Fecha",
+      selector: (row) => row.date,
       sortable: true,
     },
    
@@ -100,7 +106,7 @@ const index = () => {
 
   useEffect(() => {
     const tiemout = setTimeout(() => {
-      setRecords(data);
+      setRecords(dataEvent);
       setLoading(false);
     }, 2000);
 
