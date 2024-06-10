@@ -1,16 +1,17 @@
 import { FiSearch } from "react-icons/fi";
-import style from "./usermodule.module";
+import style from "../style/userModule.module.css";
 import DataTable from "react-data-table-component";
 import { useEffect, useState } from "react";
-import Loading from "../../components/Loading/Loading";
-import { downloadCSV } from "./Components/exportCSV"; // Asegúrate de ajustar la ruta según tu estructura de carpetas
-import CustomActionMenu from "./Components/CustomActionMenu";
-import { CursoAlumno } from "./ObjectsCourseTable";
+import Loading from "../../../components/Loading/Loading";
+import { downloadCSV } from "../Components/exportCSV"; // Asegúrate de ajustar la ruta según tu estructura de carpetas
+import CustomActionMenu from "../Components/CustomActionMenu";
+// import { CursoAlumno } from "ObjectsCourseTable";
 import { useForm } from "react-hook-form"
-import Form from "../../components/Form/Form";
-import { CoursesApi } from "../../Api/Course";
+import Form from "../Form/Form";
+import {CursoAlumno  } from "./FakeApi";
 import { useDispatch, useSelector } from "react-redux";
 import { getPetition } from "../reduxCourses/slice";
+import { CoursesApi } from "../../../Api/Course";
 
 
 
@@ -28,27 +29,27 @@ const index = () => {
 
 
 
-  const ApiCursos = useSelector(e => e)
-  console.log(ApiCursos)
+//   const ApiCursos = useSelector(e => e)
+//   console.log(ApiCursos)
 
 
   const dispatchCourses = useDispatch()
 
 
 
-  useEffect(() => {
-    const CoursesFun = async () => {
-      try {
-        const Courses = await CoursesApi()
-        console.log(Courses.data)
-        dispatchCourses(getPetition(Courses.data))
-      } catch (error) {
-        console.log(error)
-      }
-    }
+//   useEffect(() => {
+//     const CoursesFun = async () => {
+//       try {
+//         const Courses = await CoursesApi()
+//         console.log(Courses.data)
+//         dispatchCourses(getPetition(Courses.data))
+//       } catch (error) {
+//         console.log(error)
+//       }
+//     }
     
-    CoursesFun()
-  }, [dispatchCourses])
+//     CoursesFun()
+//   }, [dispatchCourses])
   
   
   const LoadingFn = () => <h1>Cargando..</h1>

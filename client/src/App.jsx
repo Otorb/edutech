@@ -8,7 +8,7 @@ import DetailProfile from "./views/detailprofile/index"
 //import FullInfoSon from "./views/Prophile/ParentsAndSons";
 import NotFound from './views/NotFound/index'
 import UserModule from './views/UserModule/index'
-import Courses from './views/CourseModule/Courses'
+import Courses from './views/CourseModule/CrudCourses/Courses'
 import EventModule from './views/eventmodule/index'
 
 const App = () => {
