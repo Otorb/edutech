@@ -11,82 +11,29 @@ import { useAppDispatch, useAppSelector } from "../../Hooks/useAppSelector";
 import { agregarEvents } from "../../store/slicer/eventSlice";
 import { useForm } from "react-hook-form";
 
-// const EventModule = () => {
-//   const dataEvent = useAppSelector((state) => state.event.eventData);
-//   const dispatch = useAppDispatch();
 
-//   useEffect(() => {
-//     dispatch(agregarEvents());
-//   }, [dispatch]);
-
-//   useEffect(() => {
-//     setRecords(dataEvent);
-//     setLoading(false);
-//   }, []);
-
-  //console.log(dataEvent);
-
-// const data = [
-//   {
-//     elEvent: "le invitamos el dia lunes a celebrar el aniversario de la escuela",
-//     //estado: "En curso",
-//   },
-//   {
-//     elEvent: "mañana acto dia de la bandera ",
-//     //estado: "En curso",
-//   },
-//   {
-//     elEvent: "el viernes reunion dia del padre",
-//     //estado: "Terminado",
-//   },
-//   {
-//     elEvent: "el lunesa desalluno de grado",
-//     //estado: "En curso",
-//   },
-//   {
-//     elEvent: "el martes feriado",
-//     //estado: "Terminado",
-//   },
-//   {
-//     elEvent: "el miercoles traer un instrumento",
-//     //estado: "En curso",
-//   },
-//   {
-//     elEvent: "el jueves venir vestidos de policias",
-//     //estado: "En curso",
-//   },
-//   {
-//     elEvent: "el viernes tarer una planta",
-//     //estado: "Terminado",
-//   },
-//   {
-//     elEvent: "el lunes ingresan a clases a las 09:30",
-//     //estado: "En curso",
-//   },
-//   {
-
-//     elEvent: "el martes venir habra reunion",
-//     //estado: "En curso",
-//   },
-// ];
 
 const index = () => {
 
   const { register, handleSubmit, setValue } = useForm();
 
   const dataEvent = useAppSelector(state=>state.event.eventData) 
+
   const dispatch = useAppDispatch()
   useEffect(()=>{
     dispatch(agregarEvents())
   },[])
-  //console.log(dataEvent[0]);
-  //hacer un map en dataEvent
 
   const column = [
 
     {
       name: "Eventos",
-      selector: (row) => row.elEvent,
+      selector: (row) => row.message,
+      sortable: true,
+    },
+    {
+      name: "Fecha",
+      selector: (row) => row.date,
       sortable: true,
     },
     {
@@ -107,12 +54,21 @@ const index = () => {
   const [loading, setLoading] = useState(true);
   const [openModal, setOpenModal] = useState(false);
 
+  useEffect(() => {
+    const tiemout = setTimeout(() => {
+      setRecords(dataEvent);
+      setLoading(false);
+    }, 2000);
+
+    return () => clearTimeout(tiemout);
+  }, []);
+
   const handleChange = (e) => {
-    const filterRecords = records.filter((record) => {
-      return record.toLowerCase().includes(e.target.value.toLowerCase());
+    const filterRecords = dataEvent.filter((record) => {
+      return record.message.toLowerCase().includes(e.target.value.toLowerCase());
     });
+
     setRecords(filterRecords);
-    console.log(filterRecords);
   };
 
   const handleExport = () => {
@@ -165,7 +121,7 @@ const handleChangeForm = (event) => {
     console.log(data);
     // Lógica para manejar el envío del formulario
 };
-}
+
 
 
   //const { register, handleSubmit } = useForm();
@@ -208,7 +164,7 @@ const handleChangeForm = (event) => {
 
         <section className={style.sectionModule}>
           <DataTable
-            columns={columns}
+            columns={column}
             data={records}
             selectableRows
             pagination
@@ -222,6 +178,7 @@ const handleChangeForm = (event) => {
     </>
   );
 };
+
 
 export default index;
 
