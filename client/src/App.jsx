@@ -8,7 +8,7 @@ import DetailProfile from "./views/detailprofile/index";
 //import FullInfoSon from "./views/Prophile/ParentsAndSons";
 import NotFound from "./views/NotFound/index";
 import UserModule from "./views/UserModule/index";
-import Courses from "./views/CourseModule/Courses";
+import Courses from "./views/CourseModule/CrudCourses/Courses";
 import EventModule from "./views/eventmodule/index";
 import Message from './views/MenssageModule/index'
 
@@ -27,8 +27,8 @@ const App = () => {
           <Route path="/dashboard/Usuarios" element={<UserModule />} />
           <Route path="/dashboard/eventmodule" element={<EventModule />} />
         </Route>
-        <Route path="/dashboard/profileRole" element={<Users />} />
         <Route path="/*" element={<NotFound />} />
+          <Route path="/dashboard/cursos" element={<Courses />} />
       </Route>
     </Routes>
   );

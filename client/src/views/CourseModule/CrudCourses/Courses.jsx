@@ -1,35 +1,58 @@
 import { FiSearch } from "react-icons/fi";
-import style from "./style/userModule.module.css";
+import style from "../style/userModule.module.css";
 import DataTable from "react-data-table-component";
 import { useEffect, useState } from "react";
-import Loading from "../../components/Loading/Loading";
-import { downloadCSV } from "./Components/exportCSV"; // Asegúrate de ajustar la ruta según tu estructura de carpetas
-import CustomActionMenu from "./Components/CustomActionMenu";
-import Form from "../../components/Form/Form";
-import { data, CursoAlumno } from "./ObjectsCourseTable";
-// import { CoursesApi } from "../../Api/Course";
+import Loading from "../../../components/Loading/Loading";
+import { downloadCSV } from "../Components/exportCSV"; // Asegúrate de ajustar la ruta según tu estructura de carpetas
+import CustomActionMenu from "../Components/CustomActionMenu";
+// import { CursoAlumno } from "ObjectsCourseTable";
+import { useForm } from "react-hook-form"
+import Form from "../Form/Form";
+import {CursoAlumno  } from "./FakeApi";
+import { useDispatch, useSelector } from "react-redux";
+import { getPetition } from "../reduxCourses/slice";
+import { CoursesApi } from "../../../Api/Course";
+
 
 
 
 const index = () => {
 
-const [Courses, setCourses] = useState([])
-const [load, setLoad] = useState(true)
 
-// const CoursesFun = async () => { 
-//   const Courses = await CoursesApi()
-//   setCourses(Courses)
+
+
+  const { register, handleSubmit } = useForm()
+
+  // const [postCourses, setPostCourses] = useState("")
+  // const [putCursos, setputCursos] = useState(null)
+  const [load, setLoad] = useState(true)
+
+
+
+//   const ApiCursos = useSelector(e => e)
+//   console.log(ApiCursos)
+
+
+  const dispatchCourses = useDispatch()
+
+
+
+//   useEffect(() => {
+//     const CoursesFun = async () => {
+//       try {
+//         const Courses = await CoursesApi()
+//         console.log(Courses.data)
+//         dispatchCourses(getPetition(Courses.data))
+//       } catch (error) {
+//         console.log(error)
+//       }
+//     }
+    
+//     CoursesFun()
+//   }, [dispatchCourses])
   
-// }
-
-// useEffect(()=> {
-//   CoursesFun()
-//   setLoad(false)
-// },[])
-
-console.log(CursoAlumno)
-
-const LoadingFn = () => <h1>Cargando..</h1>   
+  
+  const LoadingFn = () => <h1>Cargando..</h1>
 
 
   const courses = [
@@ -43,7 +66,7 @@ const LoadingFn = () => <h1>Cargando..</h1>
       selector: (row) => row.curso,
       sortable: true,
     },
-    
+
 
 
 
@@ -78,7 +101,7 @@ const LoadingFn = () => <h1>Cargando..</h1>
 
   // const handleFilterChange = (e) => {
   //   const filterValue = e.target.value;
-  //   // acá es un filtro parseado a  minuscula, 
+  //   // acá es un filtro parseado a  minuscula,
   //   //"si hay un dato existente en data que tambien exista en rol, que lo asigne a filteredRecords"
   //   const filteredRecords = data.filter((record) =>
   //     record.rol.toLowerCase().includes(filterValue.toLowerCase())
@@ -93,6 +116,9 @@ const LoadingFn = () => <h1>Cargando..</h1>
   //   setRecords(filterRecords);
   // };
 
+  const onSubmit = (e) => {
+    console.log(e)
+  }
   const handleExport = () => {
     downloadCSV(records);
   };
@@ -113,12 +139,9 @@ const LoadingFn = () => <h1>Cargando..</h1>
     setOpenModal(!openModal);
   };
   const [formData, setFormData] = useState({
-    fullName: '',
-    email: '',
-    address: '',
-    phone: '',
-    active: false,
-    role: ''
+    curso: '',
+    materia: '',
+    // active: false,
   });
 
   // Manejar cambios en los campos del formulario
@@ -128,28 +151,15 @@ const LoadingFn = () => <h1>Cargando..</h1>
     setFormData({ ...formData, [name]: newValue });
   };
 
-  const formSections = [
-    {
-      name: 'courses',
-      title: 'rsos de la escuela',
-      fields: [
-        { label: 'Apellido', type: 'text', placeholder: 'Ingrese su Apellido', required: true, value: formData.fullName },
-        { label: 'Nombres', type: 'text', placeholder: 'Ingrese su Nombres', required: true, value: formData.fullName },
-        { label: 'Email', type: 'email', placeholder: 'Ingrese su Email', required: true, value: formData.email },
-        { label: 'Dirección', type: 'text', placeholder: 'Ingrese su dirección', required: true, value: formData.address },
-        { label: 'Telefono', type: 'tel', placeholder: 'Ingrese su Telefono', required: true, value: formData.phone },
-        { label: 'Rol', type: 'text', placeholder: 'Ingres su rol', required: true, value: formData.role },
-        { label: 'Activo', type: 'checkbox', checked: formData.active }
-      ]
-    },
-  ];
+
+
   const formSectionsCourses = [
     {
       name: 'personal',
       title: 'Cursos de la escuela',
       fields: [
-        { label: 'Curso', type: 'text', placeholder: 'Ingrese el curso', required: true, value: formData.fullName },
-        { label: 'Materia', type: 'email', placeholder: 'Ingrese la materia', required: true, value: formData.email },
+        { label: 'Curso', type: 'text', placeholder: 'Ingrese el curso', required: true, value: formData.curso },
+        { label: 'Materia', type: 'email', placeholder: 'Ingrese la materia', required: true, value: formData.materia },
 
 
 
@@ -159,7 +169,7 @@ const LoadingFn = () => <h1>Cargando..</h1>
     },
   ];
 
-  const handleSubmit = (event) => {
+  const handleSubmitt = (event) => {
     event.preventDefault();
     // Lógica para manejar el envío del formulario
   };
@@ -180,7 +190,7 @@ const LoadingFn = () => <h1>Cargando..</h1>
               type="text"
               placeholder="Nombre.."
               className={style.search}
-              // onChange={handleChange}
+            // onChange={handleChange}
             />
           </div>
           <button className={style.btnAdd} onClick={handleopenModal}>
@@ -191,14 +201,14 @@ const LoadingFn = () => <h1>Cargando..</h1>
           <section className={style.sectionModuleForm}>
             <span onClick={handleopenModal} className={style.close}>X</span>
             <form onSubmit={handleSubmit}>
-              <Form title="Registration" fields={formSectionsCourses} onChange={handleChangeForm} />
+              <Form title="Registration" onSubmit={handleSubmit(onSubmit)} fields={formSectionsCourses} register={register} onChange={handleChangeForm} />
               <button type="submit" className={style.btnAdd}>Enviar</button>
             </form>
           </section>
         )}
 
         <section className={style.sectionModule}>
-          <select className={style.selectUser} 
+          <select className={style.selectUser}
           // onChange={handleFilterChange}
           >
             <option value="">Seleccionar </option>
