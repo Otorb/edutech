@@ -32,6 +32,11 @@
     background-color: #fff;
     overflow: hidden;
 }
+.textarea-field textarea {
+    width: 100%; /* Ajusta el ancho al 100% del contenedor */
+    height: 150px; /* Define la altura deseada */
+    resize: vertical; /* Permite que el usuario redimensione verticalmente si es necesario */
+  }
 .containerForm form .form{
     position: absolute;
     background-color: #fff;

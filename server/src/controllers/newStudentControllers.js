@@ -11,7 +11,8 @@ export async function newStudents(
   phone,
   birthd,
   registration,
-  photo
+  photo,
+  parentId
 ) {
   const user = await Students.findOne({ where: { email } });
   if (user) {
@@ -28,7 +29,11 @@ export async function newStudents(
     birthd,
     registration,
     photo,
+    parentId
   });
+  await student.setParent(parentId);
+
+  //console.log(student);
   return student;
 }
 

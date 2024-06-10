@@ -24,9 +24,8 @@ const Events = EventsModel(sequelize);
 
 //? Relaciones Parents y Students
 
-Students.hasMany(Parents, { foreignKey: "studentId" });
-Parents.belongsTo(Students, { foreignKey: "studentId" });
-
+Parents.hasMany(Students, { foreignKey: "parentId" });
+Students.belongsTo(Parents, { foreignKey: "parentId" });
 
 
 //! Relaciones historials y students

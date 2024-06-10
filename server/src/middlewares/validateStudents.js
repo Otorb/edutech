@@ -11,7 +11,6 @@ export function validateStudents(req, res, next) {
     phone,
     birthd,
     registration,
-    image,
   } = req.body;
   console.log(`numero de telefono recibido ${phone}`);
   if (
@@ -21,8 +20,7 @@ export function validateStudents(req, res, next) {
     !password ||
     !phone ||
     !birthd ||
-    !registration ||
-    !image
+    !registration
   ) {
     return res.status(400).json({
       message: "se requieren todos los campos",

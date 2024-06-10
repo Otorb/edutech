@@ -18,8 +18,8 @@ const upload = multer({
   storage: multer.memoryStorage()
 });
 
-studentsRouter.post("/", upload.none(), validateStudents, newStudentHandler);
-studentsRouter.get("/search/:id", verifyToken, getStudentHandler);
+studentsRouter.post("/", validateStudents, newStudentHandler);
+studentsRouter.get("/search/:id", getStudentHandler);
 studentsRouter.get("/searchAll/", getAllStudentsHandler);
 studentsRouter.put("/change/", ChangePasswordHandler);
 studentsRouter.delete("/delete/:id", verifyToken, deleteStudentHandler);
