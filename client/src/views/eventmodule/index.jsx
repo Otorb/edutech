@@ -166,7 +166,6 @@ const formSections = [
 };
 
 
-const { register, handleSubmit, setValue } = useForm();
 
 
   return (

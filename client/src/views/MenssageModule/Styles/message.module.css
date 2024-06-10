@@ -1,0 +1,45 @@
+.containerMessageModule{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    background: #fff;
+    color: #333;
+    display: flex;
+}
+.titleMessageModule{
+    font-size: 2rem;
+    font-weight: 700;
+}
+.descriptionMessageModule{
+    color: #adb5bd;
+}
+.navMessage{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    height: 3rem;
+    gap: 1rem;
+    padding: 0 1rem;
+    border-top: 1px solid #adb5bd;
+    border-bottom: 1px solid #adb5bd;
+    color: #adb5bd;
+}
+.navMessage .itemNavMessage{
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 3rem;
+    gap: 1rem;
+}
+.itemNavMessage:hover{
+    color: #333;
+    font-weight: 600;
+}
+.itemNavMessage.active{
+    color: #219ebc;
+    font-weight: 700;
+    border-bottom: 2px solid #219ebc;
+
+}

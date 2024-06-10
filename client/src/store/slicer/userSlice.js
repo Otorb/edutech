@@ -37,15 +37,17 @@ export const fetchUserData = createAsyncThunk(
           );
         } else {
           response = await axios.get(
-            `https://edusync-fbva.onrender.com/${rol}/searchAll`,
+            `https://edusync-fbva.onrender.com/students/searchAll`,
             {
               headers: {
                 Authorization: `Bearer ${token}`,
               },
             }
           );
+          console.log('aca' ,response.data.resultStudent)
           userData = response.data.resultStudent.find(
-            (user) => user.email === email
+            (user) => user.email === email[0]
+          
           );
         }
         if (!userData) {
