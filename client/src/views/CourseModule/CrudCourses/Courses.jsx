@@ -10,7 +10,7 @@ import { useForm } from "react-hook-form"
 import Form from "../../components/Form/Form";
 import { CoursesApi } from "../../Api/Course";
 import { useDispatch, useSelector } from "react-redux";
-import { getPetition } from "./reduxCourses/slice";
+import { getPetition } from "../reduxCourses/slice";
 
 
 
