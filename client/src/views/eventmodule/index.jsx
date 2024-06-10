@@ -60,6 +60,8 @@ const data = [
 
 const index = () => {
 
+  const { register, handleSubmit, setValue } = useForm();
+
   const dataEvent = useAppSelector(state=>state.event.eventData) 
   const dispatch = useAppDispatch()
   useEffect(()=>{
@@ -145,7 +147,6 @@ const handleChangeForm = (event) => {
     setFormData({ ...formData, [name]: newValue });
 };
 
-
 const formSections = [
   {
     name: 'personal',
@@ -165,7 +166,6 @@ const formSections = [
 };
 
 
-const { register, handleSubmit, setValue } = useForm();
 
 
   return (
