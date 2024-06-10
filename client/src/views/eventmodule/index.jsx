@@ -114,8 +114,8 @@ const index = () => {
   }, []);
 
   const handleChange = (e) => {
-    const filterRecords = data.filter((record) => {
-      return record.elEvent.toLowerCase().includes(e.target.value.toLowerCase());
+    const filterRecords = dataEvent.filter((record) => {
+      return record.message.toLowerCase().includes(e.target.value.toLowerCase());
     });
     setRecords(filterRecords);
   };
