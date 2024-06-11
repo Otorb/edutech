@@ -34,15 +34,15 @@ const Sidebar = ({ position, visible, toggleSidebar, isCollapsed, toggleCollapse
               <FiCalendar className={style.iconNav} />
               {!isCollapsed && 'Eventos'}
             </Link>
-            <Link to={`${rolPath}/usuarios`} className={style.liNav}>
+            <Link to={`${rolePath}/usuarios`} className={style.liNav}>
               <FiUsers className={style.iconNav} />
               {!isCollapsed && 'Usuarios'}
             </Link>
-            <Link to={`${rolPath}/cursos`} className={style.liNav}>
+            <Link to={`${rolePath}/cursos`} className={style.liNav}>
               <FiBook className={style.iconNav} />
               {!isCollapsed && 'Cursos'}
             </Link>
-            <Link to={`${rolPath}/mensajes`} className={style.liNav}>
+            <Link to={`${rolePath}/mensajes`} className={style.liNav}>
               <FiMail className={style.iconNav} />
               {!isCollapsed && 'Mensajes'}
             </Link>
@@ -56,7 +56,7 @@ const Sidebar = ({ position, visible, toggleSidebar, isCollapsed, toggleCollapse
               <FiBook className={style.iconNav} />
               {!isCollapsed && 'Cargar Nota'}
             </Link>
-            <Link to={`${rolPath}/enviar-mensaje`} className={style.liNav}>
+            <Link to={`${rolePath}/enviar-mensaje`} className={style.liNav}>
               <FiMail className={style.iconNav} />
               {!isCollapsed && 'Enviar Mensaje'}
             </Link>
@@ -71,7 +71,7 @@ const Sidebar = ({ position, visible, toggleSidebar, isCollapsed, toggleCollapse
               <FiBook className={style.iconNav} />
               {!isCollapsed && 'Promedio/Notas'}
             </Link>
-            <Link to={`${rolPath}/examenes`} className={style.liNav}>
+            <Link to={`${rolePath}/Examenes`} className={style.liNav}>
               <FiCalendar className={style.iconNav} />
               {!isCollapsed && 'Exámenes'}
             </Link>
@@ -95,7 +95,7 @@ const Sidebar = ({ position, visible, toggleSidebar, isCollapsed, toggleCollapse
               <FiMail className={style.iconNav} />
               {!isCollapsed && 'Mensajes'}
             </Link>
-            <Link to={`${rolPath}/eventos`} className={style.liNav}>
+            <Link to={`${rolePath}/eventos`} className={style.liNav}>
               <FiCalendar className={style.iconNav} />
               {!isCollapsed && 'Eventos'}
             </Link>
@@ -111,7 +111,7 @@ const Sidebar = ({ position, visible, toggleSidebar, isCollapsed, toggleCollapse
       <section className={style.headNav}>
         <button className={style.closeBtn} onClick={toggleSidebar}>×</button>
         <div className={style.userProfile}>
-          {userData.role === 'admin' ?
+          {userData.rol === 'admin' ?
             <>
               <div className={style.contentPhone}>
                 <img src={userData.photoUser} alt="User" className={style.userPhoto} />

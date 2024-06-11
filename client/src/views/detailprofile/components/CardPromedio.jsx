@@ -1,6 +1,6 @@
-import React from 'react';
 import ReactApexChart from 'react-apexcharts';
 import style from '../style/cardpromedio.module.css';
+import { useNavigate } from 'react-router-dom';
 
 const CardPromedio = ({ materia, promedio }) => {
   const chartOptions = {
@@ -39,6 +39,12 @@ const CardPromedio = ({ materia, promedio }) => {
 
   const chartSeries = [promedio, 100 - promedio];
 
+  const navigate = useNavigate()
+
+  const handlenavegate = () => {
+    navigate(`/dashboard/detalle/${materia}`, { state: { promedio } });
+  };
+
   return (
     <div className={style.containerCardPromedio}>
       <h1 className={style.titleCardPromedio}>{materia}</h1>
@@ -47,7 +53,9 @@ const CardPromedio = ({ materia, promedio }) => {
         <ReactApexChart options={chartOptions} series={chartSeries} type="donut" height="100%" />
       </section>
       <section>
-        <button className={style.btnCardPromedio}>Detalle</button>
+        <button className={style.btnCardPromedio}
+        onClick={handlenavegate}
+        >Detalle</button>
       </section>
     </div>
   );
