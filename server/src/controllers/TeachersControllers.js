@@ -1,6 +1,6 @@
 import { hahedPassword } from "../utils/hasPassword.js";
 
-import { Teachers } from "../models/index.js";
+import { Teachers, Subject } from "../models/index.js";
 import bcrypt from "bcrypt";
 
 export async function newTeachers(name, lastName, email, password, phone) {
@@ -67,7 +67,7 @@ export async function getTeacher(email) {
 
 export async function getAllTeacher() {
   //try {
-  const allTeachers = await Teachers.findAll();
+  const allTeachers = await Teachers.findAll({include:{model : Subject}});
   if (allTeachers.length === 0) {
     throw new Error("No hay profesores, aun");
   }
