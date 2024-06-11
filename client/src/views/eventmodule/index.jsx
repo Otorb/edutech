@@ -1,3 +1,4 @@
+
 import { FiSearch } from "react-icons/fi";
 import style from "./style/EventModule.module.css";
 import DataTable from "react-data-table-component";
@@ -12,52 +13,6 @@ import { useForm } from "react-hook-form";
 
 
 
-
-
-const data = [
-  {
-    elEvent: "le invitamos el dia lunes a celebrar el aniversario de la escuela",
-    //estado: "En curso",
-  },
-  {
-    elEvent: "mañana acto dia de la bandera ",
-    //estado: "En curso",
-  },
-  {
-    elEvent: "el viernes reunion dia del padre",
-    //estado: "Terminado",
-  },
-  {
-    elEvent: "el lunesa desalluno de grado",
-    //estado: "En curso",
-  },
-  {
-    elEvent: "el martes feriado",
-    //estado: "Terminado",
-  },
-  {
-    elEvent: "el miercoles traer un instrumento",
-    //estado: "En curso",
-  },
-  {
-    elEvent: "el jueves venir vestidos de policias",
-    //estado: "En curso",
-  },
-  {
-    elEvent: "el viernes tarer una planta",
-    //estado: "Terminado",
-  },
-  {
-    elEvent: "el lunes ingresan a clases a las 09:30",
-    //estado: "En curso",
-  },
-  {
-
-    elEvent: "el martes venir habra reunion",
-    //estado: "En curso",
-  },
-];
-
 const index = () => {
 
   const { register, handleSubmit, setValue } = useForm();
@@ -68,8 +23,6 @@ const index = () => {
   useEffect(()=>{
     dispatch(agregarEvents())
   },[])
-  console.log(dataEvent[0]);
-  //hacer un map en dataEvent
 
   const column = [
 
@@ -83,7 +36,6 @@ const index = () => {
       selector: (row) => row.date,
       sortable: true,
     },
-   
     {
       name: "Acciones",
       cell: (row) => (
@@ -94,13 +46,11 @@ const index = () => {
           onDelete={handleDelete}
         />
       ),
-      button: true,
       width: "150px",
     },
   ];
 
-
-  const [records, setRecords] = useState(data);
+  const [records, setRecords] = useState([]);
   const [loading, setLoading] = useState(true);
   const [openModal, setOpenModal] = useState(false);
 
@@ -117,6 +67,7 @@ const index = () => {
     const filterRecords = dataEvent.filter((record) => {
       return record.message.toLowerCase().includes(e.target.value.toLowerCase());
     });
+
     setRecords(filterRecords);
   };
 
@@ -136,15 +87,16 @@ const index = () => {
     console.log("Delete:", row);
   };
 
-  const handleopenModal = () => {
+  const handleOpenModal = () => {
     setOpenModal(!openModal);
   };
+
   const [formData, setFormData] = useState({
     message: '',
     EstadoEvento: '',
     enCurso: false,
     date: ''
-});
+  });
 
 // Manejar cambios en los campos del formulario
 const handleChangeForm = (event) => {
@@ -153,18 +105,17 @@ const handleChangeForm = (event) => {
     setFormData({ ...formData, [name]: newValue });
 };
 
-const formSections = [
-  {
-    name: 'personal',
-    title: 'Crear Eventos',
-    fields: [
-      { name: 'message', label: 'Evento', type: 'text', placeholder: 'Evento...', required: true },
-      // { name: 'EstadoEvento', label: 'Estado del Evento', type: 'text', placeholder: 'Estado del Evento...', required: true },
-      { name: 'date', label: 'Fecha del Evento', type: 'date', placeholder: 'Fecha del Evento...', required: true },
-    ]
-  },
-];
 
+  const formSections = [
+    {
+      name: 'personal',
+      title: 'Crear Eventos',
+      fields: [
+        { name: 'message', label: 'Evento', type: 'text', placeholder: 'Evento...', required: true },
+        { name: 'date', label: 'Fecha del Evento', type: 'date', placeholder: 'Fecha del Evento...', required: true },
+      ]
+    },
+  ];
 
   const onhandleSubmit = (data) => {
     console.log(data);
@@ -173,6 +124,7 @@ const formSections = [
 
 
 
+  //const { register, handleSubmit } = useForm();
 
   return (
     <>
@@ -189,26 +141,14 @@ const formSections = [
               onChange={handleChange}
             />
           </div>
-          <button className={style.btnAdd} onClick={handleopenModal}>
+          <button className={style.btnAdd} onClick={handleOpenModal}>
             Agregar
           </button>
         </section>
-        {/* {openModal && (
-          <section className={style.sectionModuleForm}>
-            <span onClick={handleopenModal} className={style.close}>X</span>
-            <form onSubmit={handleSubmit(onhandleSubmit)}>
-            {/* <Form title="Registration" fields={formSections} onChange={handleChangeForm} /> */}
-            {/* <Form fields={formSections[0].fields} register={register} formData={formData} /> */}
-            {/* <Form title="Registration" fields={formSections} register={register} />
-            <button type="submit" className={style.btnAdd}>Enviar</button>
-        </form>
-          </section>
-        )} */} 
 
-
-{openModal && (
+        {openModal && (
           <section className={style.sectionModuleForm}>
-            <span onClick={handleopenModal} className={style.close}>X</span>
+            <span onClick={handleOpenModal} className={style.close}>X</span>
             <form onSubmit={handleSubmit(onhandleSubmit)}>
               <Form title="Registration" fields={formSections} register={register} />
               <button type="submit" className={style.btnAdd}>Enviar</button>
@@ -216,20 +156,12 @@ const formSections = [
           </section>
         )}
 
-
-
-
-
         <section className={style.sectionModule}>
-          {/* <select className={style.selectUser} onChange={handleFilterChange}>
-            <option value="">Seleccionar estado</option>
-            <option value="En curso">En curso</option>
-            <option value="Terminado">Terminado</option>
-          </select> */}
           <button className={style.btnAddExport} onClick={handleExport}>
             Exportar Excel
           </button>
         </section>
+
         <section className={style.sectionModule}>
           <DataTable
             columns={column}
@@ -247,4 +179,53 @@ const formSections = [
   );
 };
 
+
 export default index;
+
+
+
+
+
+// const data = [
+//   {
+//     elEvent: "le invitamos el dia lunes a celebrar el aniversario de la escuela",
+//     //estado: "En curso",
+//   },
+//   {
+//     elEvent: "mañana acto dia de la bandera ",
+//     //estado: "En curso",
+//   },
+//   {
+//     elEvent: "el viernes reunion dia del padre",
+//     //estado: "Terminado",
+//   },
+//   {
+//     elEvent: "el lunesa desalluno de grado",
+//     //estado: "En curso",
+//   },
+//   {
+//     elEvent: "el martes feriado",
+//     //estado: "Terminado",
+//   },
+//   {
+//     elEvent: "el miercoles traer un instrumento",
+//     //estado: "En curso",
+//   },
+//   {
+//     elEvent: "el jueves venir vestidos de policias",
+//     //estado: "En curso",
+//   },
+//   {
+//     elEvent: "el viernes tarer una planta",
+//     //estado: "Terminado",
+//   },
+//   {
+//     elEvent: "el lunes ingresan a clases a las 09:30",
+//     //estado: "En curso",
+//   },
+//   {
+
+//     elEvent: "el martes venir habra reunion",
+//     //estado: "En curso",
+//   },
+//  ];
