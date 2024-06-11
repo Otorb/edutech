@@ -19,10 +19,10 @@ export const fetchUserData = createAsyncThunk(
               },
             }
           );
-          
+          console.log(email)
           userData = response.data.resultGetAllParents.find(
-            (parent) => parent.email === email
-          );
+            (parent) => parent.email === email[0]
+            );
         } else if (rol === "teacher") {
           response = await axios.get(
             `https://edusync-fbva.onrender.com/teacher/searchAll`,
@@ -33,7 +33,7 @@ export const fetchUserData = createAsyncThunk(
             }
           );
           userData = response.data.resultTeacher.find(
-            (teacher) => teacher.email === email
+            (teacher) => teacher.email === email[0]
           );
         } else {
           response = await axios.get(
