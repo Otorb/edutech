@@ -20,8 +20,8 @@ const App = () => {
       <Route path="/" element={<Home />} />
       {/* <Route path="/dashboard/eventmodule" element={<EventModule />} /> */}
 
-          <Route path="/dashboard/profileRole" element={<Users />} />
       <Route element={<AuthOutlet fallbackPath="/login" />}>
+          <Route path="/dashboard/profileRole" element={<Users />} />
         <Route path="/dashboard" element={<Dashboard />}>
           <Route path="/dashboard/Eventos" element={"Lista de eventos"} />
           <Route path="/dashboard/Mensajes" element={<Message/>} />
