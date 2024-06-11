@@ -69,7 +69,7 @@ const Sidebar = ({ position, visible, toggleSidebar, isCollapsed, toggleCollapse
               <FiBook className={style.iconNav} />
               {!isCollapsed && 'Promedio/Notas'}
             </Link>
-            <Link to={`${rolePath}/examenes`} className={style.liNav}>
+            <Link to={`${rolePath}/Examenes`} className={style.liNav}>
               <FiCalendar className={style.iconNav} />
               {!isCollapsed && 'Exámenes'}
             </Link>
