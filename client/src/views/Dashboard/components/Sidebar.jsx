@@ -111,7 +111,7 @@ const Sidebar = ({ position, visible, toggleSidebar, isCollapsed, toggleCollapse
       <section className={style.headNav}>
         <button className={style.closeBtn} onClick={toggleSidebar}>×</button>
         <div className={style.userProfile}>
-          {userData.role === 'admin' ?
+          {userData.rol === 'admin' ?
             <>
               <div className={style.contentPhone}>
                 <img src={userData.photoUser} alt="User" className={style.userPhoto} />

@@ -8,7 +8,6 @@ import DetailProfile from "./views/detailprofile/index";
 //import FullInfoSon from "./views/Prophile/ParentsAndSons";
 import NotFound from "./views/NotFound/index";
 import UserModule from "./views/UserModule/index";
-import Courses from "./views/CourseModule/CrudCourses/Courses";
 import EventModule from "./views/eventmodule/index";
 import Message from './views/MenssageModule/index'
 import Examen from './views/Examen/index'
@@ -21,6 +20,7 @@ const App = () => {
       <Route path="/" element={<Home />} />
       {/* <Route path="/dashboard/eventmodule" element={<EventModule />} /> */}
 
+          <Route path="/dashboard/profileRole" element={<Users />} />
       <Route element={<AuthOutlet fallbackPath="/login" />}>
         <Route path="/dashboard" element={<Dashboard />}>
           <Route path="/dashboard/Eventos" element={"Lista de eventos"} />
@@ -32,7 +32,7 @@ const App = () => {
           <Route path="/dashboard/eventmodule" element={<EventModule />} />
         </Route>
         <Route path="/*" element={<NotFound />} />
-          <Route path="/dashboard/cursos" element={<Courses />} />
+          <Route path="/dashboard/cursos" element={'cursos'} />
       </Route>
     </Routes>
   );
