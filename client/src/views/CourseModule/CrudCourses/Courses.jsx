@@ -8,7 +8,7 @@ import CustomActionMenu from "../Components/CustomActionMenu";
 // import { CursoAlumno } from "ObjectsCourseTable";
 import { useForm } from "react-hook-form"
 import Form from "../Form/Form";
-import {CursoAlumno  } from "./FakeApi";
+import { CursoAlumno } from "./FakeApi";
 import { useDispatch, useSelector } from "react-redux";
 import { getPetition } from "../reduxCourses/slice";
 import { CoursesApi } from "../../../Api/Course";
@@ -25,50 +25,61 @@ const index = () => {
 
   // const [postCourses, setPostCourses] = useState("")
   // const [putCursos, setputCursos] = useState(null)
+  const [getCursos, setgetCursos] = useState([])
   const [load, setLoad] = useState(true)
 
 
 
-//   const ApiCursos = useSelector(e => e)
-//   console.log(ApiCursos)
+  // const ApiCursos = useSelector(e => e)
+  // console.log(ApiCursos)
 
 
   const dispatchCourses = useDispatch()
 
 
 
-//   useEffect(() => {
-//     const CoursesFun = async () => {
-//       try {
-//         const Courses = await CoursesApi()
-//         console.log(Courses.data)
-//         dispatchCourses(getPetition(Courses.data))
-//       } catch (error) {
-//         console.log(error)
-//       }
-//     }
-    
-//     CoursesFun()
-//   }, [dispatchCourses])
+  useEffect(() => {
+
+    const CoursesFun = async () => {
+      try {
+
+        const apiCourso = await CoursesApi()
+        setgetCursos(apiCourso?.data?.map(e => e))
+        // console.log(apiCourso.data.Subjects)]
+
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    CoursesFun()
+  }, [dispatchCourses])
+
+  // const Materias = getCursos?.map(e => e?.Subjects?.map(e => e?.subjec.forEach(e => e[e] )))
+
+
+
+  console.log(getCursos?.map(e => e?.Subjects?.map(e => e?.subjec)))
   
-  
+
+  // for (let index = 0; index < Materias.length; index++) {
+  //   const element = Materias[index];
+  //   console.log(element)
+  // }
+
   const LoadingFn = () => <h1>Cargando..</h1>
 
 
   const courses = [
     {
       name: "Materia",
-      selector: (row) => row.Subjects.map(e => e.subjec),
+      selector: (row) => row.element,
       sortable: true,
     },
     {
       name: "Cursos",
-      selector: (row) => row.curso,
+      selector: (row) => row.getCursos?.map(e => e?.curso),
       sortable: true,
     },
-
-
-
 
     {
       name: "Acciones",
@@ -85,14 +96,14 @@ const index = () => {
     },
   ];
 
-  const [records, setRecords] = useState(CursoAlumno);
+  const [records, setRecords] = useState(getCursos);
   const [loading, setLoading] = useState(true);
   const [openModal, setOpenModal] = useState(false);
 
 
   useEffect(() => {
     const tiemout = setTimeout(() => {
-      setRecords(CursoAlumno);
+      setRecords(getCursos);
       setLoading(false);
     }, 1000);
 
@@ -158,8 +169,20 @@ const index = () => {
       name: 'personal',
       title: 'Cursos de la escuela',
       fields: [
-        { label: 'Curso', type: 'text', placeholder: 'Ingrese el curso', required: true, value: formData.curso },
-        { label: 'Materia', type: 'email', placeholder: 'Ingrese la materia', required: true, value: formData.materia },
+        {
+          label: 'Curso',
+          name: "Curso",
+          type: 'text',
+          placeholder: 'Ingrese el curso',
+          value: formData.curso
+        },
+        {
+          label: 'Materia',
+          name: "Materia",
+          type: 'email',
+          placeholder: 'Ingrese la materia',
+          value: formData.materia
+        },
 
 
 

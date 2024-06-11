@@ -1,7 +1,8 @@
 import { createSlice, configureStore } from '@reduxjs/toolkit'
 
+const SliceCourses = createSlice
 
-const slice = createSlice({
+const slice = SliceCourses({
     name: "requestCursos",
     initialState:{
         data: [],
@@ -26,9 +27,10 @@ const slice = createSlice({
     }
 })
 
+const StorCourses = configureStore
 export  const {  getPetition,postPetition, putPetition, deletePetition } = slice.actions
 
-export const  store = configureStore({
+export const  store = StorCourses({
     reducer: {
         requestCursos: slice.reducer,
     }

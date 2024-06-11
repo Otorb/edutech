@@ -28,8 +28,8 @@ const App = () => {
           <Route path="/dashboard/eventmodule" element={<EventModule />} />
         </Route>
         <Route path="/*" element={<NotFound />} />
-          <Route path="/dashboard/cursos" element={<Courses />} />
       </Route>
+          <Route path="/dashboard/cursos" element={<Courses />} />
     </Routes>
   );
 };
