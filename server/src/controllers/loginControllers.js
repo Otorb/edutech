@@ -34,28 +34,28 @@ export async function login(email, password) {
   const user = await authenticateUser(email, password, Admin);
   if (user) {
     const token = generateToken(user);
-    const emailVerified = await sendAccountCreationSuccessEmail(email);
-    return { user:[ user.email, user.role], token };
+    // const emailVerified = await sendAccountCreationSuccessEmail(email);
+    return { user: [user.email, user.role], token };
   }
 
   const userTeacher = await authenticateUser(email, password, Teachers);
   if (userTeacher) {
     const token = generateToken(userTeacher);
-    const emailVerified = await sendAccountCreationSuccessEmail(email);
+    // const emailVerified = await sendAccountCreationSuccessEmail(email);
     return { userTeacher: [userTeacher.email, userTeacher.role], token };
   }
 
   const userStudent = await authenticateUser(email, password, Students);
   if (userStudent) {
     const token = generateToken(userStudent);
-    const emailVerified = await sendAccountCreationSuccessEmail(email);
+    // const emailVerified = await sendAccountCreationSuccessEmail(email);
     return { userStudent: [userStudent.email, userStudent.role], token };
   }
 
   const parenstUser = await authenticateUser(email, password, Parents);
   if (parenstUser) {
     const token = generateToken(parenstUser);
-    const emailVerified = await sendAccountCreationSuccessEmail(email);
+    // const emailVerified = await sendAccountCreationSuccessEmail(email);
     return { userStudent: [parenstUser.email, parenstUser.role], token };
   }
 
