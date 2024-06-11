@@ -1,0 +1,83 @@
+.containerDetailProfile{
+    width: 100%;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+.titleWelcome{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: #005f73;
+    font-size: 2rem;
+}
+.iconWelcome{
+    color: #52b788;
+}
+
+.headDetailProfile{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    background: #0077b6;
+    padding: 0 1rem;
+    color: #fff;
+}
+.itemHeadDetailProfile{
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    cursor: pointer;
+    height: 3rem;
+}
+.itemHeadDetailProfile:hover{
+    color: #333;
+    font-weight: 700;
+}
+.listPromediosDetailProfile{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.infoDetailProfile{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+    color: #005f73;
+    padding: 1rem 0;
+}
+.itemPromedio{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.contentEventProfile{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem 0;
+}
+
+
+
+@media screen and (max-width: 1000px) {
+    .titleWelcome{
+        width: 100%;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+    }
+    .listPromediosDetailProfile{
+        align-items: center;
+    }
+    .itemPromedio{
+        justify-content: center;
+    }
+  }

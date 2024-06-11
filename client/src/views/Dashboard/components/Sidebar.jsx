@@ -65,7 +65,9 @@ const Sidebar = ({ position, visible, toggleSidebar, isCollapsed, toggleCollapse
       case 'student':
         return (
           <>
-            <Link to={`${rolPath}/promedios`} className={style.liNav}>
+
+            <Link to={`${rolePath}/profile`} className={style.liNav}>
+
               <FiBook className={style.iconNav} />
               {!isCollapsed && 'Promedio/Notas'}
             </Link>
@@ -73,7 +75,9 @@ const Sidebar = ({ position, visible, toggleSidebar, isCollapsed, toggleCollapse
               <FiCalendar className={style.iconNav} />
               {!isCollapsed && 'Exámenes'}
             </Link>
-            <Link to={`${rolPath}/resumen-mensajes`} className={style.liNav}>
+
+            <Link to={`${rolePath}/Mensajes`} className={style.liNav}>
+
               <FiMail className={style.iconNav} />
               {!isCollapsed && 'Mensajes'}
             </Link>

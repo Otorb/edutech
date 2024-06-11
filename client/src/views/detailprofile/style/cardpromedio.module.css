@@ -1,0 +1,36 @@
+.containerCardPromedio {
+    width: 15rem;
+    height: 100%;
+    border-radius: 10px;
+    border: 3px solid #ffffff;
+    background: #f8f9fa;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+    padding: 1rem;
+}
+.titleCardPromedio {
+    color: #6930c3;
+    text-transform: uppercase;
+}
+.numberCardPromedio {
+    font-size: 2.3rem;
+    color: #6930c3;
+    font-weight: 700;
+}
+.circleCardPromedio {
+    width: 100%;
+    height: 10rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.btnCardPromedio{
+    padding: .5rem 1rem;
+    border-radius: 5px;
+    color: #f8f9fa;
+    background: #6930c3;
+    cursor: pointer;
+}
