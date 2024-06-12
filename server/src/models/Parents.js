@@ -35,11 +35,11 @@ export default function Parents(sequelize) {
       },
       phone: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: null,
       },
       photo: {
         type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: null,
       },
       fullName: {
         type: DataTypes.VIRTUAL,

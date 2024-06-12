@@ -11,6 +11,7 @@ export async function newParents(
   email,
   password,
   address,
+  photo,
   phone
 ) {
   const findParent = await Parents.findOne({ where: { email } });
@@ -25,13 +26,14 @@ export async function newParents(
     email,
     password: parentsHashedPassword,
     address,
+    photo,
     phone,
   });
   //await newParent.setStudent(studentId);
 
-  console.log(newParent,"aca traigo el body");
+  console.log(newParent, "aca traigo el body");
   // const sendEmail = await sendAccountCreationSuccessEmail(email);
-  return  newParent;
+  return newParent;
 }
 
 export async function changePassword(newPassword, email, password) {
@@ -53,7 +55,7 @@ export async function changePassword(newPassword, email, password) {
 }
 
 export async function getParents(id) {
-  const parent = await Parents.findByPk(id, {include: { model: Students }});
+  const parent = await Parents.findByPk(id, { include: { model: Students } });
   if (!parent) {
     throw new Error("El usuario no existe");
   }
@@ -61,7 +63,7 @@ export async function getParents(id) {
 }
 
 export async function getAllParents() {
-  const parents = await Parents.findAll({include:{ model: Students }});
+  const parents = await Parents.findAll({ include: { model: Students } });
   if (!parents) {
     throw new Error("No se encontraron usuarios");
   }
@@ -82,7 +84,7 @@ export async function updateWithImage(id, updateData) {
   if (!parent) {
     throw new Error("El familiar no existe");
   }
-  
+
   await parent.update(updateData);
 
   return parent;
@@ -94,7 +96,7 @@ export async function updateWithoutImage(id, updateData) {
   if (!parent) {
     throw new Error("El familiar no existe");
   }
-  
+
   await parent.update(updateData);
 
   return parent;
