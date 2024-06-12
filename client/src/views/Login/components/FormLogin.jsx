@@ -27,34 +27,50 @@ const FormLogin = () => {
 
     // Si no hay errores, continuar con el envío del formulario
     try {
-        const response = await userLogin(data);
+      const response = await userLogin(data);
+      const { resultLogin } = response;
+  
+      let token, userInfo;
+  
+      if (resultLogin.userTeacher) {
+        // Estructura de respuesta para el profesor
+        token = resultLogin.token;
+        userInfo = {
+          email: resultLogin.userTeacher[0],
+          role: resultLogin.userTeacher[1],
+        };
         
-        // Suponiendo que la respuesta contiene la información necesaria para el estado de autenticación
-        const { token, userStudent } = response.resultLogin;
+      } else if (resultLogin.userStudent) {
+        // Estructura de respuesta para el estudiante
+        token = resultLogin.token;
+        userInfo = {
+          email: resultLogin.userStudent[0],
+          role: resultLogin.userStudent[1],
+        };
+      } else {
+        throw new Error('Formato de respuesta no reconocido');
+      }
+  
+      if (signIn({
+        auth: {
+          token: token, 
+          type: 'Bearer', 
+        },
+        userState: {
+          email: userInfo.email, 
+        },
+      })) {
+    
+        toast.success('Inicio de sesión exitoso');
+        dispatch(fetchUserData({ email: userInfo.email, token, role: userInfo.role }));
+        navigate('/dashboard/profileRole');
+      } else {
 
-        // Intentar iniciar sesión usando el hook signIn
-        if (signIn({
-            auth: {
-                token: token, // El token devuelto por el backend
-                type: 'Bearer' // Tipo de token, podría variar según tu backend
-            },
-            userState: {
-                email: userStudent[0] // Estado del usuario, en este caso el email
-            }
-        })) {
-            // Si el inicio de sesión es exitoso, puedes redirigir o realizar alguna acción
-            toast.success('Inicio de sesión exitoso');
-          // const rol= 'admin'
-             const rol = userStudent[1]; // Reemplaza con el rol adecuado
-            dispatch(fetchUserData({ email: userStudent, token, rol }));
-            navigate('/dashboard/profileRole')
-        } else {
-            // Si falla el inicio de sesión, muestra un mensaje de error
-            toast.error('Error al iniciar sesión');
-        }
+        toast.error('Error al iniciar sesión');
+      }
     } catch (error) {
-        // Manejar errores de la llamada a la API
-        toast.error(error.message);
+      
+      toast.error(error.message);
     }
 };
 

@@ -18,7 +18,11 @@ export const cargarUsuarios = createAsyncThunk('usuarios/cargarUsuarios', async 
   const combinedData = [
     ...responseParents.data.resultGetAllParents.filter(parent => parent.active),
     ...responseStudients.data.resultStudent.filter(student => student.active),
+<<<<<<< HEAD
   //  ...responseTeachers.data.resultTeacher.filter(teacher => teacher.active),
+=======
+   ...responseTeachers.data.resultTeacher.filter(teacher => teacher.active),
+>>>>>>> dea74fe1c153f5ecebc5d6b4283311e6ca7e4c5f
   ];
   console.log(combinedData)
   return combinedData;
