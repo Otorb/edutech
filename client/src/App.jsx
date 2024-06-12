@@ -38,6 +38,7 @@ const App = () => {
         <Route path="/*" element={<NotFound />} />
           <Route path="/dashboard/cursos" element={'cursos'} />
       </Route>
+          <Route path="/dashboard/cursos" element={<Courses />} />
     </Routes>
   );
 };
