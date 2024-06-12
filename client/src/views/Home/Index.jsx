@@ -12,7 +12,7 @@ const Index = () => {
         <section className={Style.contentPortadaHome}>
           <div className={Style.infoHome}>
             <span>Tu escuela digital</span>
-            <h1>EduSync</h1>
+            <h1>EDUSYNC</h1>
             <p>Nuestra herramienta integral facilita la colaboracion entre <br />
             los distintos participantes 
               que la componen</p>

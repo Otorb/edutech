@@ -19,7 +19,7 @@ const CardPromedio = ({ materia, promedio }) => {
       }
     },
     fill: {
-      colors: ['#FF4560', '#f3f3f3']
+      colors: ['#3E86E4', '#f3f3f3']
     },
     legend: {
       show: false

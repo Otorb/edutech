@@ -90,7 +90,7 @@ const DetailProfile = () => {
         <strong>Total de Cursos: </strong> {'3'} 
         </span>
          <span>
-        <strong>Curso: </strong> {dataUser.Curso.curso} años
+        <strong>Curso: </strong> {dataUser.Curso.curso} 
         </span> 
       </section>
       <section className={style.listPromediosDetailProfile}>

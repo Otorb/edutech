@@ -1,33 +1,62 @@
-@import url('https://fonts.googleapis.com/css2?family=Edu+TAS+Beginner:wght@400..700&display=swap');
-
-.containerHome{
-    width: 100%;
-    min-height: 100vh;
-    background-color: #fff;
+@import url("https://fonts.googleapis.com/css2?family=Edu+TAS+Beginner:wght@400..700&display=swap");
+:root {
+  --color-bluelogo: #3e86e4;
+  --azul-Logo-soft:#81aadf;
 }
-.contentPortadaHome{
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    padding: 0 3rem;
+.containerHome {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #fff;
 }
-.infoHome{
-    display: flex;
+.contentPortadaHome {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 7rem 3rem;
+  @media screen and (width < 950px) {
+    img{
+        display: none;
+    }
     flex-direction: column;
-    gap: .5rem;
+    height: 90vh;
+  }
 }
-.infoHome span{
+/* la manera en que está escrito lo de abajo se llama nesting, 
+lo agregaron hace un año a css, antes se hacia
+usando preprocesadores como sass,
+funciona perfectamente en todos los navegadores*/
+
+.infoHome {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  @media screen and (width < 950px) {
+    align-items: center;
+  }
+  span {
     text-transform: uppercase;
-    color: #d4bbfc;
+    color: var(--azul-Logo-soft);
     letter-spacing: 1px;
-}
-.infoHome h1{
+  }
+  h1 {
     font-family: "Edu TAS Beginner", cursive;
     font-size: 6rem;
     font-weight: 700;
-}
-.infoHome p{
+    letter-spacing: .8rem;
+    color: var(--color-bluelogo);
+    @media screen and (width < 950px) {
+        font-size: 4rem;
+    }
+  }
+  p {
     padding-top: 1rem;
     color: #495057;
+    width: 100%;
+    text-align: left;
+    @media screen and (width < 950px) {
+        width: 80%;
+        text-align: center;
+    }
+  }
 }
