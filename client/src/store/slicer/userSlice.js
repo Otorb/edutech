@@ -3,61 +3,54 @@ import axios from "axios";
 
 export const fetchUserData = createAsyncThunk(
   "user/fetchUserData",
-  async ({ email, token, rol, nameUser, photoUser }, { rejectWithValue }) => {
+  async ({ email, token, role }, { rejectWithValue }) => {
     try {
       let userData;
-      if (rol === "admin") {
-        userData = { email, rol, nameUser, photoUser }; 
+      let response;
+
+      if (role === "admin") {
+        userData = { email, role }; 
       } else {
-        let response;
-        if (rol === "parent") {
-          response = await axios.get(
-            `https://edusync-fbva.onrender.com/parent/searchAll`,
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          );
-          console.log(email)
+        const endpoint = role === "parent" 
+          ? `https://edusync-fbva.onrender.com/parent/searchAll` 
+          : role === "teacher"
+          ? `https://edusync-fbva.onrender.com/teachers/allTeacher`
+          : `https://edusync-fbva.onrender.com/students/searchAll`;
+
+        response = await axios.get(endpoint, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        console.log('API Response:', response.data);
+
+        if (role === "parent") {
+          console.log('Searching for parent with email:', email);
           userData = response.data.resultGetAllParents.find(
-            (parent) => parent.email === email[0]
-            );
-        } else if (rol === "teacher") {
-          response = await axios.get(
-            `https://edusync-fbva.onrender.com/teacher/searchAll`,
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            }
+            (parent) => parent.email === email
           );
+        } else if (role === "teacher") {
+          console.log('Searching for teacher with email:', email);
           userData = response.data.resultTeacher.find(
-            (teacher) => teacher.email === email[0]
+            (teacher) => teacher.email === email
           );
         } else {
-          response = await axios.get(
-            `https://edusync-fbva.onrender.com/students/searchAll`,
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          );
-          console.log('aca' ,response.data.resultStudent)
+          console.log('Searching for student with email:', email);
           userData = response.data.resultStudent.find(
-            (user) => user.email === email[0]
-          
+            (user) => user.email === email
           );
         }
+
         if (!userData) {
-          // Si no se encontraron datos para el usuario, puedes lanzar un error o manejarlo de alguna otra manera
           throw new Error("User data not found");
         }
       }
-      return { ...userData, role: rol };
+
+      return { ...userData, role };
     } catch (error) {
-      return rejectWithValue(error.response.data);
+      console.error('Error fetching user data:', error);
+      return rejectWithValue(error.response ? error.response.data : error.message);
     }
   }
 );
@@ -68,14 +61,10 @@ const userSlice = createSlice({
     data: null,
     loading: false,
     error: null,
-    nameUser: null,
-    photoUser: null,
   },
   reducers: {
     clearUserData: (state) => {
       state.data = null;
-      state.nameUser = null;
-      state.photoUser = null;
     },
   },
   extraReducers: (builder) => {
@@ -86,10 +75,6 @@ const userSlice = createSlice({
       })
       .addCase(fetchUserData.fulfilled, (state, action) => {
         state.loading = false;
-        if (action.payload.rol === "admin") {
-          state.nameUser = action.payload.nameUser;
-          state.photoUser = action.payload.photoUser;
-        }
         state.data = action.payload;
       })
       .addCase(fetchUserData.rejected, (state, action) => {
