@@ -1,0 +1,58 @@
+
+.containerDetailTodo {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    border: 3px solid #065AD8;
+    border-radius: 15px;
+
+}
+  
+ .uull {
+    list-style-type: none;
+    padding: 10px;
+    background-color: #065AD8; 
+    width: 100%;
+    border-radius: 5px 5px 0px 0px;
+    display: flex;
+    justify-content: center;
+} 
+  
+.llii {
+    padding: 10px 20px;
+    cursor: pointer;
+    color: white; 
+}
+
+.llii.active {
+    background-color: #3E86E4; 
+    border-radius: 15px;
+}
+
+.secciones {
+    background-color: white; 
+    padding: 0.5rem;
+    height: auto;
+    border-radius: 0px 0px 15px 15px;
+}
+
+
+@media (max-width: 600px) {
+    .containerDetailTodo {
+        max-width: 100%;
+    }
+    
+    .uull {
+        padding: 0.5rem;
+    }
+    
+    .llii {
+        padding: 5px 10px; 
+    }
+    
+    .secciones {
+        height: auto; 
+        padding: 0.5rem;
+        flex-direction: column;
+    }
+}

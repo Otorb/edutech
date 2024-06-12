@@ -1,28 +1,30 @@
-
 import { FiSearch } from "react-icons/fi";
 import style from "./style/EventModule.module.css";
 import DataTable from "react-data-table-component";
 import { useEffect, useState } from "react";
 import Loading from "../../components/Loading/Loading";
-import { downloadCSV } from "./components/exportCSV"; // Asegúrate de ajustar la ruta según tu estructura de carpetas
+import { downloadCSV } from "./components/exportCSV";
 import CustomActionMenu from "./components/CustomActionMenu";
 import Form from "../../components/Form/Form";
 import { useAppDispatch, useAppSelector } from "../../Hooks/useAppSelector";
-import { agregarEvents } from "../../store/slicer/eventSlice";
+import { agregarEvents, crearEvents, eliminarEvents, editarEvents } from "../../store/slicer/eventSlice";
 import { useForm } from "react-hook-form";
-
 
 
 const index = () => {
 
-  const { register, handleSubmit, setValue } = useForm();
+  const { register, handleSubmit, setValue, reset, getValues } = useForm();
+
 
   const dataEvent = useAppSelector(state=>state.event.eventData) 
 
+
   const dispatch = useAppDispatch()
+
   useEffect(()=>{
     dispatch(agregarEvents())
   },[])
+
 
   const column = [
 
@@ -54,6 +56,10 @@ const index = () => {
   const [loading, setLoading] = useState(true);
   const [openModal, setOpenModal] = useState(false);
 
+
+  const [editingEvent, setEditingEvent] = useState(null);
+  
+
   useEffect(() => {
     const tiemout = setTimeout(() => {
       setRecords(dataEvent);
@@ -75,35 +81,46 @@ const index = () => {
     downloadCSV(records);
   };
 
-  const handleEdit = (row) => {
-    console.log("Edit:", row);
+
+  const handleEdit = async (row) => {
+    console.log(row);
+    const id = row.idHistorial
+    if (id) {
+      setEditingEvent(row);
+      setOpenModal(true);
+      console.log(id);
+      Object.keys(row).forEach((key) => {
+        setValue(key, row[key]);
+      });
+    }
+
+    const data = getValues();
+
+    try {
+      await dispatch(editarEvents(row.idHistorial, data));
+      dispatch(agregarEvents())
+    } catch (error) {
+      console.error(`Error: ${error.message}`);
+    }
   };
+
 
   const handleDetail = (row) => {
     console.log("Detail:", row);
   };
 
-  const handleDelete = (row) => {
-    console.log("Delete:", row);
+  const handleDelete = async (id) => {
+    try {
+      await dispatch(eliminarEvents(id.idHistorial))
+      dispatch(agregarEvents())
+    } catch (error) {
+      console.error(`Error: ${error.message}`);
+    };
   };
 
   const handleOpenModal = () => {
     setOpenModal(!openModal);
   };
-
-  const [formData, setFormData] = useState({
-    message: '',
-    EstadoEvento: '',
-    enCurso: false,
-    date: ''
-  });
-
-// Manejar cambios en los campos del formulario
-const handleChangeForm = (event) => {
-    const { name, value, type, checked } = event.target;
-    const newValue = type === 'checkbox' ? checked : value;
-    setFormData({ ...formData, [name]: newValue });
-};
 
 
   const formSections = [
@@ -117,19 +134,28 @@ const handleChangeForm = (event) => {
     },
   ];
 
-  const onhandleSubmit = (data) => {
+
+  const onhandleSubmit = async (data) => {
     console.log(data);
-    // Lógica para manejar el envío del formulario
+    try {
+      if (editingEvent) {
+        await dispatch(editarEvents(editingEvent.idHistorial, data));
+        setEditingEvent(null); // Termina la edición
+      } else {
+        await dispatch(crearEvents(data))
+      } reset();
+      //toast.success('Evento creado exitosamente');preguntar si tengo que instalarla
+      dispatch(agregarEvents())
+    } catch (error) {
+      console.error(`Error: ${error.message}`); 
+    }
 };
 
-
-
-  //const { register, handleSubmit } = useForm();
 
   return (
     <>
       <div className={style.containerUserModule}>
-        <h1 className={style.titleUserModule}>EventModule</h1>
+        <h1 className={style.titleUserModule}>Eventos</h1>
 
         <section className={style.sectionModule}>
           <div className={style.boxSearch}>
@@ -174,6 +200,7 @@ const handleChangeForm = (event) => {
             progressComponent={<Loading />}
           />
         </section>
+
       </div>
     </>
   );
@@ -181,51 +208,3 @@ const handleChangeForm = (event) => {
 
 
 export default index;
-
-
-
-
-
-// const data = [
-//   {
-//     elEvent: "le invitamos el dia lunes a celebrar el aniversario de la escuela",
-//     //estado: "En curso",
-//   },
-//   {
-//     elEvent: "mañana acto dia de la bandera ",
-//     //estado: "En curso",
-//   },
-//   {
-//     elEvent: "el viernes reunion dia del padre",
-//     //estado: "Terminado",
-//   },
-//   {
-//     elEvent: "el lunesa desalluno de grado",
-//     //estado: "En curso",
-//   },
-//   {
-//     elEvent: "el martes feriado",
-//     //estado: "Terminado",
-//   },
-//   {
-//     elEvent: "el miercoles traer un instrumento",
-//     //estado: "En curso",
-//   },
-//   {
-//     elEvent: "el jueves venir vestidos de policias",
-//     //estado: "En curso",
-//   },
-//   {
-//     elEvent: "el viernes tarer una planta",
-//     //estado: "Terminado",
-//   },
-//   {
-//     elEvent: "el lunes ingresan a clases a las 09:30",
-//     //estado: "En curso",
-//   },
-//   {
-
-//     elEvent: "el martes venir habra reunion",
-//     //estado: "En curso",
-//   },
-//  ];

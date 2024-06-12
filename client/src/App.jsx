@@ -14,13 +14,15 @@ import Examen from "./views/Examen/index";
 import DetallCurso from "./views/DetallCurso/index";
 import Cursos from './views/CourseModule/index'
 
+
 const App = () => {
   return (
     <Routes>
       <Route path="/login" element={<Login />} />
       <Route path="/" element={<Home />} />
-      {/* <Route path="/dashboard/eventmodule" element={<EventModule />} /> */}
+      {/* <Route path="/dashboard/eventmodule" element={<EventModule />} /> */} 
 
+          <Route path="/dashboard/profileRole" element={<Users />} />
       <Route element={<AuthOutlet fallbackPath="/login" />}>
         <Route path="/dashboard/profileRole" element={<Users />} />
         <Route path="/dashboard" element={<Dashboard />}>
@@ -34,6 +36,7 @@ const App = () => {
           <Route path="/dashboard/Cursos" element={<Cursos />} />
         </Route>
         <Route path="/*" element={<NotFound />} />
+          <Route path="/dashboard/cursos" element={'cursos'} />
       </Route>
     </Routes>
   );
