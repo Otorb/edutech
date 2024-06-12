@@ -13,12 +13,12 @@ const initialState = {
 export const cargarUsuarios = createAsyncThunk('usuarios/cargarUsuarios', async () => {
   const responseParents = await listParents(); 
   const responseStudients = await listStudients(); 
-//  const responseTeachers = await listTeachers(); 
+  const responseTeachers = await listTeachers(); 
   // Filtrar solo los usuarios activos
   const combinedData = [
     ...responseParents.data.resultGetAllParents.filter(parent => parent.active),
     ...responseStudients.data.resultStudent.filter(student => student.active),
-  //  ...responseTeachers.data.resultTeacher.filter(teacher => teacher.active),
+   ...responseTeachers.data.resultTeacher.filter(teacher => teacher.active),
   ];
   console.log(combinedData)
   return combinedData;

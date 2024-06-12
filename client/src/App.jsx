@@ -31,10 +31,10 @@ const App = () => {
           <Route path="/dashboard/Examenes" element={<Examen />} />
           <Route path="/dashboard/detalle/:materia" element={<DetallCurso />} />
           <Route path="/dashboard/eventmodule" element={<EventModule />} />
+          <Route path="/dashboard/Cursos" element={<Cursos />} />
         </Route>
         <Route path="/*" element={<NotFound />} />
       </Route>
-          <Route path="/dashboard/Cursos" element={<Cursos />} />
     </Routes>
   );
 };
