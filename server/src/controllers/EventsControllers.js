@@ -4,6 +4,8 @@ export async function newEvents(message, date) {
   const events = await Events.create({
     message,
     date,
+    title,
+    hour,
   });
   if (!events) {
     throw new Error(`la historia no puede ser creada`);
