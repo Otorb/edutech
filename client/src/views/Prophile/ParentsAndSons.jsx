@@ -7,6 +7,7 @@ const ParentsAndSons = ({ estado }) => {
   const student = estado;
   console.log(student);
 
+
   return (
     <>
       <div className={style.bgContainer}>
@@ -25,12 +26,12 @@ const ParentsAndSons = ({ estado }) => {
                       <b className={style.detailInfo}>Direccion </b>{" "}
                       {student.address}
                     </div>
-                  ) : (
+                  ) : student.role === "student" ? (
                     <div>
                       <b className={style.detailInfo}>Grado </b>
                       {student?.Curso?.curso}
                     </div>
-                  )}
+                  ): null}
                 </div>
                 <div>
                 <b className={style.detailInfo}>Celular </b>
@@ -38,12 +39,8 @@ const ParentsAndSons = ({ estado }) => {
                 </div>
               </div>
               <div className={style.redireccionAPadre}>
-                {student.role === "student" ? (
-                  <Link to="/dashboard/profile">
-                    <button>Detalles</button>
-                  </Link>
-                ) : (
-                  <div>
+                {student.role === "parent" ? (
+                    <div>
                     <h2>Seleccione un Hijo</h2>
                     {student.Students &&
                       student.Students.map((e) => {
@@ -56,6 +53,10 @@ const ParentsAndSons = ({ estado }) => {
                         );
                       })}
                   </div>
+                ) : (
+                  <Link to="/dashboard/profile">
+                  <button>Detalles</button>
+                </Link>
                 )}
               </div>
             </div>
@@ -67,12 +68,13 @@ const ParentsAndSons = ({ estado }) => {
               </div>
             </section>
 
-            {student.role === "parent" ? (
+            {student.role === "teacher" ? (
               <img className={style.imgRole} src={imagenPadre} alt="" />
             ) : (
-              <img className={style.imgRole} src={imagenHijo} alt="" />
+              <img className={style.imgRole} src={student.photo} alt="" />
             )}
-            <p>{student.role === "parent" ? "Padre" : "Estudiante"}</p>
+            
+            <p>{student.role === "parent" ? "Padre" : student.role === "student" ? "Estudiante" : "Profesor"}</p>
           </div>
         </article>
       </div>
