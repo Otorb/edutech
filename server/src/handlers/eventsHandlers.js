@@ -6,9 +6,15 @@ import {
 
 export async function postEventsHandlers(req, res) {
   try {
-    const { message, date } = req.body;
+    const { message,
+      date,
+      title,
+      hour, } = req.body;
     console.log(message, date);
-    const resultNewEvents = await newEvents(message, date);
+    const resultNewEvents = await newEvents(message,
+      date,
+      title,
+      hour,);
     res
       .status(200)
       .json({ message: `historia creada con exito`, resultNewEvents });
