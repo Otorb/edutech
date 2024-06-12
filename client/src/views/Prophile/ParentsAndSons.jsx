@@ -13,7 +13,7 @@ const ParentsAndSons = ({ estado }) => {
         <article className={style.articleRole}>
           <section className={style.infoUser}>
             <div className={style.ContainerUserInfo}>
-              <h1 className={style.titlePpal}>¡Bienvenido a EduSync!</h1>
+              <h1 className={style.titlePpal}>¡Bienvenidos a EDUSYNC!</h1>
               <div className={style.ToContactUser}>
                 <div>
                   <b className={style.detailInfo}>Correo: </b>

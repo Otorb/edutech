@@ -1,6 +1,6 @@
 :root {
   --width: 100%;
-  --border-radius: 2rem;
+  --border-radius-rol: 2rem;
   --padding: 0.5rem;
   --color-blueSoft: #9ac0ee;
 }
@@ -53,6 +53,7 @@ b {
 .Name {
   color: #000;
   font-weight: 900;
+  text-transform: uppercase;
 }
 
 .articleRole {
@@ -69,6 +70,7 @@ b {
   border-radius: var(--border-radius);
   @media screen and (width < 768px) {
     flex-direction: column;
+    height: 67vh;
   }
   .containerPicture {
     display: flex;
@@ -100,14 +102,13 @@ b {
 }
 .imgRole {
   padding: 1rem;
-  cursor: pointer;
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
   align-self: center;
-  height: 47vh;
-  max-width: 262px;
-  border-radius: var(--border-radius);
+  height: auto;
+  width: 193px;
+  border-radius: var(--border-radius-rol);
   @media screen and (width < 768px) {
     max-width: 135px;
   }
@@ -137,7 +138,6 @@ b {
   }
 }
 .ToContactUser {
-  /* min-width: 231px; */
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -191,19 +191,18 @@ b {
 }
 
 .titlePpal {
-  /* margin-top: -150px; */
-  color: #005f73;
+  color: var(--color-blueSoft);
   margin-bottom: 80px;
   text-align: left;
   font-family: Arial Black;
   font-weight: bold;
   font-size: 30px;
   /* color: #fff;  */
-  text-shadow: 0 1px 0 #ddd, 0 2px 0 #ccc, 0 3px 0 #bbb, 0 4px 0 #aaa,
+  /* text-shadow: 0 1px 0 #ddd, 0 2px 0 #ccc, 0 3px 0 #bbb, 0 4px 0 #aaa,
     0 5px 0 #acacac, 0 6px 1px rgba(0, 0, 0, 0.1), 0 0 5px rgba(0, 0, 0, 0.1),
     0 1px 3px rgba(0, 0, 0, 0.3), 0 3px 5px rgba(0, 0, 0, 0.2),
     0 5px 10px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.2),
-    0 20px 20px rgba(0, 0, 0, 0.15);
+    0 20px 20px rgba(0, 0, 0, 0.15); */
 }
 
 .detailInfo{
@@ -257,18 +256,7 @@ b {
   font-weight: bold;
 }
 
-/* .infoNameAnotherUser {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  gap: 1rem;
-  & p {
-    width: fit-content;
-    display: flex;
-    justify-content: start;
-    align-self: center;
-  }
-} */
+
 @media screen and (width < 770px) {
   .titlePpal {
     display: none;
@@ -300,10 +288,10 @@ b {
     justify-content: center;
   }
 
-  button {
+  button {  
     background: #d8bbff;
     border: 0;
-    color: #240046;
+    color: #ffffff;
     text-transform: capitalize;
     font-size: 14px;
     font-weight: bold;
@@ -313,9 +301,9 @@ b {
     padding: 5px;
     height: 40px;
     min-width: 6rem;
-    /* background-color: var(--color-blueSoft); */
+    background-color: var(--color-blueSoft);
     &:hover {
-      background: #240046;
+      background: #9ac0eeae;
       color: #ffff;
     }
   }

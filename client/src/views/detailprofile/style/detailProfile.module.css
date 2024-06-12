@@ -29,11 +29,12 @@
     gap: 3px;
     cursor: pointer;
     height: 3rem;
-}
-.itemHeadDetailProfile:hover{
-    color: #333;
     font-weight: 700;
+    &:hover{
+        color: #aeaeae;
+    }
 }
+
 .listPromediosDetailProfile{
     width: 100%;
     display: flex;
