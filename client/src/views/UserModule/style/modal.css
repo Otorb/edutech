@@ -27,7 +27,7 @@
     height: 11rem; 
     z-index: 1; 
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); /* Agrega una sombra con difuminado */
-  filter: blur(2px);
+  
   }
   .areImgDetall{
     position: relative;

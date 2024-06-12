@@ -9,15 +9,19 @@ import { useAppDispatch, useAppSelector } from "../../Hooks/useAppSelector";
 import { CargarCursos } from "../../store/slicer/courseSlice";
 import CustomActionMenu from "../UserModule/Components/CustomActionMenu";
 import { listStudients } from "../../Api/Studient";  
+import ModalCourseAdd from "./components/ModalCourseAdd"; 
+import ModalDetallCourse from "./components/ModalDetallCourse";
 
 const CourseModule = () => {
-
   const dispatch = useAppDispatch();
   const dataCourse = useAppSelector(state => state.course.courseData);
 
   const [loading, setLoading] = useState(true);
   const [records, setRecords] = useState([]);
   const [students, setStudents] = useState([]);
+  const [openModal, setOpenModal] = useState(false); 
+  const [openDetailModal, setOpenDetailModal] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
 
   useEffect(() => {
     dispatch(CargarCursos());
@@ -66,7 +70,8 @@ const CourseModule = () => {
   };
 
   const handleDetail = (row) => {
-    console.log(row);
+    setSelectedUser(row);
+    setOpenDetailModal(true);
   };
 
   const handleDelete = (row) => {
@@ -82,6 +87,11 @@ const CourseModule = () => {
       return record.curso.toLowerCase().includes(e.target.value.toLowerCase());
     });
     setRecords(filterRecords);
+  };
+
+
+  const handleOpenModal = () => {
+    setOpenModal(true);
   };
 
   return (
@@ -106,7 +116,7 @@ const CourseModule = () => {
 
           <button
             className={style.btnAdd}
-            onClick={() => console.log("Agregar Curso")}
+            onClick={handleOpenModal} 
           >
             Agregar Curso
           </button>
@@ -130,6 +140,22 @@ const CourseModule = () => {
           />
         </section>
       </div>
+
+      {openDetailModal && (
+        <ModalDetallCourse
+        isOpen={openDetailModal}
+        onClose={() => setOpenDetailModal(false)}
+        course={selectedUser} 
+      />
+      )}
+    
+      {openModal && (
+        <ModalCourseAdd
+          isOpen={openModal}
+          onClose={() => setOpenModal(false)} 
+          user={null} 
+        />
+      )}
     </>
   );
 };

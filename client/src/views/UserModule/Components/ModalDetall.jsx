@@ -1,8 +1,8 @@
 import { createPortal } from "react-dom";
 import { MdClose } from "react-icons/md";
 import "../style/modal.css";
-import PortaDetall from "../../Home/utility/fondoDetall.jpg";
-import Perfil from "../../Home/utility/perfil.jfif";
+import PortaDetall from "../../Home/utility/fondoDetall.jpeg";
+import Perfil from "../../Home/utility/perfil.jpeg";
 
 const ModalDetall = ({ isOpen, onClose, user }) => {
   if (!isOpen) return null;
