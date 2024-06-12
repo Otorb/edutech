@@ -60,7 +60,7 @@ export async function getStudent(id) {
 
 export async function getAllStudents() {
  
-  const students = await Students.findAll({include:{ model: Curso, include:[{ model: Subject },{model:Notas}] }});
+  const students = await Students.findAll({include:{ model: Curso, include:[{ model: Subject , include:[{model:Notas}] }] }});
   if (!students) {
     throw new Error("No se encontraron usuarios");
   }
