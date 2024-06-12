@@ -11,7 +11,7 @@ export default function Historials(sequelize) {
         primaryKey: true,
       },
       title: {
-        type: DataTypes.TEXT,
+        type: DataTypes.STRING,
       },
       message: {
         type: DataTypes.TEXT,
