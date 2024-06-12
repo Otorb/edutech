@@ -1,5 +1,5 @@
 import { Router } from "express";
-import multer from "multer";
+// import multer from "multer";
 import {
   newParentHandler,
   ChangePasswordHandler,
@@ -11,11 +11,11 @@ import {
 
 const parentsRouter = Router();
 
-const upload = multer({
-  storage: multer.memoryStorage(),
-});
+// const upload = multer({
+//   storage: multer.memoryStorage(),
+// });
 
-parentsRouter.post("/", upload.none(), newParentHandler);
+// parentsRouter.post("/", upload.none(), newParentHandler);
 parentsRouter.put("/changePassword/", ChangePasswordHandler);
 parentsRouter.get("/search/:id", getParentHandler);
 parentsRouter.get("/searchAll/", getAllParentsHandler);
