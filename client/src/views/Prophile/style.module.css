@@ -1,7 +1,7 @@
 :root {
   --width: 100%;
   --border-radius: 2rem;
-  --padding: .5rem;
+  --padding: 0.5rem;
   --color-blueSoft: #9ac0ee;
 }
 /* button {
@@ -27,10 +27,10 @@
   }
 }
 
-.FechNavYGrado{
-  b{
+.FechNavYGrado {
+  b {
     color: var(--color-blueSoft);
-    
+
     font-weight: 900;
   }
 }
@@ -54,6 +54,7 @@ b {
   color: #000;
   font-weight: 900;
 }
+
 .articleRole {
   max-width: 1000px;
   display: flex;
@@ -91,6 +92,7 @@ b {
     }
   }
 }
+
 .RolTitle {
   color: var(--color-blueSoft);
   font-weight: 900;
@@ -164,7 +166,6 @@ b {
 .subjectNotes {
   padding: var(--padding);
   @media screen and (width < 768px) {
-    
     padding: 0;
   }
 
@@ -186,10 +187,31 @@ b {
   margin: 1rem;
   @media screen and (width < 768px) {
     margin: 0;
-    
   }
 }
 
+.titlePpal {
+  /* margin-top: -150px; */
+  color: #005f73;
+  margin-bottom: 80px;
+  text-align: left;
+  font-family: Arial Black;
+  font-weight: bold;
+  font-size: 30px;
+  /* color: #fff;  */
+  text-shadow: 0 1px 0 #ddd, 0 2px 0 #ccc, 0 3px 0 #bbb, 0 4px 0 #aaa,
+    0 5px 0 #acacac, 0 6px 1px rgba(0, 0, 0, 0.1), 0 0 5px rgba(0, 0, 0, 0.1),
+    0 1px 3px rgba(0, 0, 0, 0.3), 0 3px 5px rgba(0, 0, 0, 0.2),
+    0 5px 10px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.2),
+    0 20px 20px rgba(0, 0, 0, 0.15);
+}
+
+.detailInfo{
+  color:#000;
+  margin-right: 10px;
+  font-size: 15px;
+  font-weight: 900;
+}
 .LastName {
   display: flex;
   justify-content: center;
@@ -227,6 +249,13 @@ b {
     min-width: 6rem;
   }
 }
+.btnSons {
+  margin-right: 20px;
+  margin-top: 15px;
+  text-transform: capitalize;
+  font-size: 14px;
+  font-weight: bold;
+}
 
 /* .infoNameAnotherUser {
   display: flex;
@@ -240,6 +269,11 @@ b {
     align-self: center;
   }
 } */
+@media screen and (width < 770px) {
+  .titlePpal {
+    display: none;
+  }
+}
 @media screen and (width < 409px) {
   .infoNameAnotherUser {
     display: flex;
@@ -256,10 +290,8 @@ b {
   }
 }
 
-
 /* Componente Prophile/Son.jsx */
 .redireccionAPadre {
-  
   gap: 1rem;
   width: 100%;
   padding: var(--padding);
@@ -269,15 +301,22 @@ b {
   }
 
   button {
+    background: #d8bbff;
+    border: 0;
+    color: #240046;
+    text-transform: capitalize;
+    font-size: 14px;
+    font-weight: bold;
     border-radius: var(--border-radius);
     cursor: pointer;
     border: none;
     padding: 5px;
     height: 40px;
     min-width: 6rem;
-    background-color: var(--color-blueSoft);
+    /* background-color: var(--color-blueSoft); */
     &:hover {
-      background-color: #7693b6;
+      background: #240046;
+      color: #ffff;
     }
   }
 }

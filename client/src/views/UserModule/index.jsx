@@ -86,6 +86,7 @@ const UserModule = () => {
     dispatch(cargarUsuarios());
   }, []);
 
+
   useEffect(() => {
     const timeout = setTimeout(() => {
       setRecords(dataUsers);

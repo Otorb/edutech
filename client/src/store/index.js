@@ -5,6 +5,7 @@ import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { combineReducers } from 'redux';
 import eventReducer from './slicer/eventSlice'
+import courseReducer from './slicer/courseSlice'
 
 const persistConfig = {
   key: 'root',
@@ -16,7 +17,8 @@ const persistConfig = {
 const rootReducer = combineReducers({
   user: userReducer,
   users:usersReducer,
-  event:eventReducer
+  event:eventReducer,
+  course:courseReducer
 });
 
 

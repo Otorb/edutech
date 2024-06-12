@@ -65,15 +65,19 @@ const Sidebar = ({ position, visible, toggleSidebar, isCollapsed, toggleCollapse
       case 'student':
         return (
           <>
-            <Link to={`${rolePath}/promedios`} className={style.liNav}>
+
+            <Link to={`${rolePath}/profile`} className={style.liNav}>
+
               <FiBook className={style.iconNav} />
               {!isCollapsed && 'Promedio/Notas'}
             </Link>
-            <Link to={`${rolePath}/examenes`} className={style.liNav}>
+            <Link to={`${rolePath}/Examenes`} className={style.liNav}>
               <FiCalendar className={style.iconNav} />
               {!isCollapsed && 'Exámenes'}
             </Link>
-            <Link to={`${rolePath}/resumen-mensajes`} className={style.liNav}>
+
+            <Link to={`${rolePath}/Mensajes`} className={style.liNav}>
+
               <FiMail className={style.iconNav} />
               {!isCollapsed && 'Mensajes'}
             </Link>
@@ -107,7 +111,7 @@ const Sidebar = ({ position, visible, toggleSidebar, isCollapsed, toggleCollapse
       <section className={style.headNav}>
         <button className={style.closeBtn} onClick={toggleSidebar}>×</button>
         <div className={style.userProfile}>
-          {userData.role === 'admin' ?
+          {userData.rol === 'admin' ?
             <>
               <div className={style.contentPhone}>
                 <img src={userData.photoUser} alt="User" className={style.userPhoto} />
