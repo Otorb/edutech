@@ -48,9 +48,10 @@ export const eliminarEvents = createAsyncThunk('event/borrarEvent', async (id) =
 });
 
 
-export const editarEvents = createAsyncThunk('event/editarEvent', async (id, data) => {
+export const editarEvents = createAsyncThunk('event/editarEvent', async ( data) => {
   try {
-    const response = await updateEvent(id, data);
+    console.log('llego al edit slice:',data)
+    const response = await updateEvent( data);
     console.log(response);
     return response
   } catch (error) {
