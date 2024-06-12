@@ -1,7 +1,5 @@
 import style1 from "../styles/login.module.css";
 import style2 from "../styles/LoginForm.module.css";
-// import SessionGoogle from "./SessionGoogle";
-// import SvgComponent from "./SvgLoginGoogle";
 import GoogleButton from "./GoogleButton";
 import { useForm } from "react-hook-form";
 import { Toaster, toast } from 'sonner'
@@ -13,19 +11,16 @@ import { fetchUserData } from "../../../store/slicer/userSlice";
 
 const FormLogin = () => {
   const { register, handleSubmit } = useForm();
-
   const signIn = useSignIn();
-  const navigate= useNavigate()
-  const dispatch = useAppDispatch()
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const onSubmit = async (data) => {
-    // Verificar si hay campos vacíos
     if (!data.email || !data.password) {
-        toast.error('Debe completar los campos');
-        return;
+      toast.error('Debe completar los campos');
+      return;
     }
 
-    // Si no hay errores, continuar con el envío del formulario
     try {
       const response = await userLogin(data);
       const { resultLogin } = response;
@@ -33,19 +28,22 @@ const FormLogin = () => {
       let token, userInfo;
   
       if (resultLogin.userTeacher) {
-        // Estructura de respuesta para el profesor
         token = resultLogin.token;
         userInfo = {
           email: resultLogin.userTeacher[0],
           role: resultLogin.userTeacher[1],
         };
-        
       } else if (resultLogin.userStudent) {
-        // Estructura de respuesta para el estudiante
         token = resultLogin.token;
         userInfo = {
           email: resultLogin.userStudent[0],
           role: resultLogin.userStudent[1],
+        };
+      } else if (resultLogin.userAdmin) {
+        token = resultLogin.token;
+        userInfo = {
+          email: resultLogin.userAdmin[0],
+          role: resultLogin.userAdmin[1],
         };
       } else {
         throw new Error('Formato de respuesta no reconocido');
@@ -53,26 +51,23 @@ const FormLogin = () => {
   
       if (signIn({
         auth: {
-          token: token, 
-          type: 'Bearer', 
+          token: token,
+          type: 'Bearer',
         },
         userState: {
-          email: userInfo.email, 
+          email: userInfo.email,
         },
       })) {
-    
         toast.success('Inicio de sesión exitoso');
         dispatch(fetchUserData({ email: userInfo.email, token, role: userInfo.role }));
         navigate('/dashboard/profileRole');
       } else {
-
         toast.error('Error al iniciar sesión');
       }
     } catch (error) {
-      
       toast.error(error.message);
     }
-};
+  };
 
   return (
     <section className={style1.formContainer}>
@@ -93,7 +88,6 @@ const FormLogin = () => {
         <b>O continua con email</b>
         <hr />
       </div>
-    
       
       <form className={style2.formLogin} onSubmit={handleSubmit(onSubmit)}>
         <input
@@ -116,4 +110,4 @@ const FormLogin = () => {
   );
 };
 
-export default FormLogin
+export default FormLogin;

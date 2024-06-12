@@ -1,7 +1,4 @@
-import {
-  GoogleAuthProvider,
-  signInWithPopup,
-} from "firebase/auth";
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { useEffect, useState } from "react";
 import style1 from "../styles/login.module.css";
 import { FcGoogle } from "react-icons/fc";
@@ -17,7 +14,7 @@ const GoogleButton = () => {
   const [value, setValue] = useState("");
   const signIn = useSignIn();
   const dispatch = useDispatch();
-  const navigate= useNavigate()
+  const navigate = useNavigate();
 
   const handleClick = async () => {
     try {
@@ -30,7 +27,6 @@ const GoogleButton = () => {
       // Verifica si el correo existe en la lista de correos
       const emailsResponse = await allEmails();
       const emails = emailsResponse.data.resultEmails;
-      
       const userEmail = emails.find((e) => e.email === emailFromGoogle);
 
       if (!userEmail) {
@@ -49,17 +45,19 @@ const GoogleButton = () => {
           type: 'Bearer' 
         },
         userState: {
-          email: emailFromGoogle 
+          email: emailFromGoogle, 
+          photo: photoUser,
+          nameUser: nameUser
         }
       })) {
         toast.success('Inicio de sesión exitoso');
 
         if (role === "admin") {
-          dispatch(fetchUserData({ email: emailFromGoogle, token, rol: role, nameUser, photoUser }));
-        navigate('/dashboard')
+          dispatch(fetchUserData({ email: emailFromGoogle, token, role }));
+          navigate('/dashboard');
         } else {
-          dispatch(fetchUserData({ email: emailFromGoogle, token, rol: role }));
-          navigate('/dashboard/profileRole')
+          dispatch(fetchUserData({ email: emailFromGoogle, token, role }));
+          navigate('/dashboard/profileRole');
         }
       } else {
         toast.error('Error al iniciar sesión');
