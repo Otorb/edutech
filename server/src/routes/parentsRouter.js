@@ -20,14 +20,24 @@ parentsRouter.put("/changePassword/", ChangePasswordHandler);
 parentsRouter.get("/search/:id", getParentHandler);
 parentsRouter.get("/searchAll/", getAllParentsHandler);
 
+// parentsRouter.put(
+//   "/updateWihtImage/:id",
+//   upload.array("image", 1),
+//   updateWithImageHandler
+// );
+// parentsRouter.put(
+//   "/updateWihtoutImage/:id",
+//   upload.none(),
+//   updateWithoutImageHandler
+// );
 parentsRouter.put(
   "/updateWihtImage/:id",
-  upload.array("image", 1),
+
   updateWithImageHandler
 );
 parentsRouter.put(
   "/updateWihtoutImage/:id",
-  upload.none(),
+
   updateWithoutImageHandler
 );
 
