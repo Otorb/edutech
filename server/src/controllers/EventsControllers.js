@@ -1,6 +1,9 @@
 import { Events } from "../models/index.js";
 
-export async function newEvents(message, date) {
+export async function newEvents( message,
+  date,
+  title,
+  hour,) {
   const events = await Events.create({
     message,
     date,
