@@ -19,6 +19,9 @@ export default function Historials(sequelize) {
       course: {
         type: DataTypes.STRING,
       },
+      hour: {
+        type: DataTypes.DATE,
+      },
     }
   );
   return Historials;

@@ -10,11 +10,17 @@ export default function Historials(sequelize) {
         allowNull: false,
         primaryKey: true,
       },
+      title: {
+        type: DataTypes.TEXT,
+      },
       message: {
         type: DataTypes.TEXT,
       },
       date: {
         type: DataTypes.STRING,
+      },
+      hour: {
+        type: DataTypes.DATE,
       },
     }
   );
