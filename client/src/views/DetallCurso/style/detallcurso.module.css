@@ -1,0 +1,68 @@
+.containerDetallCurso{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.titleDetallCurso{
+    font-size: 2rem;
+    font-weight: 700;
+}
+.headDetallCurso{
+    width: 100%;
+    display: flex;
+    flex-wrap:wrap ;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem;
+}
+.promedioDetallCurso{
+    width: 50%;
+    height: 20rem;
+    font-size: 1.5rem;
+    color: #4a4e69;
+}
+.infoHeadDetallCurso{
+    width: 45%;
+    height: 20rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.barraDetallCurso{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+}
+.circleInfoDetallCurso{
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    color: #fff;
+    background: #a7c957;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 700;
+    font-size: 2rem;
+}
+.descriptionCircleDetallCurso{
+    color: #4a4e69;
+    font-size: 1.2rem;
+}
+.tableDetallCurso{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+@media screen and (max-width: 1000px) {
+    .promedioDetallCurso{
+        width: 100%;
+    }
+    .infoHeadDetallCurso{
+        width: 100%;
+        height: 100%;
+    }
+  }

@@ -1,0 +1,35 @@
+.containerCardEvent{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+.dateCardEvent{
+    width: 9rem;
+    height: 5rem;
+    background: #c7f9cc;
+    border-radius: 10px;
+    padding: .7rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #216869;
+    font-weight: 700;
+}
+.infoCardEvent{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.titleCardEvent{
+    font-weight: 700;
+    font-size: 1.3rem;
+}
+.descriptionCardEvent{
+    text-align: justify;
+    color: #6c757d;
+}

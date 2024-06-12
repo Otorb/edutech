@@ -37,15 +37,29 @@ export const postEvent = async (data) => {
 }
 
 
-// export const deleteEvent = async (id) => {
-//     try {
-//         const response = await axios.delete(`${API}/events/${id}`)
-//         if (response.status === 200) {
-//             console.log('Evento borrado exitosamente');
-//         }
-//         return response;
-//     } catch (error) {
-//         console.error('error al borrar un event:', error);
-//         throw error
-//     }
-// } probar si sigue la estructura del back
+export const deleteEvent = async (id) => {
+    try {
+        const response = await axios.delete(`${API}/events/${id}`)
+        if (response.status === 200) {
+            console.log('Evento borrado exitosamente');
+        }
+        return response;
+    } catch (error) {
+        console.error('error al borrar un event:', error);
+        throw error
+    }
+}
+
+
+export const updateEvent = async (id, data) => {
+    try {
+        const response = await axios.put(`${API}/events/${id}`, data)
+        if (response.status === 200) {
+            console.log('Evento editado exitosamente');
+        }
+        return response;
+    } catch (error) {
+        console.error('error al editar un event:', error);
+        throw error
+    }
+}

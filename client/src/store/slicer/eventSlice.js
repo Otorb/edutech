@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { listEvent, getEventById, postEvent } from '../../Api/events';
+import { listEvent, getEventById, postEvent, deleteEvent, updateEvent } from '../../Api/events';
 
 
 export const agregarEvents = createAsyncThunk('event/agregarEvent', async () => {
@@ -19,7 +19,6 @@ export const agregarEvents = createAsyncThunk('event/agregarEvent', async () => 
 export const buscarEventsId = createAsyncThunk('event/buscarEventId', async (data) => {
   try {
     const response = await getEventById(data.id);
-    console.log(response);
     return response.resultsId;
   } catch (error) {
     console.error('Error al buscar evento por ID:', error);
@@ -30,10 +29,32 @@ export const buscarEventsId = createAsyncThunk('event/buscarEventId', async (dat
 export const crearEvents = createAsyncThunk('event/crearEvent', async (data) => {
   try {
     const response = await postEvent(data);
-    console.log(response);
     return response.resultsId;
   } catch (error) {
     console.error('Error al crear eventos:', error);
+    throw error;
+  }
+});
+
+
+export const eliminarEvents = createAsyncThunk('event/borrarEvent', async (id) => {
+  try {
+    const response = await deleteEvent(id);
+    return response.resultsId;
+  } catch (error) {
+    console.error('Error al borrar evento:', error);
+    throw error;
+  }
+});
+
+
+export const editarEvents = createAsyncThunk('event/editarEvent', async (id, data) => {
+  try {
+    const response = await updateEvent(id, data);
+    console.log(response);
+    return response
+  } catch (error) {
+    console.error('Error al editar evento:', error);
     throw error;
   }
 });
@@ -60,7 +81,15 @@ const eventSlice = createSlice({
       .addCase(crearEvents.fulfilled, (state, action) => {
         state.loading = 'exito';
         state.eventData = action.payload;
-      });
+      })
+      .addCase(eliminarEvents.fulfilled, (state, action) => {
+        state.loading = 'exito';
+        state.eventData = action.payload;
+      })
+      .addCase(editarEvents.fulfilled, (state, action) => {
+        state.loading = 'exito';
+        state.eventData = action.payload;
+      })
   },
 });
   

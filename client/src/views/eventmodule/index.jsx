@@ -7,13 +7,13 @@ import { downloadCSV } from "./components/exportCSV";
 import CustomActionMenu from "./components/CustomActionMenu";
 import Form from "../../components/Form/Form";
 import { useAppDispatch, useAppSelector } from "../../Hooks/useAppSelector";
-import { agregarEvents, crearEvents } from "../../store/slicer/eventSlice";
+import { agregarEvents, crearEvents, eliminarEvents, editarEvents } from "../../store/slicer/eventSlice";
 import { useForm } from "react-hook-form";
 
 
 const index = () => {
 
-  const { register, handleSubmit, setValue, reset } = useForm();
+  const { register, handleSubmit, setValue, reset, getValues } = useForm();
 
 
   const dataEvent = useAppSelector(state=>state.event.eventData) 
@@ -56,6 +56,10 @@ const index = () => {
   const [loading, setLoading] = useState(true);
   const [openModal, setOpenModal] = useState(false);
 
+
+  const [editingEvent, setEditingEvent] = useState(null);
+  
+
   useEffect(() => {
     const tiemout = setTimeout(() => {
       setRecords(dataEvent);
@@ -77,16 +81,41 @@ const index = () => {
     downloadCSV(records);
   };
 
-  const handleEdit = (row) => {
-    console.log("Edit:", row);
+
+  const handleEdit = async (row) => {
+    console.log(row);
+    const id = row.idHistorial
+    if (id) {
+      setEditingEvent(row);
+      setOpenModal(true);
+      console.log(id);
+      Object.keys(row).forEach((key) => {
+        setValue(key, row[key]);
+      });
+    }
+
+    const data = getValues();
+
+    try {
+      await dispatch(editarEvents(row.idHistorial, data));
+      dispatch(agregarEvents())
+    } catch (error) {
+      console.error(`Error: ${error.message}`);
+    }
   };
+
 
   const handleDetail = (row) => {
     console.log("Detail:", row);
   };
 
-  const handleDelete = (row) => {
-    console.log("Delete:", row);
+  const handleDelete = async (id) => {
+    try {
+      await dispatch(eliminarEvents(id.idHistorial))
+      dispatch(agregarEvents())
+    } catch (error) {
+      console.error(`Error: ${error.message}`);
+    };
   };
 
   const handleOpenModal = () => {
@@ -107,9 +136,14 @@ const index = () => {
 
 
   const onhandleSubmit = async (data) => {
+    console.log(data);
     try {
-      await dispatch(crearEvents(data))
-      reset();
+      if (editingEvent) {
+        await dispatch(editarEvents(editingEvent.idHistorial, data));
+        setEditingEvent(null); // Termina la edición
+      } else {
+        await dispatch(crearEvents(data))
+      } reset();
       //toast.success('Evento creado exitosamente');preguntar si tengo que instalarla
       dispatch(agregarEvents())
     } catch (error) {

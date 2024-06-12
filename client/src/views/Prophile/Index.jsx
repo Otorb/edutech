@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { useAppSelector } from '../../Hooks/useAppSelector'
 import ParentsAndSons from './ParentsAndSons'
 import { listStudients } from '../../Api/Studient'
-// import { listParents } from '../../Api/Parents'
+import { listParents } from '../../Api/Parents'
 
 
 const Index = () => {
@@ -16,6 +16,7 @@ const Index = () => {
     //     e.preventDefault()
     // }
     const [parentsState, setEstado] = useState([])
+    // const [studentState, setStudent] = useState([])
     
 
 // const Students = async () => { 
@@ -24,18 +25,18 @@ const Index = () => {
 //     setEstado(Req)
     
 // }
-// const Parents = async () => { 
+const Parents = async () => { 
     
-//     const Req = await listParents()
-//     setEstado(Req)
+    const Req = await listParents()
+    
+    setEstado(Req)
 
-// }
+}
 
-// console.log(parentsState)
 
-    // useEffect(() => {
-    //     Students()
-    // }, [])
+    useEffect(() => {
+        Parents()
+    }, [])
 
 
 
@@ -43,12 +44,12 @@ const Index = () => {
     // console.log(parentsState)
 
     
-console.log(StudentLogged)
+// console.log(StudentLogged)
 
 
     return (
         <>
-            <ParentsAndSons estado={StudentLogged} />
+            <ParentsAndSons estado={StudentLogged} estado2={parentsState} />
         </>
     )
 }
