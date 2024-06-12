@@ -62,4 +62,4 @@ export const updateEvent = async (id, data) => {
         console.error('error al editar un event:', error);
         throw error
     }
-}
+} 

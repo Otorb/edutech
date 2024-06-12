@@ -91,7 +91,7 @@ const eventSlice = createSlice({
         state.eventData = action.payload;
       })
   },
-});
+}); 
   
 export const { clearEventData } = eventSlice.actions;
 export default eventSlice.reducer;

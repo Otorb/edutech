@@ -147,7 +147,7 @@ const index = () => {
       //toast.success('Evento creado exitosamente');preguntar si tengo que instalarla
       dispatch(agregarEvents())
     } catch (error) {
-      console.error(`Error: ${error.message}`);
+      console.error(`Error: ${error.message}`); 
     }
 };
 
