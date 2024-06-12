@@ -51,9 +51,9 @@ export const deleteEvent = async (id) => {
 }
 
 
-export const updateEvent = async (id, data) => {
+export const updateEvent = async (data) => {
     try {
-        const response = await axios.put(`${API}/events/${id}`, data)
+        const response = await axios.put(`${API}/events/${data.id}`, data)
         if (response.status === 200) {
             console.log('Evento editado exitosamente');
         }

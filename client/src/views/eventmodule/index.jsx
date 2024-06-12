@@ -9,9 +9,10 @@ import Form from "../../components/Form/Form";
 import { useAppDispatch, useAppSelector } from "../../Hooks/useAppSelector";
 import { agregarEvents, crearEvents, eliminarEvents, editarEvents } from "../../store/slicer/eventSlice";
 import { useForm } from "react-hook-form";
+import { Toaster, toast } from "sonner";
 
 
-const index = () => {
+const EventModule = () => {
 
   const { register, handleSubmit, setValue, reset, getValues } = useForm();
 
@@ -83,12 +84,11 @@ const index = () => {
 
 
   const handleEdit = async (row) => {
-    console.log(row);
     const id = row.idHistorial
     if (id) {
       setEditingEvent(row);
       setOpenModal(true);
-      console.log(id);
+
       Object.keys(row).forEach((key) => {
         setValue(key, row[key]);
       });
@@ -97,8 +97,9 @@ const index = () => {
     const data = getValues();
 
     try {
-      await dispatch(editarEvents(row.idHistorial, data));
+       dispatch(editarEvents(row.idHistorial, data));
       dispatch(agregarEvents())
+      toast.success('El evento se cargo correctamente')
     } catch (error) {
       console.error(`Error: ${error.message}`);
     }
@@ -115,7 +116,7 @@ const index = () => {
       dispatch(agregarEvents())
     } catch (error) {
       console.error(`Error: ${error.message}`);
-    };
+    }
   };
 
   const handleOpenModal = () => {
@@ -136,11 +137,17 @@ const index = () => {
 
 
   const onhandleSubmit = async (data) => {
-    console.log(data);
+    const dataEvent={
+      id: data.idHistorial,
+      message:data.message,
+      date:data.date
+      }
+
     try {
       if (editingEvent) {
-        await dispatch(editarEvents(editingEvent.idHistorial, data));
-        setEditingEvent(null); // Termina la edición
+        await dispatch(editarEvents(dataEvent));
+        dispatch(agregarEvents())
+        setEditingEvent([]); // Termina la edición
       } else {
         await dispatch(crearEvents(data))
       } reset();
@@ -154,6 +161,7 @@ const index = () => {
 
   return (
     <>
+     <Toaster richColors position="top-left"/>
       <div className={style.containerUserModule}>
         <h1 className={style.titleUserModule}>Eventos</h1>
 
@@ -207,4 +215,4 @@ const index = () => {
 };
 
 
-export default index;
+export default EventModule;

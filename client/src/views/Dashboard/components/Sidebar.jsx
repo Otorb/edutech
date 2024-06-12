@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { Link, useNavigate } from 'react-router-dom';
 import style from '../styles/dashboard.module.css';
 import useSignOut from 'react-auth-kit/hooks/useSignOut';
@@ -14,6 +14,8 @@ const Sidebar = ({ position, visible, toggleSidebar, isCollapsed, toggleCollapse
   const signOut = useSignOut();
   const userData = useAppSelector((state) => state.user.data);
   console.log(userData)
+
+ 
 
   const dispatch = useAppDispatch()
 
@@ -111,10 +113,10 @@ const Sidebar = ({ position, visible, toggleSidebar, isCollapsed, toggleCollapse
       <section className={style.headNav}>
         <button className={style.closeBtn} onClick={toggleSidebar}>×</button>
         <div className={style.userProfile}>
-          {userData.rol === 'admin' ?
+          {userData.role === 'admin' ?
             <>
               <div className={style.contentPhone}>
-                <img src={userData.photoUser} alt="User" className={style.userPhoto} />
+                <img src='https://static.vecteezy.com/system/resources/thumbnails/027/951/137/small_2x/stylish-spectacles-guy-3d-avatar-character-illustrations-png.png' alt="User" className={style.userPhoto} />
               </div>
               <div className={style.detallUserNav}>
                 {!isCollapsed && <span className={style.titleNav}>{`Bienvenido`}<FcReading /></span>}
