@@ -71,3 +71,38 @@ export const traerNotasPorID = async (req, res, next) => {
     next(e);
   }
 };
+
+
+export const editarNotas= async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const eventoEditado = await Notas.findByPk(id);
+    if (!eventoEditado)
+      return res
+        .status(404)
+        .send({ message: "No se pudo encontrar la Nota para editarla" });
+        eventoEditado?.update({ ...req.body });
+    res
+      .status(201)
+      .send({ message: "El Nota fue editada", usuario: eventoEditado });
+  } catch (e) {
+    next(e);
+  }
+};
+
+export const delectNotas = async (req, res) =>{
+  try {
+      const {id} = req.params
+      const result = await Notas.destroy({
+          where:{idNotas : id },
+      })
+      console.log(result)
+      res.send({ msg: "su Nota  se ha elminado correctamente" });
+
+  } catch (error) {
+      return res
+      .status(404)
+      .json({ msg: "no hemos podido realizar su solicitud" });  
+  }
+}
+
