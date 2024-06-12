@@ -13,10 +13,12 @@ export const listEvent = async () => {
 }
 
 
+
+//no hace falta esta
 export const getEventById = async (id) => {
     try {
-        const { data } = await axios.get(`${API}/events/${id}`)
-        return data
+        const response = await axios.get(`${API}/events/${id}`)
+        return response
     } catch (error) {
         console.error('error al buscar por id al event:', error);
         throw error
@@ -24,12 +26,40 @@ export const getEventById = async (id) => {
 }
 
 
-export const postEvent = async ({ message, date }) => {
+export const postEvent = async (data) => {
     try {
-        const { data } = await axios.post(`${API}/events`, { message, date })
-        return data
+        const response = await axios.post(`${API}/events`, data)
+        return response
     } catch (error) {
         console.error('error al crear un event:', error);
         throw error
     }
 }
+
+
+export const deleteEvent = async (id) => {
+    try {
+        const response = await axios.delete(`${API}/events/${id}`)
+        if (response.status === 200) {
+            console.log('Evento borrado exitosamente');
+        }
+        return response;
+    } catch (error) {
+        console.error('error al borrar un event:', error);
+        throw error
+    }
+}
+
+
+export const updateEvent = async (id, data) => {
+    try {
+        const response = await axios.put(`${API}/events/${id}`, data)
+        if (response.status === 200) {
+            console.log('Evento editado exitosamente');
+        }
+        return response;
+    } catch (error) {
+        console.error('error al editar un event:', error);
+        throw error
+    }
+} 
