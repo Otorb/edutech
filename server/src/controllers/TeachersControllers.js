@@ -3,7 +3,14 @@ import { hahedPassword } from "../utils/hasPassword.js";
 import { Teachers, Subject } from "../models/index.js";
 import bcrypt from "bcrypt";
 
-export async function newTeachers(name, lastName, email, password, phone) {
+export async function newTeachers(
+  name,
+  lastName,
+  email,
+  password,
+  phone,
+  photo
+) {
   const userTeacher = await Teachers.findOne({ where: { email } });
   if (userTeacher) {
     throw new Error("El profesor ya existe");
@@ -16,6 +23,7 @@ export async function newTeachers(name, lastName, email, password, phone) {
     email,
     password: userTeacherHashedPassword,
     phone,
+    photo,
   });
   return student;
 }
@@ -67,7 +75,7 @@ export async function getTeacher(email) {
 
 export async function getAllTeacher() {
   //try {
-  const allTeachers = await Teachers.findAll({include:{model : Subject}});
+  const allTeachers = await Teachers.findAll({ include: { model: Subject } });
   if (allTeachers.length === 0) {
     throw new Error("No hay profesores, aun");
   }
@@ -85,7 +93,7 @@ export async function updateWithImage(id, updateData) {
   if (!teacher) {
     throw new Error("El profesor no existe");
   }
-  
+
   await teacher.update(updateData);
 
   return teacher;
@@ -97,7 +105,7 @@ export async function updateWithoutImage(id, updateData) {
   if (!teacher) {
     throw new Error("El profesor no existe");
   }
-  
+
   await teacher.update(updateData);
 
   return teacher;
