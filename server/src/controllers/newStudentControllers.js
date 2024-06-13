@@ -47,7 +47,7 @@ export async function deleteStudent(id) {
 }
 
 export async function getStudent(id) {
-  const user = await Students.findOne({ where: { id: id } })
+  const user = await Students.findOne({ where: { studentId: id } })
     // include: { model: Historials, model: Promedio, model: Notas  } }
     
 
