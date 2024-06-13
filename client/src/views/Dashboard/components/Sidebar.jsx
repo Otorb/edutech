@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from '../../../Hooks/useAppSelector';
 import { FcReading } from "react-icons/fc";
 import { FiCalendar, FiUsers, FiBook, FiMail, FiLogOut } from "react-icons/fi";
 import { clearUserData } from '../../../store/slicer/userSlice';
+import { FiMoreVertical } from "react-icons/fi";
 
 const Sidebar = ({ position, visible, toggleSidebar, isCollapsed, toggleCollapse }) => {
   const sidebarClass = `${style.sidebar} ${style[position + 'Sidebar']} ${visible ? style.show : ''} ${isCollapsed ? style.collapsed : ''}`;
@@ -68,7 +69,7 @@ const Sidebar = ({ position, visible, toggleSidebar, isCollapsed, toggleCollapse
         return (
           <>
 
-            <Link to={`${rolePath}/profile`} className={style.liNav}>
+            <Link to={`${rolePath}/profile/id`} className={style.liNav}>
 
               <FiBook className={style.iconNav} />
               {!isCollapsed && 'Promedio/Notas'}
@@ -89,18 +90,15 @@ const Sidebar = ({ position, visible, toggleSidebar, isCollapsed, toggleCollapse
       case 'parent':
         return (
           <>
-            <Link to={`${rolePath}/promedios`} className={style.liNav}>
+            <Link to={`${rolePath}/Hijos`} className={style.liNav}>
               <FiBook className={style.iconNav} />
               {!isCollapsed && 'Hijos'}
             </Link>
-            <Link to={`${rolePath}/resumen-mensajes`} className={style.liNav}>
+            <Link to={`${rolePath}/Mensajes`} className={style.liNav}>
               <FiMail className={style.iconNav} />
               {!isCollapsed && 'Mensajes'}
             </Link>
-            <Link to={`${rolePath}/eventos`} className={style.liNav}>
-              <FiCalendar className={style.iconNav} />
-              {!isCollapsed && 'Eventos'}
-            </Link>
+          
           </>
         );
       default:
@@ -126,7 +124,7 @@ const Sidebar = ({ position, visible, toggleSidebar, isCollapsed, toggleCollapse
             :
             <>
               <div className={style.contentPhone}>
-                <img src='https://static.vecteezy.com/system/resources/thumbnails/027/951/137/small_2x/stylish-spectacles-guy-3d-avatar-character-illustrations-png.png' alt="User" className={style.userPhoto} />
+                <img src={userData.photo} alt="User" className={style.userPhoto} />
               </div>
               <div className={style.detallUserNav}>
                 {!isCollapsed && <span className={style.titleNav}>{`Bienvenido`}<FcReading /></span>}
@@ -138,7 +136,7 @@ const Sidebar = ({ position, visible, toggleSidebar, isCollapsed, toggleCollapse
 
         </div>
         <button onClick={toggleCollapse} className={style.collapseBtn}>
-          {isCollapsed ? '>' : '<'}
+          {isCollapsed ? <FiMoreVertical /> : <FiMoreVertical />}
         </button>
       </section>
       <section className={style.itemNav}>

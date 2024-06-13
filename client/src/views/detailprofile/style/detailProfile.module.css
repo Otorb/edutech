@@ -11,7 +11,12 @@
     font-size: 2rem;
 }
 .iconWelcome{
-    color: #52b788;
+    color: #3E86E4;
+}
+.studentPhoto{
+    width: 10rem;
+    height: 10rem;
+    border-radius: 10px;
 }
 
 .headDetailProfile{

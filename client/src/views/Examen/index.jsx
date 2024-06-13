@@ -1,10 +1,13 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import DataTable from 'react-data-table-component';
 import CardEvent from '../../components/Eventos/CardEvent';
 import style from './Style/examen.module.css';
 import Loading from '../../components/Loading/Loading';
+import { useAppSelector } from '../../Hooks/useAppSelector';
 
 const Examen = () => {
+  const userData = useAppSelector((state) => state.user.data);
+  
   const examen = {
     dia: '2024-06-30',
     hora: '11:00',
@@ -12,26 +15,23 @@ const Examen = () => {
     descripcion: 'Unidad 3 - Unidad 4'
   };
 
-  const examenes = [
-    { nombreMateria: "Ingles", fechaExamen: "2024-03-15", notaExamen: 8 },
-    { nombreMateria: "Ingles", fechaExamen: "2024-04-10", notaExamen: 9 },
-    { nombreMateria: "Ingles", fechaExamen: "2024-05-05", notaExamen: 7 },
-    { nombreMateria: "Ingles", fechaExamen: "2024-06-01", notaExamen: 8 },
-    { nombreMateria: "Ingles", fechaExamen: "2024-06-25", notaExamen: 6 },
-    { nombreMateria: "Robotica", fechaExamen: "2024-03-20", notaExamen: 7 },
-    { nombreMateria: "Robotica", fechaExamen: "2024-04-15", notaExamen: 8 },
-    { nombreMateria: "Robotica", fechaExamen: "2024-05-10", notaExamen: 7 },
-    { nombreMateria: "Robotica", fechaExamen: "2024-06-05", notaExamen: 9 },
-    { nombreMateria: "Robotica", fechaExamen: "2024-06-30", notaExamen: 8 },
-    { nombreMateria: "Matematica", fechaExamen: "2024-03-25", notaExamen: 9 },
-    { nombreMateria: "Matematica", fechaExamen: "2024-04-20", notaExamen: 8 },
-    { nombreMateria: "Matematica", fechaExamen: "2024-05-15", notaExamen: 7 },
-    { nombreMateria: "Matematica", fechaExamen: "2024-06-10", notaExamen: 8 },
-    { nombreMateria: "Matematica", fechaExamen: "2024-07-05", notaExamen: 9 },
-  ];
-
-  const [filteredExamenes, setFilteredExamenes] = useState(examenes);
+  const [examenes, setExamenes] = useState([]);
+  const [filteredExamenes, setFilteredExamenes] = useState([]);
   const [selectedMateria, setSelectedMateria] = useState('');
+
+  useEffect(() => {
+    if (userData.Curso && userData.Curso.Subjects) {
+      const allExamenes = userData.Curso.Subjects.flatMap(subject => 
+        subject.Notas.map(nota => ({
+          nombreMateria: subject.subjec,
+          fechaExamen: nota.dateTest,
+          notaExamen: parseFloat(nota.nota)
+        }))
+      );
+      setExamenes(allExamenes);
+      setFilteredExamenes(allExamenes);
+    }
+  }, [userData]);
 
   const handleFilterChange = (event) => {
     const materia = event.target.value;
@@ -80,9 +80,9 @@ const Examen = () => {
           onChange={handleFilterChange}
         >
           <option value="">Todas</option>
-          <option value="Ingles">Ingles</option>
-          <option value="Robotica">Robotica</option>
-          <option value="Matematica">Matematica</option>
+          {userData.Curso?.Subjects?.map(subject => (
+            <option key={subject.subjec} value={subject.subjec}>{subject.subjec}</option>
+          ))}
         </select>
       </div>
       <DataTable
@@ -97,4 +97,5 @@ const Examen = () => {
 };
 
 export default Examen;
+
 

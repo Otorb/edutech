@@ -4,61 +4,69 @@ import ReactApexChart from "react-apexcharts";
 import DataTable from "react-data-table-component";
 import Loading from "../../components/Loading/Loading";
 import { useEffect, useState } from "react";
+import { useAppSelector } from "../../Hooks/useAppSelector";
+import { FaPersonWalkingArrowLoopLeft } from "react-icons/fa6";
+import { oneStudient, listStudients } from "../../Api/Studient"; // Importamos las funciones para obtener datos
 
 const DetallCurso = () => {
-  const exampleMaterias = [
-    {
-      nombreMateria: "Ingles",
-      detalleExamenes: [
-        { nombreMateria: "Ingles", notaExamen: 8, fechaExamen: "2024-03-15" },
-        { nombreMateria: "Ingles", notaExamen: 9, fechaExamen: "2024-04-10" },
-        { nombreMateria: "Ingles", notaExamen: 7, fechaExamen: "2024-05-05" },
-        { nombreMateria: "Ingles", notaExamen: 8, fechaExamen: "2024-06-01" },
-        { nombreMateria: "Ingles", notaExamen: 6, fechaExamen: "2024-06-25" },
-      ],
-    },
-    {
-      nombreMateria: "Robotica",
-      detalleExamenes: [
-        { nombreMateria: "Robotica", notaExamen: 7, fechaExamen: "2024-03-20" },
-        { nombreMateria: "Robotica", notaExamen: 8, fechaExamen: "2024-04-15" },
-        { nombreMateria: "Robotica", notaExamen: 7, fechaExamen: "2024-05-10" },
-        { nombreMateria: "Robotica", notaExamen: 9, fechaExamen: "2024-06-05" },
-        { nombreMateria: "Robotica", notaExamen: 8, fechaExamen: "2024-06-30" },
-      ],
-    },
-    {
-      nombreMateria: "Matematica",
-      detalleExamenes: [
-        { nombreMateria: "Matematica", notaExamen: 9, fechaExamen: "2024-03-25" },
-        { nombreMateria: "Matematica", notaExamen: 8, fechaExamen: "2024-04-20" },
-        { nombreMateria: "Matematica", notaExamen: 7, fechaExamen: "2024-05-15" },
-        { nombreMateria: "Matematica", notaExamen: 8, fechaExamen: "2024-06-10" },
-        { nombreMateria: "Matematica", notaExamen: 9, fechaExamen: "2024-07-05" },
-      ],
-    },
-  ];
-
+  const dataUser = useAppSelector((state) => state.user.data);
   const { materia } = useParams();
   const location = useLocation();
-  const { promedio } = location.state || { promedio: 0 };
+  const { promedio, id } = location.state || { promedio: 0, id: null }; // Asegúrate de inicializar id como null o como corresponda
 
   const [filteredMateria, setFilteredMateria] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const materiaEncontrada = exampleMaterias.find((m) => m.nombreMateria === materia);
-    setFilteredMateria(materiaEncontrada);
-  }, [materia]);
+    const fetchData = async () => {
+      if (dataUser.role === 'student') {
+        // Si es estudiante, buscamos directamente en los datos del usuario
+        if (dataUser.Curso && dataUser.Curso.Subjects) {
+          const materiaEncontrada = dataUser.Curso.Subjects.find((m) => m.subjec === materia);
+          setFilteredMateria(materiaEncontrada);
+        }
+      } else if (dataUser.role === 'parent' && id) { // Asegúrate de que id esté definido
+        // Si es padre y tenemos el id, buscamos al estudiante por id
+        try {
+          const response = await oneStudient(id);
+          const studentData = response.data.resultStudent;
+
+          const allStudentsResponse = await listStudients();
+          const allStudents = allStudentsResponse.data?.resultStudent || []; // Asumiendo que el campo es resultStudent según la estructura
+
+          const fullStudentData = allStudents.find(student => student.email === studentData.email);
+
+          if (fullStudentData) {
+            const materiaEncontrada = fullStudentData.Curso.Subjects.find((m) => m.subjec === materia);
+            setFilteredMateria(materiaEncontrada);
+          } else {
+            setFilteredMateria(null);
+          }
+        } catch (error) {
+          console.error("Error fetching student:", error);
+          setFilteredMateria(null);
+        }
+      }
+      setLoading(false);
+    };
+    fetchData();
+  }, [dataUser, materia, id]);
+
+  const calcularPromedio = (notas) => {
+    if (!notas || notas.length === 0) return 0;
+    const suma = notas.reduce((acc, nota) => acc + parseFloat(nota.nota), 0);
+    return Math.round(suma / notas.length);
+  };
 
   const column = [
     {
       name: "Fecha",
-      selector: (row) => row.fechaExamen,
+      selector: (row) => row.dateTest,
       sortable: true,
     },
     {
       name: "Calificación",
-      selector: (row) => row.notaExamen,
+      selector: (row) => row.nota,
       sortable: true,
     }
   ];
@@ -80,10 +88,16 @@ const DetallCurso = () => {
       },
     },
     fill: {
-      colors: ['#a7c957', '#f3f3f3'],
+      colors: ['#3E86E4', '#f3f3f3']
     },
     legend: {
-      show: false,
+      show: false
+    },
+    dataLabels: {
+      enabled: true // Desactiva las etiquetas de datos
+    },
+    tooltip: {
+      enabled: false // Desactiva las etiquetas emergentes
     },
     responsive: [{
       breakpoint: 480,
@@ -98,22 +112,28 @@ const DetallCurso = () => {
     }],
   };
 
-  const chartSeries = [promedio, 100 - promedio];
+  const chartSeries = [promedio, 10 - promedio];
 
-  if (!filteredMateria) {
+  if (loading) {
     return <Loading />;
   }
 
-  const cantidadExamenes = filteredMateria.detalleExamenes.length;
-  const mejorNota = Math.max(...filteredMateria.detalleExamenes.map(e => e.notaExamen));
+  if (!filteredMateria) {
+    return <div>Materia no encontrada</div>;
+  }
+
+  const cantidadExamenes = filteredMateria.Notas.length;
+  const mejorNota = Math.max(...filteredMateria.Notas.map(e => parseFloat(e.nota)));
+  const promedioCalculado = calcularPromedio(filteredMateria.Notas);
 
   return (
     <div className={style.containerDetallCurso}>
       <h1 className={style.titleDetallCurso}>{materia}</h1>
+      <a href={`/dashboard/profile/${id}`}><FaPersonWalkingArrowLoopLeft />VOLVER</a>
       <section className={style.headDetallCurso}>
         <section className={style.promedioDetallCurso}>
-          Promedio Actual: {promedio}
-          <ReactApexChart options={chartOptions} series={chartSeries} type="donut" height="100%" />
+          Promedio Actual: {promedioCalculado}
+          <ReactApexChart options={chartOptions} series={[promedioCalculado, 10 - promedioCalculado]} type="donut" height="100%" />
         </section>
         <section className={style.infoHeadDetallCurso}>
           <section className={style.barraDetallCurso}>
@@ -121,7 +141,7 @@ const DetallCurso = () => {
               {cantidadExamenes}
             </span>
             <span className={style.descriptionCircleDetallCurso}>
-              Cantidad de examenes Actuales
+              Cantidad de exámenes Actuales
             </span>
           </section>
           <section className={style.barraDetallCurso}>
@@ -129,16 +149,16 @@ const DetallCurso = () => {
               {mejorNota}
             </span>
             <span className={style.descriptionCircleDetallCurso}>
-              Puntuacion más Alta
+              Puntuación más Alta
             </span>
           </section>
         </section>
       </section>
       <section className={style.tableDetallCurso}>
-        <h1 className={style.titleDetallCurso}>Examenes Rendidos</h1>
+        <h1 className={style.titleDetallCurso}>Exámenes Rendidos</h1>
         <DataTable
           columns={column}
-          data={filteredMateria.detalleExamenes}
+          data={filteredMateria.Notas}
           pagination
           paginationPerPage={10}
           progressPending={!filteredMateria}
@@ -150,4 +170,7 @@ const DetallCurso = () => {
 };
 
 export default DetallCurso;
+
+
+
 

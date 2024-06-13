@@ -11,6 +11,15 @@ export const listStudients = async () => {
     throw error;
   }
 };
+export const oneStudient = async (id) => {
+  try {
+    const response = await axios.get(`${API}/students/search/${id}`);
+    return response; 
+  } catch (error) {
+    console.error("Error fetching parents:", error);
+    throw error;
+  }
+};
 
 export const deleteStudient= async (data)=>{
   try {

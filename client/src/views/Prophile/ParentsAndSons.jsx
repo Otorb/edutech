@@ -1,11 +1,13 @@
 import React from "react";
 import style from "./style.module.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { imagenHijo, imagenPadre, infoUser } from "./ObjetoPrueba";
 import { useAppSelector } from "../../Hooks/useAppSelector";
 const ParentsAndSons = ({ estado }) => {
   const student = estado;
-  console.log(student);
+  console.log('esto:' ,student);
+
+  const navigate= useNavigate()
 
 
   return (
@@ -45,16 +47,18 @@ const ParentsAndSons = ({ estado }) => {
                     {student.Students &&
                       student.Students.map((e) => {
                         return (
-                          <Link to={`/dashboard/${e.id}`}>
-                            <button className={style.btnSons}>
+                         
+                            <button className={style.btnSons}
+                            onClick={()=>navigate(`/dashboard/profile/${e.studentId}`)}
+                            >
                               {e.fullName}
                             </button>
-                          </Link>
+                         
                         );
                       })}
                   </div>
                 ) : (
-                  <Link to="/dashboard/profile">
+                  <Link to="/dashboard/profile/id">
                   <button>Detalles</button>
                 </Link>
                 )}
