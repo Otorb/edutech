@@ -5,14 +5,14 @@ import Home from "./views/Home/Index";
 import Users from "./views/Prophile/Index";
 import AuthOutlet from "@auth-kit/react-router/AuthOutlet";
 import DetailProfile from "./views/detailprofile/index";
-//import FullInfoSon from "./views/Prophile/ParentsAndSons";
 import NotFound from "./views/NotFound/index";
 import UserModule from "./views/UserModule/index";
 import EventModule from "./views/eventmodule/index";
 import Message from "./views/MenssageModule/index";
 import Examen from "./views/Examen/index";
 import DetallCurso from "./views/DetallCurso/index";
-import Cursos from './views/CourseModule/index'
+import Cursos from './views/CourseModule/index';
+import Notas from './views/NotesModule/index'
 
 
 const App = () => {
@@ -20,7 +20,6 @@ const App = () => {
     <Routes>
       <Route path="/login" element={<Login />} />
       <Route path="/" element={<Home />} />
-      {/* <Route path="/dashboard/eventmodule" element={<EventModule />} /> */} 
 
           <Route path="/dashboard/profileRole" element={<Users />} />
       <Route element={<AuthOutlet fallbackPath="/login" />}>
@@ -34,6 +33,7 @@ const App = () => {
           <Route path="/dashboard/detalle/:materia" element={<DetallCurso />} />
           <Route path="/dashboard/eventmodule" element={<EventModule />} />
           <Route path="/dashboard/Cursos" element={<Cursos />} />
+          <Route path="/dashboard/Notas" element={<Notas />} />
         </Route>
         <Route path="/*" element={<NotFound />} />
           <Route path="/dashboard/cursos" element={'cursos'} />
