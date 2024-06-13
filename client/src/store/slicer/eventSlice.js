@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { listEvent, getEventById, postEvent, deleteEvent, updateEvent } from '../../Api/events';
+import { listEvent, postEvent, deleteEvent, updateEvent } from '../../Api/events';
 
 
 export const agregarEvents = createAsyncThunk('event/agregarEvent', async () => {
@@ -13,18 +13,6 @@ export const agregarEvents = createAsyncThunk('event/agregarEvent', async () => 
   }
 });
 
-
-
-//no hace falta esta 
-export const buscarEventsId = createAsyncThunk('event/buscarEventId', async (data) => {
-  try {
-    const response = await getEventById(data.id);
-    return response.resultsId;
-  } catch (error) {
-    console.error('Error al buscar evento por ID:', error);
-    throw error;
-  }
-});
 
 export const crearEvents = createAsyncThunk('event/crearEvent', async (data) => {
   try {
@@ -74,10 +62,6 @@ const eventSlice = createSlice({
       .addCase(agregarEvents.fulfilled, (state, action) => {
         state.loading = 'exito';
         state.eventData = action.payload; 
-      })
-      .addCase(buscarEventsId.fulfilled, (state, action) => {
-        state.loading = 'exito';
-        state.eventData = action.payload;
       })
       .addCase(crearEvents.fulfilled, (state, action) => {
         state.loading = 'exito';

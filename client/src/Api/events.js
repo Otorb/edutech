@@ -14,18 +14,6 @@ export const listEvent = async () => {
 
 
 
-//no hace falta esta
-export const getEventById = async (id) => {
-    try {
-        const response = await axios.get(`${API}/events/${id}`)
-        return response
-    } catch (error) {
-        console.error('error al buscar por id al event:', error);
-        throw error
-    }
-}
-
-
 export const postEvent = async (data) => {
     try {
         const response = await axios.post(`${API}/events`, data)
