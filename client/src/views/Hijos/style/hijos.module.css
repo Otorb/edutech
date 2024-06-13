@@ -1,0 +1,16 @@
+.containerHijos{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.titleHijos{
+    font-size: 1.5rem;
+}
+.contentHijos{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
