@@ -60,7 +60,11 @@ const FormLogin = () => {
       })) {
         toast.success('Inicio de sesión exitoso');
         dispatch(fetchUserData({ email: userInfo.email, token, role: userInfo.role }));
-        navigate('/dashboard/profileRole');
+        if( userInfo === 'admin'){
+          navigate('/dashboard')
+        }else{
+          navigate('/dashboard/profileRole');
+        }
       } else {
         toast.error('Error al iniciar sesión');
       }

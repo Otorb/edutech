@@ -116,6 +116,7 @@ const UserModule = () => {
   };
 
   const handleEdit = (user) => {
+    console.log(user)
     setEditingUser(user);
     setSelectedRole(user.role);
     setOpenModal(true);
@@ -186,10 +187,10 @@ const UserModule = () => {
         <section className={style.sectionModule}>
           <select className={style.selectUser} onChange={handleFilterChange}>
             <option value="">Seleccionar Rol</option>
-            <option value="Admin">Administrador</option>
+            <option value="admin">Administrador</option>
             <option value="parent">Padres</option>
             <option value="teacher">Docente</option>
-            <option value="studient">Estudiante</option>
+            <option value="student">Estudiante</option>
           </select>
           <button className={style.btnAddExport} onClick={handleExport}>
             Exportar Excel

@@ -24,6 +24,12 @@ const CardPromedio = ({ materia, promedio }) => {
     legend: {
       show: false
     },
+    dataLabels: {
+      enabled: true // Desactiva las etiquetas de datos
+    },
+    tooltip: {
+      enabled: false // Desactiva las etiquetas emergentes
+    },
     responsive: [{
       breakpoint: 480,
       options: {
@@ -37,9 +43,9 @@ const CardPromedio = ({ materia, promedio }) => {
     }]
   };
 
-  const chartSeries = [promedio, 100 - promedio];
+  const chartSeries = [promedio, 10 - promedio];
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handlenavegate = () => {
     navigate(`/dashboard/detalle/${materia}`, { state: { promedio } });
@@ -62,6 +68,7 @@ const CardPromedio = ({ materia, promedio }) => {
 }
 
 export default CardPromedio;
+
 
 
 

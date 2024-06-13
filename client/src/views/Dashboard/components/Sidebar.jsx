@@ -68,7 +68,7 @@ const Sidebar = ({ position, visible, toggleSidebar, isCollapsed, toggleCollapse
         return (
           <>
 
-            <Link to={`${rolePath}/profile`} className={style.liNav}>
+            <Link to={`${rolePath}/profile/id`} className={style.liNav}>
 
               <FiBook className={style.iconNav} />
               {!isCollapsed && 'Promedio/Notas'}
@@ -126,7 +126,7 @@ const Sidebar = ({ position, visible, toggleSidebar, isCollapsed, toggleCollapse
             :
             <>
               <div className={style.contentPhone}>
-                <img src='https://static.vecteezy.com/system/resources/thumbnails/027/951/137/small_2x/stylish-spectacles-guy-3d-avatar-character-illustrations-png.png' alt="User" className={style.userPhoto} />
+                <img src={userData.photo} alt="User" className={style.userPhoto} />
               </div>
               <div className={style.detallUserNav}>
                 {!isCollapsed && <span className={style.titleNav}>{`Bienvenido`}<FcReading /></span>}
