@@ -7,7 +7,7 @@ import { differenceInYears } from 'date-fns';
 import { useEffect, useState } from "react";
 import CardPromedio from "./components/CardPromedio";
 import CardEvent from "../../components/Eventos/CardEvent";
-import { oneStudient } from "../../Api/Studient";
+import { oneStudient, listStudients } from "../../Api/Studient";
 
 const DetailProfile = () => {
   const { id } = useParams();
@@ -55,12 +55,31 @@ const DetailProfile = () => {
       } else if (dataUser.role === 'parent') {
         try {
           const response = await oneStudient(id);
-          setData(response.data.resultStudent);
+          const studentData = response.data.resultStudent;
+      
+          const allStudentsResponse = await listStudients();
+          const allStudentsData = allStudentsResponse.data?.resultStudent || [];
+      
+          const fullStudentData = allStudentsData.find(student => student.email === studentData.email);
+      
+          if (fullStudentData) {
+            // Combinar los datos de studentData con los datos completos de fullStudentData
+            const combinedData = {
+              ...studentData,
+              ...fullStudentData,
+              // Asegurarse de que los campos de studentData prevalezcan en caso de conflicto
+            };
+            setData(combinedData);
+          } else {
+            setData(studentData);
+          }
         } catch (error) {
           console.error("Error fetching student:", error);
         }
       }
+      
     };
+    console.log('obtenido:',data)
     fetchData();
   }, [dataUser, id]);
 
@@ -108,28 +127,7 @@ const DetailProfile = () => {
             <span>
               <strong>Edad: </strong> {calculateAge(data.birthd)} años
             </span>
-            {dataUser.role === 'student' ? (
-              <>
-                <span>
-                  <strong>Total de Cursos: </strong> {'3'} 
-                </span>
-                <span>
-                  <strong>Curso: </strong> {data.Curso?.curso} 
-                </span>
-                <section className={style.listPromediosDetailProfile}>
-                  <h1> PROMEDIOS POR CURSOS</h1>
-                  <section className={style.itemPromedio}>
-                    {data.Curso?.Subjects.map(subject => (
-                      <CardPromedio
-                        key={subject.idSubject}
-                        materia={subject.subjec}
-                        promedio={calculateAverage(subject.Notas)}
-                      />
-                    ))}
-                  </section>
-                </section>
-              </>
-            ) : (
+            {dataUser.role === 'parent' && (
               <>
                 <span>
                   <strong>Teléfono: </strong> {data.phone}
@@ -137,9 +135,28 @@ const DetailProfile = () => {
                 <span>
                   <strong>Estado de Registro: </strong> {data.registration}
                 </span>
-                <img src={data.photo} alt="Foto del estudiante" className={style.studentPhoto} />
               </>
             )}
+            <span>
+              <strong>Total de Cursos: </strong> {data.Curso?.length || 0}
+            </span>
+            <span>
+              <strong>Curso: </strong> {data.Curso?.curso || 'N/A'}
+            </span>
+          <img src={data.photo} alt="Foto del estudiante" className={style.studentPhoto} />
+            <section className={style.listPromediosDetailProfile}>
+              <h1> PROMEDIOS POR CURSOS</h1>
+              <section className={style.itemPromedio}>
+                {data.Curso?.Subjects && data.Curso.Subjects.map(subject => (
+                  <CardPromedio
+                    key={subject.idSubject}
+                    materia={subject.subjec}
+                    promedio={calculateAverage(subject.Notas)}
+                    id={id}
+                  />
+                ))}
+              </section>
+            </section>
           </section>
         </>
       ) : (
@@ -160,5 +177,8 @@ const DetailProfile = () => {
 };
 
 export default DetailProfile;
+
+
+
 
 

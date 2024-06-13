@@ -13,6 +13,11 @@
 .iconWelcome{
     color: #3E86E4;
 }
+.studentPhoto{
+    width: 10rem;
+    height: 10rem;
+    border-radius: 10px;
+}
 
 .headDetailProfile{
     width: 100%;

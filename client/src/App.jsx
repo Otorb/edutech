@@ -13,7 +13,7 @@ import Message from "./views/MenssageModule/index";
 import Examen from "./views/Examen/index";
 import DetallCurso from "./views/DetallCurso/index";
 import Cursos from './views/CourseModule/index'
-
+import Hijos from './views/Hijos/index'
 
 const App = () => {
   return (
@@ -26,7 +26,7 @@ const App = () => {
       <Route element={<AuthOutlet fallbackPath="/login" />}>
         <Route path="/dashboard/profileRole" element={<Users />} />
         <Route path="/dashboard" element={<Dashboard />}>
-          <Route path="/dashboard/Eventos" element={"Lista de eventos"} />
+          <Route path="/dashboard/Hijos" element={<Hijos/>} />
           <Route path="/dashboard/Mensajes" element={<Message />} />
           <Route path="/dashboard/profile/:id" element={<DetailProfile />} />
           <Route path="/dashboard/Usuarios" element={<UserModule />} />

@@ -6,26 +6,54 @@ import Loading from "../../components/Loading/Loading";
 import { useEffect, useState } from "react";
 import { useAppSelector } from "../../Hooks/useAppSelector";
 import { FaPersonWalkingArrowLoopLeft } from "react-icons/fa6";
+import { oneStudient, listStudients } from "../../Api/Studient"; // Importamos las funciones para obtener datos
 
 const DetallCurso = () => {
   const dataUser = useAppSelector((state) => state.user.data);
   const { materia } = useParams();
   const location = useLocation();
-  const { promedio } = location.state || { promedio: 0 };
+  const { promedio, id } = location.state || { promedio: 0, id: null }; // Asegúrate de inicializar id como null o como corresponda
 
   const [filteredMateria, setFilteredMateria] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (dataUser.Curso && dataUser.Curso.Subjects) {
-      const materiaEncontrada = dataUser.Curso.Subjects.find((m) => m.subjec === materia);
-      setFilteredMateria(materiaEncontrada);
-    }
-    setLoading(false);
-  }, [dataUser, materia]);
+    const fetchData = async () => {
+      if (dataUser.role === 'student') {
+        // Si es estudiante, buscamos directamente en los datos del usuario
+        if (dataUser.Curso && dataUser.Curso.Subjects) {
+          const materiaEncontrada = dataUser.Curso.Subjects.find((m) => m.subjec === materia);
+          setFilteredMateria(materiaEncontrada);
+        }
+      } else if (dataUser.role === 'parent' && id) { // Asegúrate de que id esté definido
+        // Si es padre y tenemos el id, buscamos al estudiante por id
+        try {
+          const response = await oneStudient(id);
+          const studentData = response.data.resultStudent;
+
+          const allStudentsResponse = await listStudients();
+          const allStudents = allStudentsResponse.data?.resultStudent || []; // Asumiendo que el campo es resultStudent según la estructura
+
+          const fullStudentData = allStudents.find(student => student.email === studentData.email);
+
+          if (fullStudentData) {
+            const materiaEncontrada = fullStudentData.Curso.Subjects.find((m) => m.subjec === materia);
+            setFilteredMateria(materiaEncontrada);
+          } else {
+            setFilteredMateria(null);
+          }
+        } catch (error) {
+          console.error("Error fetching student:", error);
+          setFilteredMateria(null);
+        }
+      }
+      setLoading(false);
+    };
+    fetchData();
+  }, [dataUser, materia, id]);
 
   const calcularPromedio = (notas) => {
-    if (notas.length === 0) return 0;
+    if (!notas || notas.length === 0) return 0;
     const suma = notas.reduce((acc, nota) => acc + parseFloat(nota.nota), 0);
     return Math.round(suma / notas.length);
   };
@@ -101,7 +129,7 @@ const DetallCurso = () => {
   return (
     <div className={style.containerDetallCurso}>
       <h1 className={style.titleDetallCurso}>{materia}</h1>
-      <a href="/dashboard/profile/id"><FaPersonWalkingArrowLoopLeft />VOLVER</a>
+      <a href={`/dashboard/profile/${id}`}><FaPersonWalkingArrowLoopLeft />VOLVER</a>
       <section className={style.headDetallCurso}>
         <section className={style.promedioDetallCurso}>
           Promedio Actual: {promedioCalculado}
@@ -113,7 +141,7 @@ const DetallCurso = () => {
               {cantidadExamenes}
             </span>
             <span className={style.descriptionCircleDetallCurso}>
-              Cantidad de examenes Actuales
+              Cantidad de exámenes Actuales
             </span>
           </section>
           <section className={style.barraDetallCurso}>
@@ -121,13 +149,13 @@ const DetallCurso = () => {
               {mejorNota}
             </span>
             <span className={style.descriptionCircleDetallCurso}>
-              Puntuacion más Alta
+              Puntuación más Alta
             </span>
           </section>
         </section>
       </section>
       <section className={style.tableDetallCurso}>
-        <h1 className={style.titleDetallCurso}>Examenes Rendidos</h1>
+        <h1 className={style.titleDetallCurso}>Exámenes Rendidos</h1>
         <DataTable
           columns={column}
           data={filteredMateria.Notas}
@@ -142,5 +170,7 @@ const DetallCurso = () => {
 };
 
 export default DetallCurso;
+
+
 
 
