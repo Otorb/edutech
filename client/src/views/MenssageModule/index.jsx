@@ -1,10 +1,11 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { FiFolder,FiSend } from "react-icons/fi";
 import { formatDistanceToNow } from 'date-fns';
 import { es } from 'date-fns/locale';
 import style from './Styles/message.module.css'
 import NewMessage from './Components/NewMessage'
 import ReceivingMessage from './Components/ReceivingMessage'
+import { listHistoria } from '../../Api/history';
 
 
 
@@ -47,7 +48,25 @@ const exampleMessages = [
     }
   ];
     const [active, setActive] = useState('recibidos')
+    const [dataHistory, setDataHistory] = useState([])
 
+   
+
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const dataHistoria = await listHistoria();
+          setDataHistory(dataHistoria.data);
+        } catch (error) {
+          console.error('Error fetching data:', error);
+        }
+      };
+  
+      fetchData();
+  
+    }, []);
+
+    console.log(dataHistory)
 
   return (
     <div className={style.containerMessageModule}>
@@ -74,14 +93,14 @@ const exampleMessages = [
         <section className={style.ContentMessage}>
            { active === 'recibidos' 
            ?
-           exampleMessages.map((item, index) => (
+           dataHistory.map((item, index) => (
             <ReceivingMessage
               key={index}
-              foto={item.foto}
-              curso={item.curso}
-              nombreProfesor={item.nombreProfesor}
-              fecha={item.fecha}
-              mensaje={item.mensaje}
+              foto={'https://cdn.icon-icons.com/icons2/67/PNG/512/user_13230.png'}
+              curso={item.cuorse}
+              nombreProfesor={item.teacherName}
+              fecha= {formatDistanceToNow(new Date(item.hour), { addSuffix: true, locale: es  })}
+              mensaje={item.message}
             />
           ))
            :    

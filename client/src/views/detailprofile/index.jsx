@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useAppSelector } from "../../Hooks/useAppSelector";
 import style from "./style/detailProfile.module.css";
 import { IoIosSchool } from "react-icons/io";
@@ -11,6 +11,10 @@ import { oneStudient, listStudients } from "../../Api/Studient";
 
 const DetailProfile = () => {
   const { id } = useParams();
+
+  //const dataEvent = useAppSelector(state=>state.event.eventData) 
+  
+
   const exampleEvents = [
     {
       dia: '2024-06-15',
@@ -48,7 +52,14 @@ const DetailProfile = () => {
   const [active, setActive] = useState('resumen');
   const [data, setData] = useState(null);
 
+  const navigate=useNavigate()
+
   useEffect(() => {
+
+    if (dataUser.role === 'admin' || dataUser.role === 'teacher'){
+      return navigate('/dashboard')
+    }
+
     const fetchData = async () => {
       if (dataUser.role === 'student') {
         setData(dataUser);
