@@ -55,7 +55,7 @@ const Sidebar = ({ position, visible, toggleSidebar, isCollapsed, toggleCollapse
         return (
           <>
         
-            <Link to={`${rolePath}/cargar-nota`} className={style.liNav}>
+            <Link to={`${rolePath}/Notas`} className={style.liNav}>
               <FiBook className={style.iconNav} />
               {!isCollapsed && 'Cargar Nota'}
             </Link>

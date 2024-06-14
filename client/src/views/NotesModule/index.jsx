@@ -1,5 +1,5 @@
 import { FiSearch } from "react-icons/fi";
-import style from "./style/EventModule.module.css";
+import style from "./style/NoteModule.module.css";
 import DataTable from "react-data-table-component";
 import { useEffect, useState } from "react";
 import Loading from "../../components/Loading/Loading";
@@ -7,38 +7,42 @@ import { downloadCSV } from "./components/exportCSV";
 import CustomActionMenu from "./components/CustomActionMenu";
 import Form from "../../components/Form/Form";
 import { useAppDispatch, useAppSelector } from "../../Hooks/useAppSelector";
-import { agregarEvents, crearEvents, eliminarEvents, editarEvents } from "../../store/slicer/eventSlice";
+import { agregarGetNotes, crearNote, eliminarNote, editarNote } from "../../store/slicer/noteSlice";
 import { useForm } from "react-hook-form";
 import { Toaster, toast } from "sonner";
 
 
-const EventModule = () => {
+const NoteModule = () => {
 
   const { register, handleSubmit, setValue, reset, getValues } = useForm();
 
 
-  const dataEvent = useAppSelector(state=>state.event.eventData) 
-
+  const dataNote = useAppSelector(state=>state.note.noteData) 
 
   const dispatch = useAppDispatch()
 
   useEffect(()=>{
-    dispatch(agregarEvents())
+    dispatch(agregarGetNotes())
   },[dispatch])
 
 
   const column = [
 
     {
-      name: "Eventos",
-      selector: (row) => row.message,
+      name: "Tipos de actividades educativas",
+      selector: (row) => row.detail,
+      sortable: true,
+    },
+    {
+      name: "Nota",
+      selector: (row) => row.nota,
       sortable: true,
     },
     {
       name: "Fecha",
-      selector: (row) => row.date,
+      selector: (row) => row.dateTest,
       sortable: true,
-    },
+      },
     {
       name: "Acciones",
       cell: (row) => (
@@ -53,27 +57,28 @@ const EventModule = () => {
     },
   ];
 
+
   const [records, setRecords] = useState([]);
   const [loading, setLoading] = useState(true);
   const [openModal, setOpenModal] = useState(false);
 
+  const [editingNotes, setEditingNotes] = useState(null);
 
-  const [editingEvent, setEditingEvent] = useState(null);
   
 
   useEffect(() => {
     const tiemout = setTimeout(() => {
-      setRecords(dataEvent);
+      setRecords(dataNote);
       setLoading(false);
     }, 2000);
 
     return () => clearTimeout(tiemout);
-  }, [dataEvent]);
+  }, [dataNote]);
 
   const handleChange = (e) => {
-    const filterRecords = dataEvent.filter((record) => {
-      return record.message.toLowerCase().includes(e.target.value.toLowerCase());
-    });
+    const filterRecords = dataNote.filter((record) => {
+      return record.detail.toLowerCase().includes(e.target.value.toLowerCase());
+    });           
 
     setRecords(filterRecords);
   };
@@ -84,9 +89,9 @@ const EventModule = () => {
 
 
   const handleEdit = async (row) => {
-    const id = row.idHistorial
+    const id = row.idNotas
     if (id) {
-      setEditingEvent(row);
+      setEditingNotes(row);
       setOpenModal(true);
 
       Object.keys(row).forEach((key) => {
@@ -97,8 +102,8 @@ const EventModule = () => {
     const data = getValues();
 
     try {
-       dispatch(editarEvents(row.idHistorial, data));
-      dispatch(agregarEvents())
+       dispatch(editarEvents(row.idNotas, data));
+      dispatch(agregarGetNotes())
       toast.success('El evento se cargo correctamente')
     } catch (error) {
       console.error(`Error: ${error.message}`);
@@ -112,8 +117,8 @@ const EventModule = () => {
 
   const handleDelete = async (id) => {
     try {
-      await dispatch(eliminarEvents(id.idHistorial))
-      dispatch(agregarEvents())
+      await dispatch(eliminarNote(id.idNotas))
+      dispatch(agregarGetNotes())
     } catch (error) {
       console.error(`Error: ${error.message}`);
     }
@@ -127,32 +132,27 @@ const EventModule = () => {
   const formSections = [
     {
       name: 'personal',
-      title: 'Crear Eventos',
+      title: 'Crear Notas',
       fields: [
-        { name: 'message', label: 'Evento', type: 'text', placeholder: 'Evento...', required: true },
-        { name: 'date', label: 'Fecha del Evento', type: 'date', placeholder: 'Fecha del Evento...', required: true },
+        { name: 'detail', label: 'actividad educativa', type: 'text', placeholder: 'Actividad...', required: true },
+        { name: 'nota', label: 'nota', type: 'text', placeholder: 'Nota...', required: true },
+        { name: 'dateTest', label: 'fecha', type: 'date', placeholder: 'Fecha...', required: true },
       ]
     },
   ];
 
 
   const onhandleSubmit = async (data) => {
-    const dataEvent={
-      id: data.idHistorial,
-      message:data.message,
-      date:data.date
-      }
-
     try {
-      if (editingEvent) {
-        await dispatch(editarEvents(dataEvent));
-        dispatch(agregarEvents())
+      if (editingNotes) {
+        await dispatch(editarEvents(dataNote));
+        dispatch(agregarGetNotes())
         setEditingEvent([]); // Termina la edición
       } else {
-        await dispatch(crearEvents(data))
+        await dispatch(crearNote(data))
       } reset();
-      //toast.success('Evento creado exitosamente');preguntar si tengo que instalarla
-      dispatch(agregarEvents())
+      //toast.success('Evento creado exitosamente')
+      dispatch(agregarGetNotes())
     } catch (error) {
       console.error(`Error: ${error.message}`); 
     }
@@ -163,7 +163,7 @@ const EventModule = () => {
     <>
      <Toaster richColors position="top-left"/>
       <div className={style.containerUserModule}>
-        <h1 className={style.titleUserModule}>Eventos</h1>
+        <h1 className={style.titleUserModule}>Notas</h1>
 
         <section className={style.sectionModule}>
           <div className={style.boxSearch}>
@@ -215,4 +215,4 @@ const EventModule = () => {
 };
 
 
-export default EventModule;
+export default NoteModule;
