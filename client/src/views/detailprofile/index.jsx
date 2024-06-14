@@ -10,50 +10,13 @@ import CardEvent from "../../components/Eventos/CardEvent";
 import { oneStudient, listStudients } from "../../Api/Studient";
 
 const DetailProfile = () => {
-<<<<<<< HEAD
-
-  const dataUser = useAppSelector((state) => state.user.data);
-  const dataEvent = useAppSelector((state) =>state.event.eventData)
-  console.log('detail-profie',dataEvent);
-=======
   const { id } = useParams();
-  const exampleEvents = [
-    {
-      dia: '2024-06-15',
-      hora: '10:00',
-      titulo: 'Reunión de Padres',
-      descripcion: 'Reunión mensual para discutir el progreso de los estudiantes y planes futuros.'
-    },
-    {
-      dia: '2024-06-20',
-      hora: '14:00',
-      titulo: 'Excursión a Museo',
-      descripcion: 'Visita guiada al Museo de Ciencias Naturales para los estudiantes de 4to grado.'
-    },
-    {
-      dia: '2024-06-25',
-      hora: '09:00',
-      titulo: 'Taller de Matemáticas',
-      descripcion: 'Taller interactivo para mejorar las habilidades matemáticas de los alumnos.'
-    },
-    {
-      dia: '2024-06-30',
-      hora: '11:00',
-      titulo: 'Festival de Música',
-      descripcion: 'Festival anual de música donde los estudiantes presentan sus talentos musicales.'
-    },
-    {
-      dia: '2024-07-05',
-      hora: '13:00',
-      titulo: 'Charla Motivacional',
-      descripcion: 'Charla motivacional para inspirar a los estudiantes a alcanzar sus metas académicas.'
-    }
-  ];
-
+  
   const dataUser = useAppSelector((state) => state.user.data);
+  const dataEvent = useAppSelector((state)=>state.event.eventData) 
+
   const [active, setActive] = useState('resumen');
   const [data, setData] = useState(null);
->>>>>>> main
 
   useEffect(() => {
     const fetchData = async () => {
@@ -165,41 +128,20 @@ const DetailProfile = () => {
               </section>
             </section>
           </section>
-<<<<<<< HEAD
-          
-      </section>
-      </>
-      
-      :
-      <section className={style.contentEventProfile}>
-      {dataEvent.map((item, idx) => (
-        <CardEvent
-          key={idx}
-          dia={item.date}
-          //hora={item.hora}
-          //titulo={item.titulo}
-          descripcion={item.message}
-        />
-      ))}
-    </section>
-      }
-      
-=======
         </>
       ) : (
         <section className={style.contentEventProfile}>
-          {exampleEvents.map((item, idx) => (
+          {dataEvent.resultsId.map((item, idx) => (
             <CardEvent
               key={idx}
-              dia={item.dia}
-              hora={item.hora}
-              titulo={item.titulo}
-              descripcion={item.descripcion}
+              dia={item.date}
+              //hora={item.hora}
+              //titulo={item.titulo}
+              message={item.message}
             />
           ))}
         </section>
       )}
->>>>>>> main
     </div>
   );
 };
@@ -207,41 +149,38 @@ const DetailProfile = () => {
 export default DetailProfile;
 
 
-<<<<<<< HEAD
+
+
+
 // const exampleEvents = [
-  //   {
-  //     dia: '2024-06-15',
-  //     hora: '10:00',
-  //     titulo: 'Reunión de Padres',
-  //     descripcion: 'Reunión mensual para discutir el progreso de los estudiantes y planes futuros.'
-  //   },
-  //   {
-  //     dia: '2024-06-20',
-  //     hora: '14:00',
-  //     titulo: 'Excursión a Museo',
-  //     descripcion: 'Visita guiada al Museo de Ciencias Naturales para los estudiantes de 4to grado.'
-  //   },
-  //   {
-  //     dia: '2024-06-25',
-  //     hora: '09:00',
-  //     titulo: 'Taller de Matemáticas',
-  //     descripcion: 'Taller interactivo para mejorar las habilidades matemáticas de los alumnos.'
-  //   },
-  //   {
-  //     dia: '2024-06-30',
-  //     hora: '11:00',
-  //     titulo: 'Festival de Música',
-  //     descripcion: 'Festival anual de música donde los estudiantes presentan sus talentos musicales.'
-  //   },
-  //   {
-  //     dia: '2024-07-05',
-  //     hora: '13:00',
-  //     titulo: 'Charla Motivacional',
-  //     descripcion: 'Charla motivacional para inspirar a los estudiantes a alcanzar sus metas académicas.'
-  //   }
-  // ];
-=======
-
-
-
->>>>>>> main
+//   {
+//     dia: '2024-06-15',
+//     hora: '10:00',
+//     titulo: 'Reunión de Padres',
+//     descripcion: 'Reunión mensual para discutir el progreso de los estudiantes y planes futuros.'
+//   },
+//   {
+//     dia: '2024-06-20',
+//     hora: '14:00',
+//     titulo: 'Excursión a Museo',
+//     descripcion: 'Visita guiada al Museo de Ciencias Naturales para los estudiantes de 4to grado.'
+//   },
+//   {
+//     dia: '2024-06-25',
+//     hora: '09:00',
+//     titulo: 'Taller de Matemáticas',
+//     descripcion: 'Taller interactivo para mejorar las habilidades matemáticas de los alumnos.'
+//   },
+//   {
+//     dia: '2024-06-30',
+//     hora: '11:00',
+//     titulo: 'Festival de Música',
+//     descripcion: 'Festival anual de música donde los estudiantes presentan sus talentos musicales.'
+//   },
+//   {
+//     dia: '2024-07-05',
+//     hora: '13:00',
+//     titulo: 'Charla Motivacional',
+//     descripcion: 'Charla motivacional para inspirar a los estudiantes a alcanzar sus metas académicas.'
+//   }
+// ];
